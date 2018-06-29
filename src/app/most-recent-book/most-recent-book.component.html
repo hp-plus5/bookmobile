@@ -1,0 +1,9 @@
+<h3>Most Recent Entries</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let book of books" class="col-1-4" routerLink="/book-detail/{{book.id}}">
+    <div class="module book">
+      <h4>{{book.title}}</h4>
+    </div>
+  </a>
+</div>
+<!-- (click)="onSelect(book)" -->

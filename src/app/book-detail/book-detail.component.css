@@ -1,0 +1,36 @@
+.wrapper-for-details {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 15px;
+  grid-template-areas: 'open-fields buttons';
+}
+.fields {
+  grid-area: 'open-fields';
+}
+.button-details {
+  grid-area: 'buttons';
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+        'left right';
+  grid-column-gap: 2em;
+  display: grid;
+}
+.left-column {
+  grid-area: 'left';
+}
+.label {
+  text-align: right;
+}
+.right-column {
+  grid-area: 'right';
+}
+.button {
+  vertical-align: middle;
+}
+.wrapper:hover {
+  cursor: pointer;
+}
+.rating {
+  display: flex;
+  justify-content: center;
+}

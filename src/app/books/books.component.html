@@ -1,0 +1,12 @@
+<ol class="book-list" >
+  <li *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)">
+
+    <div *ngIf="selectedBook === book; else unselectedBook" class="selected">
+      <app-selected-book [book]="selectedBook"></app-selected-book>
+    </div>
+    <ng-template #unselectedBook>
+      <app-unselected-book [book]="book"></app-unselected-book>
+    </ng-template>
+
+  </li>
+</ol>

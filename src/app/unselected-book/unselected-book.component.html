@@ -1,0 +1,87 @@
+<div *ngIf="book">
+
+
+  <div class="card border-dark mb-3">
+    <div class="card-header">AUTHOR NAME</div>
+    <div class="card-body">
+      <h4 class="card-title" style="margin-bottom: 1em;">{{ book.title | uppercase }}</h4>
+      <div class="wrapper card-text">
+
+        <div class="cover">
+          <img width="200" alt="Book Cover" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+        </div>
+        <div class="info">
+          <div>Have I read it? </div>
+          {{book.read}}{{!book.read}}
+
+          <div>Do I own it? </div>
+          {{book.ownership}}{{!book.ownership}}
+
+          <div>Female protagonist? </div>
+          {{book.female_protagonist}}{{!book.female_protagonist}}
+
+          <div>Female role model? </div>
+          {{book.female_role_model}}{{!book.female_role_model}}
+
+          <div>LGBTQ protagonist? </div>
+          {{book.lgbtq_protagonist}}{{!book.lgbtq_protagonist}}
+
+          <div>LGBTQ sidekick? </div>
+          {{book.lgbtq_sidekick}}{{!book.lgbtq_sidekick}}
+
+          <div>LGBTQ theme(s)? </div>
+          {{book.lgbtq_theme}}{{!book.lgbtq_theme}}
+
+        </div>
+
+      </div>
+    </div>
+    <div class="rating">{{book.rating}}</div>
+  </div>
+
+
+
+  <!-- <class="card-text"> -->
+</div>
+
+
+
+
+<!-- <h2 style="text-align: left; margin-left: 5em;">
+    {{ book.title | uppercase }}
+  </h2>
+  <div class="wrapper">
+
+    <div class="cover">
+      <img width="200" alt="Book Cover" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+    </div>
+    <div class="info">
+      <span class="question-left-column">Have I read it? </span>
+      <div class="answer-left-column">{{book.read}}{{!book.read}}</div>
+
+      <div class="question-right-column">Do I own it? </div>
+      <div class="answer-right-column">{{book.ownership}}{{!book.ownership}}</div>
+
+      <span class="question-left-column">Female protagonist? </span>
+      <div class="answer-left-column">{{book.female_protagonist}}{{!book.female_protagonist}}</div>
+
+      <div class="question-right-column">Female role model? </div>
+      <div class="answer-right-column">{{book.female_role_model}}{{!book.female_role_model}}</div>
+
+      <span class="question-left-column">LGBTQ protagonist? </span>
+      <div class="answer-left-column">{{book.lgbtq_protagonist}}{{!book.lgbtq_protagonist}}</div>
+
+      <span class="question-left-column">LGBTQ sidekick? </span>
+      <div class="answer-left-column">{{book.lgbtq_sidekick}}{{!book.lgbtq_sidekick}}</div>
+
+      <div class="question-right-column">LGBTQ theme(s)? </div>
+      <div class="answer-right-column">{{book.lgbtq_theme}}{{!book.lgbtq_theme}}</div>
+
+    </div>
+
+    </div>
+info
+  </div>
+wrapper
+  <div class="rating">{{book.rating}}</div>
+</div> -->

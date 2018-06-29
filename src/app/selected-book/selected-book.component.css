@@ -1,0 +1,42 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 20% 75% 5%;
+  grid-gap: 15px;
+  grid-template-areas: 'cover info';
+}
+.cover {
+  grid-area: 'cover';
+}
+.info {
+  grid-area: 'info';
+  grid-template-areas:
+      'question-left-column answer-left-column question-right-column answer-right-column';
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 1em;
+  display: grid;
+  margin-bottom: 1em;
+}
+.question-left-column {
+  grid-area: 'question-left-column';
+  text-align: right;
+}
+.answer-left-column {
+  grid-area: 'answer-left-column';
+}
+.question-right-column {
+  grid-area: 'question-right-column';
+  text-align: right;
+}
+.answer-right-column {
+  grid-area: 'answer-right-column';
+}
+.wrapper:hover {
+  cursor: pointer;
+}
+.rating {
+  display: flex;
+  justify-content: center;
+}
+.selected {
+  margin-left: 2.5em;
+}
