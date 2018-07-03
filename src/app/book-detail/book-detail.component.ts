@@ -4,7 +4,6 @@ import { Location } from '@angular/common';
 
 import { Book } from '../book';
 import { BookService } from '../book.service';
-
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail.component.html',

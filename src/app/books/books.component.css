@@ -38,9 +38,6 @@
   justify-content: center;
   margin-bottom: .5em;
 }
-.selected {
-  margin-left: 2.5em;
-}
 ol {
   list-style-type: none;
   margin: 1em 0 0 0;

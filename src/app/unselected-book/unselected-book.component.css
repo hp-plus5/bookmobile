@@ -36,8 +36,4 @@
 .rating {
   display: flex;
   justify-content: center;
-  margin-bottom: 1em;
-}
-.selected {
-  margin-left: 2.5em;
 }

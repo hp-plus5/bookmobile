@@ -35,23 +35,24 @@
         </div>
 
       </div>
-    </div>
-    <div class="rating">{{book.rating}}<br/>
-      <div class="progress">
-        <div class="progress-bar" role="progressbar" attr.aria-valuenow="{{book.rating}}" aria-valuemin="0" aria-valuemax="10"></div>
-      </div>
-    </div>
-  </div>
 
+      <div class="rating">
+        <label class="col-form-label" for="ratingDisplay" id="ratingDisplay">Rating:
+          <div class="progress-bar progress-easy" role="progressbar" id="ratingDisplay" aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"
+            [style.width]="book.rating">
+            {{book.rating}}
+          </div>
+        </label>
+      </div>     <!-- rating-->
 
+    </div> <!-- card body -->
 
-  <!-- <class="card-text"> -->
+  </div><!-- card border -->
 </div>
 
 
 
-
-<!-- <h2 style="text-align: left; margin-left: 5em;">
+  <!-- <h2 style="text-align: left; margin-left: 5em;">
     {{ book.title | uppercase }}
   </h2>
   <div class="wrapper">
