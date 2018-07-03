@@ -1,6 +1,12 @@
-import { Book } from './book';
+import { Injectable } from '@angular/core';
+import { InMemoryDbService } from 'angular-in-memory-web-api';
 
-export const BOOKS: Book[] = [
+@Injectable({
+  providedIn: 'root'
+})
+export class InMemoryDataService implements InMemoryDbService {
+  createDb() {
+    const books = [
     {   id: 1,
         title: "Harry Potter and the Sorcerer's Stone",
         read: true,
@@ -16,11 +22,11 @@ export const BOOKS: Book[] = [
         title: "Harry Potter and the Chamber of Secrets",
         read: true,
         ownership: true,
-        female_protagonist: false,
+        female_protagonist: true,
         female_role_model: true,
-        lgbtq_protagonist: false,
-        lgbtq_sidekick: false,
-        lgbtq_theme: false,
+        lgbtq_protagonist: true,
+        lgbtq_sidekick: true,
+        lgbtq_theme: true,
         rating: 7
          },
     {   id: 3,
@@ -78,4 +84,7 @@ export const BOOKS: Book[] = [
         lgbtq_theme: false,
         rating: 7
          }
-]
+    ];
+    return {books};
+  }
+}

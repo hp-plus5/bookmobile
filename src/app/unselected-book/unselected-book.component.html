@@ -12,31 +12,35 @@
         </div>
         <div class="info">
           <div>Have I read it? </div>
-          {{book.read}}{{!book.read}}
+          {{book.read}}
 
           <div>Do I own it? </div>
-          {{book.ownership}}{{!book.ownership}}
+          {{book.ownership}}
 
           <div>Female protagonist? </div>
-          {{book.female_protagonist}}{{!book.female_protagonist}}
+          {{book.female_protagonist}}
 
           <div>Female role model? </div>
-          {{book.female_role_model}}{{!book.female_role_model}}
+          {{book.female_role_model}}
 
           <div>LGBTQ protagonist? </div>
-          {{book.lgbtq_protagonist}}{{!book.lgbtq_protagonist}}
+          {{book.lgbtq_protagonist}}
 
           <div>LGBTQ sidekick? </div>
-          {{book.lgbtq_sidekick}}{{!book.lgbtq_sidekick}}
+          {{book.lgbtq_sidekick}}
 
           <div>LGBTQ theme(s)? </div>
-          {{book.lgbtq_theme}}{{!book.lgbtq_theme}}
+          {{book.lgbtq_theme}}
 
         </div>
 
       </div>
     </div>
-    <div class="rating">{{book.rating}}</div>
+    <div class="rating">{{book.rating}}<br/>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" attr.aria-valuenow="{{book.rating}}" aria-valuemin="0" aria-valuemax="10"></div>
+      </div>
+    </div>
   </div>
 
 

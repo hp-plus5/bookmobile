@@ -1,82 +1,90 @@
 <p>You got to the book detail page!</p>
-
 <div class="card border-dark mb-3">
   <div class="card-header">AUTHOR NAME</div>
   <div class="card-body">
-    <div class="form-group">
-      <label class="col-form-label" for="inputDefault">Title: </label>
-      <input class="form-control" placeholder="Default input" input [(ngModel)]="book.title" placeholder="Book title" id="inputDefault"
-        type="text">
-    </div>
+    <form (ngSubmit)="save()" #bookDetail="ngForm">
+      <div class="form-group">
+        <label class="col-form-label" id="title" for="title">Title: </label>
+        <input [(ngModel)]=book.title id="title" name="title" class="form-control" placeholder="Book title" type="text">
+      </div>
 
 
-    <div class="wrapper-for-details card-text">
-      <div class="fields">
-        <img alt="Book Cover" width="200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+      <div class="wrapper-for-details card-text">
+        <div class="fields">
+          <img alt="Book Cover" width="200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 
-        <fieldset>
-          <div class="form-group">
-            <div class="input-group mb-3">
-              <div class="custom-file">
-                <input class="custom-file-input" id="inputGroupFile02" type="file">
-                <label class="custom-file-label" for="inputGroupFile02">Update book cover here</label>
-              </div>
-              <div class="input-group-append">
-                <span class="input-group-text" id="">Upload</span>
+          <fieldset>
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input class="custom-file-input" id="inputGroupFile02" type="file">
+                  <label class="custom-file-label" for="inputGroupFile02">Book cover file</label>
+                </div>
+                <div class="input-group-append">
+                  <span class="input-group-text" id="">Upload</span>
+                </div>
               </div>
             </div>
-          </div>
-        </fieldset>
+          </fieldset>
+
+        </div>
+        <!-- fields -->
+
+        <div class="button-details">
+          <legend class="left label" [(ngModel)]=book.read>Have I read it?</legend>
+          <fieldset>
+            <div class="form-group button right">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input id="read-yes" name="read" class="custom-control-input" type="radio">
+                <label class="custom-control-label" for="read-yes">Yes</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input id="read-no" name="read" class="custom-control-input" type="radio">
+                <label class="custom-control-label" for="read-no">No</label>
+              </div>
+            </div>
+          </fieldset>
+
+
+          <fieldset>
+            <div class="form-group left">
+              <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
+                <input [(ngModel)]=book.female_protagonist class="custom-control-input" name="book.female_protagonist" id="female-protagonist"
+                  type="checkbox">
+                <label class="custom-control-label" for="female-protagonist" id="female-protagonist">Female protagonist</label>
+              </div>
+              <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
+                <input [(ngModel)]=book.female_role_model class="custom-control-input" name="book.female_role_model" id="female-role-model"
+                  type="checkbox">
+                <label class="custom-control-label" for="female-role-model" id="female-role-model">Female role model</label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group right">
+              <div class="custom-control custom-checkbox custom-control-inline">
+                <input [(ngModel)]=book.lgbtq_protagonist class="custom-control-input" name="book.lgbtq_protagonist" id="lgbtq_protagonist"
+                  type="checkbox">
+                <label class="custom-control-label" for="lgbtq_protagonist" id="lgbtq_protagonist">LGBTQ protagonist</label>
+              </div>
+            </div>
+          </fieldset>
+
+        </div>
+        <!-- button-details -->
 
       </div>
-      <!-- fields -->
+      <!-- wrapper -->
 
-      <div class="button-details">
-        <fieldset>
-          <legend class="left label">Have I read it?</legend>
-        </fieldset>
-        <fieldset>
-          <div class="form-group right button">
-            <div class="custom-control custom-radio custom-control-inline">
-              <input id="customRadio1" name="customRadio" class="custom-control-input" [(ngModel)]="book.read" checked="{{book.read}}"
-                type="radio">
-              <label class="custom-control-label" for="customRadio1">Yes</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-              <input id="customRadio2" name="customRadio" class="custom-control-input" type="radio">
-              <label class="custom-control-label" for="customRadio2">No</label>
-            </div>
-          </div>
-        </fieldset>
+      <label class="col-form-label" for="inputRating" id="inputRating">Rating: </label>
+      <input [(ngModel)]=book.rating class="form-control" placeholder="Out of ten" name="rating" id="inputRating" type="text">
 
-
-        <fieldset>
-          <div class="form-group left">
-            <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
-              <input class="custom-control-input" id="customCheck1" [(ngModel)]="book.female_protagonist" type="checkbox">
-              <label class="custom-control-label" for="customCheck1">Female protagonist</label>
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <div class="form-group right">
-            <div class="custom-control custom-checkbox custom-control-inline">
-              <input class="custom-control-input" id="customCheck2" checked="" type="checkbox">
-              <label class="custom-control-label" for="customCheck2">LGBTQ protagonist</label>
-            </div>
-          </div>
-        </fieldset>
-
+      <div class="form-inline">
+        <button type="submit" (click)="save()" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
+        <button class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
       </div>
-      <!-- button-details -->
 
-    </div>
-    <!-- wrapper -->
-
-    <label class="col-form-label" for="inputDefaultRating">Rating: </label>
-    <input class="form-control" placeholder="Default input" input [(ngModel)]="book.title" placeholder="Out of ten" id="inputDefaultRating"
-      type="text">
-
-    <button type="submit" class="btn btn-primary" style="display:flex; justify-content: center; margin-top: 1em;">Submit</button>
+    </form>
   </div>
 </div>
+<form>

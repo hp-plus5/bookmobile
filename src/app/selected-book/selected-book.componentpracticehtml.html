@@ -1,0 +1,96 @@
+<div class="card border-dark mb-3">
+  <div class="card-header">AUTHOR NAME</div>
+  <div class="card-body">
+    <div class="form-group">
+      <!-- <label class="col-form-label" for="inputDefault">Title: </label> -->
+        <input class="form-control" placeholder="Default input" input [(ngModel)]="book.title" placeholder="Book title" id="inputDefault" type="text">
+    </div>
+
+
+    <div class="wrapper card-text">
+      <div class="cover">
+        <img alt="Book Cover" width="200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+
+        <fieldset>
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <div class="custom-file">
+                <input class="custom-file-input" id="inputGroupFile02" type="file">
+                <label class="custom-file-label" for="inputGroupFile02"></label>
+              </div>
+              <div class="input-group-append">
+                <span class="input-group-text" id="">Upload</span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+      </div>
+
+      <div class="info">
+
+        <fieldset>
+          <legend>Have I read it?</legend>
+          <div class="form-group">
+            <div class="custom-control custom-radio">
+              <input id="customRadio1" name="customRadio" class="custom-control-input" [(ngModel)]="book.read" checked="{{book.read}}"
+                type="radio">
+              <label class="custom-control-label" for="customRadio1">Yes</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input id="customRadio2" name="customRadio" class="custom-control-input" type="radio">
+              <label class="custom-control-label" for="customRadio2">No</label>
+            </div>
+          </div>
+        </fieldset>
+
+
+        <fieldset class="answer-right-column">
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" id="customCheck1" [(ngModel)]="book.female_protagonist" type="checkbox">
+              <label class="custom-control-label" for="customCheck1">Female protagonist</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" id="customCheck2" checked="" type="checkbox">
+              <label class="custom-control-label" for="customCheck2">LGBTQ protagonist</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!--
+    <div class="question-left-column">Have I read it?</div>
+        <input class="answer-left-column" line-height="1em" [(ngModel)]="book.read">
+    <div class="question-right-column">Do I own it?</div>
+        <input class="answer-right-column" line-height="1em" [(ngModel)]="book.ownership"> -->
+        <!-- <div class="question-left-column">Female protagonist?</div>
+        <input class="answer-left-column" line-height="1em" [(ngModel)]="book.female_protagonist"> -->
+        <!--<div class="question-right-column">Female role model?</div>
+        <input class="answer-right-column" line-height="1em" [(ngModel)]="book.female_role_model">
+    <div class="question-left-column">LGBTQ protagonist?</div>
+        <input class="answer-left-column" line-height="1em" [(ngModel)]="book.lgbtq_protagonist">
+    <div class="question-right-column">LGBTQ sidekick?</div>
+        <input class="answer-right-column" line-height="1em" [(ngModel)]="book.lgbtq_sidekick">
+    <div class="question-right-column">LGBTQ theme(s)?</div>
+        <input class="answer-right-column" line-height="1em" [(ngModel)]="book.lgbtq_theme"> -->
+
+        <!-- <div class="btn-group">
+      OWNERSHIP:
+      <label class="btn btn-primary" [(ngModel)]="book.ownership" btnRadio="True" tabindex="0" role="button">Yes</label>
+      <label class="btn btn-primary" [(ngModel)]="book.ownership" btnRadio="False" tabindex="0" role="button">No</label>
+    </div> -->
+      </div>
+      <!-- info -->
+
+    </div>
+    <!-- wrapper -->
+    <div class="rating">
+      <label>RATING:
+        <input [(ngModel)]="book.rating" placeholder="Out of ten">
+      </label>
+    </div>
+
+    <!-- this is where I need a submit button below the rating -->
+    <button type="submit" class="btn btn-primary" style="display:flex; justify-content: center">Submit</button>
+  </div>
+</div>

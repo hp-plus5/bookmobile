@@ -1,0 +1,35 @@
+<!-- <form #newBookForm="ngForm" (ngSubmit)="onSubmit(newBookForm)">
+
+    <input type="text" placeholder="Book Title"
+           [(ngModel)]="title" name="title"
+           #title="ngModel">
+    <div *ngIf="!title.valid && title.touched">
+      Title is required!
+    </div>
+
+    <input type="author" placeholder="Author name"
+           required [(ngModel)]="author"
+           name="author" #author="ngModel">
+    <div *ngIf="!author.valid && author.touched">
+      Author is required!
+    </div>
+
+    <input type="text" placeholder="Nick name"
+           [(ngModel)]="nickName" name="nickName">
+
+    <input type="password" placeholder="Password" required
+           [(ngModel)]="password" name="password"
+           #userPassword="ngModel">
+    <div *ngIf="!userPassword.valid && userPassword.touched">
+      Password is required!
+    </div>
+
+    <button type="submit" [disabled]="!newBookForm.form.valid">
+        Register
+      </button>
+
+      <button type="button" (click)="newBookForm.reset()">
+        Reset
+      </button>
+
+    </form> -->

@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
 import { Book } from '../book';
+import { BookService } from '../book.service';
 
 @Component({
   selector: 'app-book-detail',
@@ -9,9 +13,29 @@ import { Book } from '../book';
 export class BookDetailComponent implements OnInit {
   @Input() book: Book;
 
-  constructor() { }
+  constructor(
+    private bookService: BookService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.getBook();
   }
 
+  getBook(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    // the + is a JS operator that converts the string from paramMap (everything paramMap returns is a string) into a number.
+    this.bookService.getBook(id)
+      .subscribe(book => this.book = book);
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  save(): void {
+    this.bookService.updateBook(this.book)
+      .subscribe(() => this.goBack());
+  }
 }

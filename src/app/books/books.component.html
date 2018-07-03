@@ -1,12 +1,19 @@
-<ol class="book-list" >
+<ol class="book-list">
   <li *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)">
-
-    <div *ngIf="selectedBook === book; else unselectedBook" class="selected">
-      <app-selected-book [book]="selectedBook"></app-selected-book>
-    </div>
-    <ng-template #unselectedBook>
+      <div *ngIf="selectedBook === book; else unselectedBook" class="selected">
+        <app-book-detail [book]="selectedBook"></app-book-detail>
+      </div>
+      <ng-template #unselectedBook>
       <app-unselected-book [book]="book"></app-unselected-book>
-    </ng-template>
-
+      </ng-template>
   </li>
 </ol>
+<!--
+Following tutorial:
+<ol class="book-list">
+  <li *ngFor="let book of books">
+    <a routerLink="/book-detail/{{book.id}}">
+      <span>{{book.id}}</span>
+    </a>
+  </li>
+</ol> -->
