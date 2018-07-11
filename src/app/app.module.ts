@@ -17,15 +17,6 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BooksComponent,
-    BookDetailComponent,
-    SelectedBookComponent,
-    UnselectedBookComponent,
-    MostRecentBookComponent,
-    NewBookComponent
-  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -35,11 +26,19 @@ import { InMemoryDataService } from './in-memory-data.service';
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests. Then you'll end imports on "HttpClientModule".
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
-   ],
-  providers: [],
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+      dataEncapsulation: false
+    })
+  ],
+  declarations: [
+    AppComponent,
+    BooksComponent,
+    BookDetailComponent,
+    SelectedBookComponent,
+    UnselectedBookComponent,
+    MostRecentBookComponent,
+    NewBookComponent
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

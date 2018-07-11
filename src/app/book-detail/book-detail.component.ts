@@ -11,6 +11,7 @@ import { BookService } from '../book.service';
 })
 export class BookDetailComponent implements OnInit {
   @Input() book: Book;
+  books: Book[] = [];
 
   constructor(
     private bookService: BookService,
@@ -25,8 +26,7 @@ export class BookDetailComponent implements OnInit {
   getBook(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     // the + is a JS operator that converts the string from paramMap (everything paramMap returns is a string) into a number.
-    this.bookService.getBook(id)
-      .subscribe(book => this.book = book);
+    this.bookService.getBook(id).subscribe(book => (this.book = book));
   }
 
   goBack(): void {
@@ -34,7 +34,16 @@ export class BookDetailComponent implements OnInit {
   }
 
   save(): void {
-    this.bookService.updateBook(this.book)
-      .subscribe(() => this.goBack());
+    this.bookService.updateBook(this.book).subscribe(() => this.goBack());
+  }
+
+  add(title: string): void {
+    title = title.trim();
+    if (!title) {
+      return;
+    }
+    this.bookService.addBook({ title } as Book).subscribe(book => {
+      this.books.push(book);
+    });
   }
 }

@@ -1,3 +1,13 @@
+<div>
+  <label>Title:
+    <input #bookTitle />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(bookTitle.value); bookTitle.value=''">
+    add
+  </button>
+</div>
+
 <!-- <form #newBookForm="ngForm" (ngSubmit)="onSubmit(newBookForm)">
 
     <input type="text" placeholder="Book Title"
@@ -20,9 +30,6 @@
     <input type="password" placeholder="Password" required
            [(ngModel)]="password" name="password"
            #userPassword="ngModel">
-    <div *ngIf="!userPassword.valid && userPassword.touched">
-      Password is required!
-    </div>
 
     <button type="submit" [disabled]="!newBookForm.form.valid">
         Register

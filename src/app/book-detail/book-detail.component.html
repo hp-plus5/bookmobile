@@ -76,19 +76,20 @@
       </div>
       <!-- wrapper -->
 
-      <label class="col-form-label" for="inputRating" id="inputRating">Rating: </label>
-      <input [(ngModel)]=book.rating class="form-control" placeholder="Out of ten" name="rating" id="inputRating" type="text">
+        <label class="col-form-label" for="inputRating" id="inputRating">Rating: </label>
+        <input [(ngModel)]=book.rating class="form-control" placeholder="Out of ten" name="rating" id="inputRating" type="text">
 
-      <div class="rating-border">
-        <div class="progress-bar progress-easy" role="progressbar" id="ratingDisplay" [attr.aria-valuenow]="book.rating" aria-valuemin="0"
-          aria-valuemax="10" [style.width]="(book.rating)*10+'%'">
-          {{book.rating}}
+
+        <div class="rating-border rating">
+          <div class="progress-bar progress-easy" role="progressbar" id="ratingDisplay" [attr.aria-valuenow]="book.rating" aria-valuemin="0"
+            aria-valuemax="10" [style.width]="(book.rating)*10+'%'">
+            {{book.rating}}
+          </div>
         </div>
-      </div>
 
       <div class="form-inline">
-        <button type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
-        <button type="reset" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
+        <button (click)="save()" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
+        <button (click)="goBack()" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
       </div>
 
     </form>

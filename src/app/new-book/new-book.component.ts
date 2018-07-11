@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Book } from '../book';
+import { BookService } from '../book.service';
 
 @Component({
   selector: 'app-new-book',
@@ -6,10 +9,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-book.component.css']
 })
 export class NewBookComponent implements OnInit {
+  @Input() book: Book;
+  books: Book[] = [];
 
-  constructor() { }
+  constructor(private bookService: BookService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  add(title: string): void {
+    title = title.trim();
+    if (!title) {
+      return;
+    }
+    this.bookService.addBook({ title } as Book).subscribe(book => {
+      this.books.push(book);
+    });
   }
-// Currently a newBook() method, empty, on app.component.ts. Dunno if it should be there or here
 }

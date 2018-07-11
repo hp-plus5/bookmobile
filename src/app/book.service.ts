@@ -26,10 +26,11 @@ export class BookService {
   // accessing it via HttpClient. You'd import it as { BOOKS } from 'app/mock-data.ts'
 
   // line 24's "Array<Book>" is the same as saying "Book[]"
-  getBooks(): Observable<Array<Book>> {
-    return this.http
-      .get<Book[]>(this.booksUrl)
-      .pipe(catchError(this.handleError('getBooks', [])));
+  getBooks(): Observable<Book[]> {
+    return this.http.get<Book[]>(this.booksUrl).pipe(
+      tap(books => this.log(`fetched books`)),
+      catchError(this.handleError('getBooks', []))
+    );
   }
 
   /** GET book by id. Return `undefined` when id not found */
@@ -37,10 +38,10 @@ export class BookService {
     const url = `${this.booksUrl}/?id=${id}`;
     return this.http.get<Book[]>(url).pipe(
       map(books => books[0]), // returns a {0|1} element array
-      tap(h => {
-        const outcome = h ? `fetched` : `did not find`;
-        // this.log(`${outcome} book id=${id}`); <-- for if I implemented MessageService from tutorial.
-      }),
+      // tap(h => {
+      // const outcome = h ? `fetched` : `did not find`;
+      // this.log(`${outcome} book id=${id}`); <-- for if I implemented MessageService from tutorial.
+      // }),
       catchError(this.handleError<Book>(`getBook id=${id}`))
     );
   }
@@ -68,16 +69,6 @@ export class BookService {
 
   ////// SAVE DATA //////
 
-  /** PUT: update the book on the server */
-  // book.id is how the current web api knows which book to access. may need to write some SQL later for this same concept when
-  // data services switch over.
-  updateBook(book: Book): Observable<any> {
-    return this.http.put(this.booksUrl, book, httpOptions).pipe(
-      tap(_ => this.log(`updated book id=${book.id}`)),
-      catchError(this.handleError<any>('updateBook'))
-    );
-  }
-
   /** POST: add a new book to the server */
   addBook(book: Book): Observable<Book> {
     return this.http.post<Book>(this.booksUrl, book, httpOptions).pipe(
@@ -98,15 +89,24 @@ export class BookService {
     );
   }
 
+  /** PUT: update the book on the server */
+  // book.id is how the current web api knows which book to access. may need to write some SQL later for this same concept when
+  // data services switch over.
+  updateBook(book: Book): Observable<any> {
+    return this.http.put(this.booksUrl, book, httpOptions).pipe(
+      tap(_ => this.log(`updated book id=${book.id}`)),
+      catchError(this.handleError<any>('updateBook'))
+    );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  private handleError<T> (operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
@@ -118,9 +118,9 @@ export class BookService {
     };
   }
 
-    /** Log a HeroService message with the MessageService */
-    private log(message: string) {
-      console.log('BookService: ' + message);
-      // this is code Beth is writing to supplant a messageService method she doesn't want to use
-    }
+  /** Log a HeroService message with the MessageService */
+  private log(message: string) {
+    console.log('BookService: ' + message);
+    // this is code Beth is writing to supplant a messageService method she doesn't want to use
+  }
 }

@@ -36,7 +36,7 @@
 
       </div>
 
-      <div class="rating">
+      <div class="rating" *ngIf="book.rating">
         <label class="col-form-label" for="ratingDisplay" id="ratingDisplay" style="width: 100%;">Rating:
           <div class="rating-border">
           <div class="progress-bar progress-easy" role="progressbar" id="ratingDisplay" [attr.aria-valuenow]="book.rating" aria-valuemin="0" aria-valuemax="10"

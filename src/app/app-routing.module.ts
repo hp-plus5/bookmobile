@@ -5,22 +5,18 @@ import { BooksComponent } from './books/books.component';
 import { MostRecentBookComponent } from './most-recent-book/most-recent-book.component';
 // import { SelectedBookComponent } from './selected-book/selected-book.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
-
+import { NewBookComponent } from './new-book/new-book.component';
 
 const routes: Routes = [
-  { path: 'books', component: BooksComponent},
-  { path: 'most-recent-entries', component: MostRecentBookComponent},
+  { path: 'books', component: BooksComponent },
+  { path: 'most-recent-entries', component: MostRecentBookComponent },
   { path: '', redirectTo: '/most-recent-entries', pathMatch: 'full' },
-  { path: 'book-detail/:id', component: BookDetailComponent},
-  { path: 'new-book', component: BookDetailComponent }
+  { path: 'book-detail/:id', component: BookDetailComponent },
+  { path: 'new-book', component: NewBookComponent }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

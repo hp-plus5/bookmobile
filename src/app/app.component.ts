@@ -7,8 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Book Database';
-
-newBook() {
-// Does this go here or on new-book.ts?
-}
 }
