@@ -2,10 +2,10 @@
 <div class="card border-dark mb-3">
   <div class="card-header">AUTHOR NAME</div>
   <div class="card-body">
-    <form (ngSubmit)="save()" #bookDetail="ngForm">
+    <form #bookDetail="ngForm" (ngSubmit)="save()">
       <div class="form-group">
-        <label class="col-form-label" id="title" for="title">Title: </label>
-        <input [(ngModel)]=book.title id="title" name="title" class="form-control" placeholder="Book title" type="text">
+        <label class="col-form-label" id="title" for="title" name="title">Title: </label>
+        <input [(ngModel)]="book.title" id="title" name="title" class="form-control" placeholder="Book title" type="text">
       </div>
 
 
@@ -31,16 +31,16 @@
         <!-- fields -->
 
         <div class="button-details">
-          <legend class="left label" [(ngModel)]=book.read>Have I read it?</legend>
+          <legend class="left label">Have I read it?</legend>
           <fieldset>
             <div class="form-group button right">
               <div class="custom-control custom-radio custom-control-inline">
                 <input id="read-yes" name="read" class="custom-control-input" type="radio">
-                <label class="custom-control-label" for="read-yes">Yes</label>
+                <label class="custom-control-label" for="read-yes" name="read">Yes</label>
               </div>
               <div class="custom-control custom-radio custom-control-inline">
                 <input id="read-no" name="read" class="custom-control-input" type="radio">
-                <label class="custom-control-label" for="read-no">No</label>
+                <label class="custom-control-label" for="read-no" name="read">No</label>
               </div>
             </div>
           </fieldset>
@@ -49,23 +49,23 @@
           <fieldset>
             <div class="form-group left">
               <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
-                <input [(ngModel)]=book.female_protagonist class="custom-control-input" name="book.female_protagonist" id="female-protagonist"
+                <input [(ngModel)]=book.female_protagonist class="custom-control-input" name="female_protagonist" id="female-protagonist"
                   type="checkbox">
-                <label class="custom-control-label" for="female-protagonist" id="female-protagonist">Female protagonist</label>
+                <label class="custom-control-label" for="female-protagonist" id="female-protagonist"  name="female_protagonist">Female protagonist</label>
               </div>
               <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
-                <input [(ngModel)]=book.female_role_model class="custom-control-input" name="book.female_role_model" id="female-role-model"
+                <input [(ngModel)]=book.female_role_model class="custom-control-input" name="female_role_model" id="female-role-model"
                   type="checkbox">
-                <label class="custom-control-label" for="female-role-model" id="female-role-model">Female role model</label>
+                <label class="custom-control-label" for="female-role-model" id="female-role-model" name="female_role_model">Female role model</label>
               </div>
             </div>
           </fieldset>
           <fieldset>
             <div class="form-group right">
               <div class="custom-control custom-checkbox custom-control-inline">
-                <input [(ngModel)]=book.lgbtq_protagonist class="custom-control-input" name="book.lgbtq_protagonist" id="lgbtq_protagonist"
+                <input [(ngModel)]=book.lgbtq_protagonist class="custom-control-input" name="lgbtq_protagonist" id="lgbtq_protagonist"
                   type="checkbox">
-                <label class="custom-control-label" for="lgbtq_protagonist" id="lgbtq_protagonist">LGBTQ protagonist</label>
+                <label class="custom-control-label" for="lgbtq_protagonist" id="lgbtq_protagonist" name="lgbtq_protagonist">LGBTQ protagonist</label>
               </div>
             </div>
           </fieldset>
@@ -76,7 +76,7 @@
       </div>
       <!-- wrapper -->
 
-        <label class="col-form-label" for="inputRating" id="inputRating">Rating: </label>
+        <label class="col-form-label" for="inputRating" id="inputRating" name="rating">Rating: </label>
         <input [(ngModel)]=book.rating class="form-control" placeholder="Out of ten" name="rating" id="inputRating" type="text">
 
 
@@ -88,7 +88,7 @@
         </div>
 
       <div class="form-inline">
-        <button (click)="save()" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
+        <button (click)="save()" type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
         <button (click)="goBack()" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
       </div>
 

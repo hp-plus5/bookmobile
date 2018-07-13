@@ -37,11 +37,21 @@ export class BookDetailComponent implements OnInit {
     this.bookService.updateBook(this.book).subscribe(() => this.goBack());
   }
 
+  // save(
+  //   title: string,
+  //   rating: number,
+  //   read: boolean,
+  //   ownership: boolean,
+  //   female_protagonist: boolean,
+  //   female_role_model: boolean,
+  //   lgbtq_protagonist: boolean,
+  //   lgbtq_sidekick: boolean,
+  //   lgbtq_theme: boolean
+  // ): void {
+  //   this.bookService.updateBook(this.book).subscribe(() => this.goBack());
+  // }
+
   add(title: string): void {
-    title = title.trim();
-    if (!title) {
-      return;
-    }
     this.bookService.addBook({ title } as Book).subscribe(book => {
       this.books.push(book);
     });

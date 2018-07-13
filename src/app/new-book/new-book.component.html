@@ -1,35 +1,89 @@
-<div>
-  <label>Title:
-    <input #bookTitle />
-  </label>
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(bookTitle.value); bookTitle.value=''">
-    add
-  </button>
-</div>
+<form #newBookForm="ngForm" (ngSubmit)='add(newBookForm.value)'>
+  <!---->
+  <div>
+    <label>Title:
+      <input #bookTitle (ngModel)="book.title" name="title" />
+    </label>
+
+    <label>Rating:
+      <input #bookRating (ngModel)="book.rating" name="rating" />
+    </label>
+    <br>
+
+    <legend class="left label" (ngModel)=book.read>Have I read it?</legend>
+    <fieldset>
+      <div class="form-group button right">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input #bookRead id="read-yes" name="read" class="custom-control-input" type="radio">
+          <label class="custom-control-label" for="read-yes">Yes</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input #bookRead id="read-no" name="read" class="custom-control-input" type="radio">
+          <label class="custom-control-label" for="read-no">No</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- <br>
+    <label>Have I read it?
+      <input #bookRead type="radio" [(ngModel)]="book.read" name="read" />
+    </label>
+    <br> -->
+
+    <label>Do I own it?
+      <input #bookOwnership (ngModel)="book.ownership" name="ownership" />
+    </label>
+
+    <label>Female protagonist?
+      <input #bookFemaleProtagonist (ngModel)="book.female_protagonist" name="female-protagonist" />
+    </label>
+
+    <label>Female role model?
+      <input #bookFemaleRoleModel (ngModel)="book.female_role_model" name="female-role-model" />
+    </label>
+
+    <label>LGBTQ+ protagonist?
+      <input #bookLgbtqProtagonist (ngModel)="book.lgbtq_protagonist" name="lgbtq-protagonist" />
+    </label>
+
+    <label>LGBTQ+ sidekick?
+      <input #bookLgbtqSidekick (ngModel)="book.lgbtq_sidekick" name="lgbtq-sidekick" />
+    </label>
+
+    <label>LGBTQ+ theme(s)?
+      <input #bookLgbtqTheme (ngModel)="book.lgbtq_theme" name="lgbtq-theme" />
+    </label>
+
+
+
+
+    <!-- "testClick($event)" -->
+    <button (click)=add(newBookForm.value) type=submit for='newBookForm'>
+        Submit
+    </button>
+    {{confirmation}}
+
+    <!-- (click) passes input value to add() and then clears the title input. This below button, paired with just "#newBookForm='ngForm'" in form, works temporarily but still isn't a full commit to a backend db. I think this may just be because the web api wasn't intended to actually connect to anything? I'm not sure. -->
+    <!-- <button (click)="add(bookTitle.value, bookRating.value, bookRead.value, bookOwnership.value,
+    bookFemaleProtagonist.value, bookFemaleRoleModel.value, bookLgbtqProtagonist.value,
+    bookLgbtqSidekick.value, bookLgbtqTheme.value);
+    bookTitle.value=''">
+      add
+    </button> -->
+
+
+  </div>
+</form>
+
 
 <!-- <form #newBookForm="ngForm" (ngSubmit)="onSubmit(newBookForm)">
 
     <input type="text" placeholder="Book Title"
-           [(ngModel)]="title" name="title"
+           required [(ngModel)]="title" name="title"
            #title="ngModel">
     <div *ngIf="!title.valid && title.touched">
       Title is required!
     </div>
-
-    <input type="author" placeholder="Author name"
-           required [(ngModel)]="author"
-           name="author" #author="ngModel">
-    <div *ngIf="!author.valid && author.touched">
-      Author is required!
-    </div>
-
-    <input type="text" placeholder="Nick name"
-           [(ngModel)]="nickName" name="nickName">
-
-    <input type="password" placeholder="Password" required
-           [(ngModel)]="password" name="password"
-           #userPassword="ngModel">
 
     <button type="submit" [disabled]="!newBookForm.form.valid">
         Register

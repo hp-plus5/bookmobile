@@ -9,7 +9,7 @@ export class InMemoryDataService implements InMemoryDbService {
     const books = [
       {
         id: 0,
-        title: 'No Rating!',
+        title: 'This shouldnt repeat :(',
         read: true,
         ownership: true,
         female_protagonist: false,
@@ -20,7 +20,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         id: 1,
-        title: "Harry Potter and the Sorcerer's Stone",
+        title: 'Harry Potter and the Sorcerers Stone',
         read: true,
         ownership: true,
         female_protagonist: false,
@@ -101,6 +101,17 @@ export class InMemoryDataService implements InMemoryDbService {
         lgbtq_sidekick: false,
         lgbtq_theme: false,
         rating: 7
+      },
+      {
+        id: 8,
+        title: 'No Rating!',
+        read: true,
+        ownership: true,
+        female_protagonist: false,
+        female_role_model: true,
+        lgbtq_protagonist: false,
+        lgbtq_sidekick: false,
+        lgbtq_theme: false
       }
     ];
     return { books };
