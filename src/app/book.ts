@@ -9,6 +9,10 @@ export class Book {
   lgbtq_sidekick: boolean; /* Checkmark */
   lgbtq_theme: boolean; /* Checkmark */
   rating: number;
+
+  isNew(): boolean {
+    return this.id === 0;
+  }
 }
 
 export function trackByBooks(index: number, book: Book): number {

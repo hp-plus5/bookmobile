@@ -10,7 +10,9 @@ import { BookService } from '../book.service';
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-  @Input() book = new Book(); // saying this instead of just "@Input() book = Book;" ensures that the object will not be of the type undefined. It's a security blanket specifically for when book-detail acts as a child (to books.component, in this instance).
+  @Input() book = new Book(); // saying this instead of just "@Input() book = Book;" ensures that the object will not be of the type undefined.
+  // It's a security blanket specifically for when book-detail acts as a child (to books.component,
+  // in this instance).
   books: Book[] = [];
 
   constructor(
@@ -20,9 +22,9 @@ export class BookDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.book) {
-      this.getBook(); // this if statement and getBook() call is for when this is used in the most-recent component, because
-      // most-recent passes in the information/iteration/(which book it wants) via passing the info in the URL.
+    if (!this.book || this.book.isNew) {
+      this.getBook(); // this if statement and getBook() call is for when book-detail is used in most-recent.component, because
+      // most-recent passes in the information/iteration/(which book it wants) via passing the info in the URL rather than through inheritance.
     }
     console.log(this.book); // this is helpful/used when book-detail gets its information/iteration from a parent.
   }
