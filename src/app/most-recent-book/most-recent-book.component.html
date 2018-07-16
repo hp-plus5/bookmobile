@@ -1,6 +1,6 @@
 <h3>Most Recent Entries</h3>
 <div class="grid grid-pad">
-  <a *ngFor="let book of books" class="col-1-4" routerLink="/book-detail/{{book.id}}">
+  <a *ngFor="let book of books" class="col-1-4" routerLink="/book-detail/{{book.id}}"> <!-- trackBy=trackbyBooks-->
       <div class="card border-dark mb-3" style="max-width: 20rem;">
         <div class="card-header">AUTHOR NAME</div>
         <div class="card-body" style="height: 10em;">

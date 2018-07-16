@@ -1,5 +1,5 @@
 export class Book {
-  id: number;
+  id = 0;
   title: string;
   read: boolean; /* Radio button */
   ownership: boolean; /* Radio button */

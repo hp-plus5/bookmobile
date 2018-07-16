@@ -7,17 +7,17 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const books = [
-      {
-        id: 0,
-        title: 'This shouldnt repeat :(',
-        read: true,
-        ownership: true,
-        female_protagonist: false,
-        female_role_model: true,
-        lgbtq_protagonist: false,
-        lgbtq_sidekick: false,
-        lgbtq_theme: false
-      },
+      // {
+      //   id: 0,
+      //   title: 'This shouldnt repeat :(',
+      //   read: true,
+      //   ownership: true,
+      //   female_protagonist: false,
+      //   female_role_model: true,
+      //   lgbtq_protagonist: false,
+      //   lgbtq_sidekick: false,
+      //   lgbtq_theme: false
+      // },
       {
         id: 1,
         title: 'Harry Potter and the Sorcerers Stone',
