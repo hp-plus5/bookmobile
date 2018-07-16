@@ -20,7 +20,7 @@ export class BookDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getBook();
+    console.log(this.book);
   }
 
   getBook(): void {

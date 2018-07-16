@@ -11,6 +11,10 @@ export class Book {
   rating: number;
 }
 
+export function trackByBooks(index: number, book: Book): number {
+  return book.id;
+}
+
 /* Association tables needed:
 Form fields:
   book_author

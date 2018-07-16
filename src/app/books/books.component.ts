@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../book';
+import { Book, trackByBooks } from '../book';
 import { BookService } from '../book.service';
 
 @Component({
@@ -11,6 +11,8 @@ export class BooksComponent implements OnInit {
   books: Book[] = [];
 
   selectedBook: Book;
+
+  trackByBooks = trackByBooks;
 
   constructor(private bookService: BookService) {}
 

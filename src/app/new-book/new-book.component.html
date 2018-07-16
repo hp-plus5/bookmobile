@@ -1,4 +1,4 @@
-<form #newBookForm="ngForm" (ngSubmit)='add(newBookForm.value)'>
+<form #newBookForm="ngForm" name="newBookForm" (ngSubmit)='add(newBookForm)'>
   <!---->
   <div>
     <label>Title:
@@ -58,7 +58,7 @@
 
 
     <!-- "testClick($event)" -->
-    <button (click)=add(newBookForm.value) type=submit for='newBookForm'>
+    <button name="newBookForm"> <!-- gets an object, but no values.-->
         Submit
     </button>
     {{confirmation}}

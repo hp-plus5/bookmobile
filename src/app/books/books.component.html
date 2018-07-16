@@ -1,5 +1,5 @@
 <ol class="book-list">
-  <li *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)">
+  <li *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)" trackBy=trackbyBooks>
       <div *ngIf="selectedBook === book; else unselectedBook"> <!-- did contain 'class="selected"' but didn't seem to do anything-->
         <app-book-detail [book]="selectedBook"></app-book-detail>
       </div>

@@ -29,8 +29,6 @@ export class NewBookComponent implements OnInit {
     lgbtq_sidekick: boolean,
     lgbtq_theme: boolean
   ): void {
-    this.confirmation = 'It got here';
-
     this.bookService
       .addBook({
         title,
@@ -46,6 +44,7 @@ export class NewBookComponent implements OnInit {
       .subscribe(book => {
         this.books.push(book);
       });
+    this.confirmation = 'It got here';
   }
 
   testClick(event) {
