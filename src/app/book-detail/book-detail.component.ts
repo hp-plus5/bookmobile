@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
+import { Location, NgStyle } from '@angular/common';
 
 import { Book } from '../book';
 import { BookService } from '../book.service';
@@ -15,11 +15,15 @@ export class BookDetailComponent implements OnInit {
   // in this instance).
   books: Book[] = [];
 
+  selectedBook: Book;
+
   constructor(
     private bookService: BookService,
     private route: ActivatedRoute,
     private location: Location
   ) {}
+
+  urlCompareToBooks = this.location.isCurrentPathEqualTo('/books');
 
   ngOnInit(): void {
     if (!this.book || this.book.isNew) {
@@ -35,12 +39,20 @@ export class BookDetailComponent implements OnInit {
     this.bookService.getBook(id).subscribe(book => (this.book = book));
   }
 
+  deselect(book: Book): void {
+    this.selectedBook = book;
+  }
+
   goBack(): void {
     this.location.back();
   }
 
-  save(): void {
-    this.bookService.updateBook(this.book).subscribe(() => this.goBack());
+  updateThisBook(): void {
+    this.bookService.updateBook(this.book).subscribe();
+  }
+
+  addThisBook(): void {
+    this.bookService.addBook(this.book).subscribe(() => this.route);
   }
 
   // save(
@@ -57,9 +69,9 @@ export class BookDetailComponent implements OnInit {
   //   this.bookService.updateBook(this.book).subscribe(() => this.goBack());
   // }
 
-  add(title: string): void {
-    this.bookService.addBook({ title } as Book).subscribe(book => {
-      this.books.push(book);
-    });
-  }
+  // add(title: string): void {
+  //   this.bookService.addBook({ title } as Book).subscribe(book => {
+  //     this.books.push(book);
+  //   });
+  // }
 }

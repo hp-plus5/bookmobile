@@ -1,5 +1,15 @@
-<form #newBookForm="ngForm" name="newBookForm" (ngSubmit)='add(newBookForm)'>
-  <!---->
+
+<!-- logic isn't currently testable considering i have no actual database -->
+<div >
+  <app-book-detail routerLink="/book-detail/4"></app-book-detail>
+</div>
+
+
+
+
+
+<!-- <form #newBookForm="ngForm" name="newBookForm" (ngSubmit)='addThisBook(newBookForm)'>
+
   <div>
     <label>Title:
       <input #bookTitle (ngModel)="book.title" name="title" />
@@ -10,27 +20,41 @@
     </label>
     <br>
 
-    <legend class="left label" (ngModel)=book.read>Have I read it?</legend>
+    <legend #bookRead class="left label" (ngModel)=book.read>Have I read it?</legend>
     <fieldset>
       <div class="form-group button right">
         <div class="custom-control custom-radio custom-control-inline">
-          <input #bookRead id="read-yes" name="read" class="custom-control-input" type="radio">
+          <input id="read-yes" name="read" class="custom-control-input" type="radio">
           <label class="custom-control-label" for="read-yes">Yes</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-          <input #bookRead id="read-no" name="read" class="custom-control-input" type="radio">
+          <input id="read-no" name="read" class="custom-control-input" type="radio">
           <label class="custom-control-label" for="read-no">No</label>
         </div>
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <!-- <br>
     <label>Have I read it?
       <input #bookRead type="radio" [(ngModel)]="book.read" name="read" />
     </label>
     <br> -->
+<!--
+    <legend #bookOwnership class="left label" (ngModel)=book.ownership>Do I own it?</legend>
+    <fieldset>
+      <div class="form-group button right">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input id="ownership-yes" name="ownership" class="custom-control-input" type="radio">
+          <label class="custom-control-label" for="ownership-yes">Yes</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input id="ownership-no" name="ownership" class="custom-control-input" type="radio">
+          <label class="custom-control-label" for="ownership-no">No</label>
+        </div>
+      </div>
+    </fieldset>
 
-    <label>Do I own it?
+    <label>
       <input #bookOwnership (ngModel)="book.ownership" name="ownership" />
     </label>
 
@@ -52,16 +76,16 @@
 
     <label>LGBTQ+ theme(s)?
       <input #bookLgbtqTheme (ngModel)="book.lgbtq_theme" name="lgbtq-theme" />
-    </label>
+    </label> -->
 
 
 
 
     <!-- "testClick($event)" -->
-    <button name="newBookForm"> <!-- gets an object, but no values.-->
+    <!-- <button name="newBookForm" class="btn btn-primary"> //gets an object, but no values.
         Submit
     </button>
-    {{confirmation}}
+    {{confirmation}} -->
 
     <!-- (click) passes input value to add() and then clears the title input. This below button, paired with just "#newBookForm='ngForm'" in form, works temporarily but still isn't a full commit to a backend db. I think this may just be because the web api wasn't intended to actually connect to anything? I'm not sure. -->
     <!-- <button (click)="add(bookTitle.value, bookRating.value, bookRead.value, bookOwnership.value,
@@ -72,8 +96,8 @@
     </button> -->
 
 
-  </div>
-</form>
+  <!-- </div>
+</form> -->
 
 
 <!-- <form #newBookForm="ngForm" (ngSubmit)="onSubmit(newBookForm)">

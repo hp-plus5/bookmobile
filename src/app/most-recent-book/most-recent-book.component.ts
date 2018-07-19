@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Book, trackByBooks } from '../book';
+import { Book } from '../book';
 import { BookService } from '../book.service';
 
 @Component({
@@ -9,8 +9,6 @@ import { BookService } from '../book.service';
 })
 export class MostRecentBookComponent implements OnInit {
   books: Book[] = [];
-
-  // trackByBooks = trackByBooks;
 
   constructor(private bookService: BookService) {}
 

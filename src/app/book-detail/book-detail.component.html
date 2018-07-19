@@ -2,7 +2,8 @@
 <div class="card border-dark mb-3">
   <div class="card-header">AUTHOR NAME</div>
   <div class="card-body">
-    <form #bookDetail="ngForm" (ngSubmit)="save()">
+    <form #bookDetail="ngForm"> <!-- '(ngSubmit)="updateThisBook(bookDetail)"' used to be here. it meant that every time a button was pushed (even a cancel button, didn't matter
+      the type or anything), it would call on updateThisBook -->
       <div class="form-group">
         <label class="col-form-label" id="title" for="title" name="title">Title: </label>
         <input [(ngModel)]="book.title" id="title" name="title" class="form-control" placeholder="Book title" type="text">
@@ -51,11 +52,10 @@
               <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
                 <input [(ngModel)]=book.female_protagonist class="custom-control-input" name="female_protagonist" id="female-protagonist"
                   type="checkbox">
-                <label class="custom-control-label" for="female-protagonist" id="female-protagonist"  name="female_protagonist">Female protagonist</label>
+                <label class="custom-control-label" for="female-protagonist" id="female-protagonist" name="female_protagonist">Female protagonist</label>
               </div>
               <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
-                <input [(ngModel)]=book.female_role_model class="custom-control-input" name="female_role_model" id="female-role-model"
-                  type="checkbox">
+                <input [(ngModel)]=book.female_role_model class="custom-control-input" name="female_role_model" id="female-role-model" type="checkbox">
                 <label class="custom-control-label" for="female-role-model" id="female-role-model" name="female_role_model">Female role model</label>
               </div>
             </div>
@@ -63,8 +63,7 @@
           <fieldset>
             <div class="form-group right">
               <div class="custom-control custom-checkbox custom-control-inline">
-                <input [(ngModel)]=book.lgbtq_protagonist class="custom-control-input" name="lgbtq_protagonist" id="lgbtq_protagonist"
-                  type="checkbox">
+                <input [(ngModel)]=book.lgbtq_protagonist class="custom-control-input" name="lgbtq_protagonist" id="lgbtq_protagonist" type="checkbox">
                 <label class="custom-control-label" for="lgbtq_protagonist" id="lgbtq_protagonist" name="lgbtq_protagonist">LGBTQ protagonist</label>
               </div>
             </div>
@@ -76,22 +75,46 @@
       </div>
       <!-- wrapper -->
 
-        <label class="col-form-label" for="inputRating" id="inputRating" name="rating">Rating: </label>
-        <input [(ngModel)]=book.rating class="form-control" placeholder="Out of ten" name="rating" id="inputRating" type="text">
+      <label class="col-form-label" for="inputRating" id="inputRating" name="rating">Rating: </label>
+      <input [(ngModel)]=book.rating class="form-control" placeholder="Out of ten" name="rating" id="inputRating" type="text">
 
 
-        <div class="rating-border rating">
-          <div class="progress-bar progress-easy" role="progressbar" id="ratingDisplay" [attr.aria-valuenow]="book.rating" aria-valuemin="0"
-            aria-valuemax="10" [style.width]="(book.rating)*10+'%'">
-            {{book.rating}}
-          </div>
+      <div class="rating-border rating">
+        <div class="progress-bar progress-easy" role="progressbar" id="ratingDisplay" [attr.aria-valuenow]="book.rating" aria-valuemin="0"
+          aria-valuemax="10" [style.width]="(book.rating)*10+'%'">
+          {{book.rating}}
         </div>
-
-      <div class="form-inline">
-        <button (click)="save()" type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
-        <button (click)="goBack()" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
       </div>
 
+      <div class="form-inline">
+
+        <div *ngIf="urlCompareToBooks; else soloDetailsPage">
+
+          <!-- If submit is on the books page, I want it to save the data and rerender the book as a deselected book. -->
+          <button (click)="updateThisBook()" type="submit" class="btn btn-primary"
+            style="margin: 1em 0 0 1em;">Submit</button>
+<!-- I don't want to switch CSS class. I want to switch //components// if cancel OR if submit.
+Things I know about switching components:
+1. @Input from parent, a fresh getBook that covers up any changed information. How to do this within a re-render?
+2. Create a method doNotSaveBook(), which would take any data from the [changed class (dirty? something like that?)] and throw it away?
+3.
+-->
+
+
+          <!-- If cancel is on the books page, I want it to  rerender the book as a deselected book. -->
+          <!-- Attempted: '[class.selected]="this.selectedBook === book"'
+                          '' -->
+          <button [class.selected]="this.selectedBook === book" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
+          {{urlCompareToBooks}}
+        </div>
+
+        <ng-template #soloDetailsPage>
+          <button (click)="updateThisBook()" (click)="goBack(book)" type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
+          <!-- If cancel is on the books page, I want it to return to the previous view with no put or post. Can refresh. -->
+          <button  (click)="goBack(book)" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
+        </ng-template>
+
+      </div>
     </form>
   </div>
 </div>

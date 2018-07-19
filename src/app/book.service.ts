@@ -72,7 +72,7 @@ export class BookService {
   /** POST: add a new book to the server */
   addBook(book: Book): Observable<Book> {
     return this.http.post<Book>(this.booksUrl, book, httpOptions).pipe(
-      // tslint:disable-next-line:no-shadowed-variable (( it was just being annoying ))
+      // tslint:disable-next-line:no-shadowed-variable (( couldn't figure out how this was supposed to help. potential double init? ))
       tap((book: Book) => this.log(`added book w/ id=${book.id}`)),
       catchError(this.handleError<Book>('addBook'))
     );
@@ -118,7 +118,7 @@ export class BookService {
     };
   }
 
-  /** Log a HeroService message with the MessageService */
+  /** Log a BookService message with the MessageService */
   private log(message: string) {
     console.log('BookService: ' + message);
     // this is code Beth is writing to supplant a messageService method she doesn't want to use
