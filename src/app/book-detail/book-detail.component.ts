@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { Location, NgStyle } from '@angular/common';
 
 import { Book } from '../book';
 import { BookService } from '../book.service';
+import { UnselectedBookComponent } from '../unselected-book/unselected-book.component';
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail.component.html',
@@ -14,8 +15,8 @@ export class BookDetailComponent implements OnInit {
   // It's a security blanket specifically for when book-detail acts as a child (to books.component,
   // in this instance).
   books: Book[] = [];
-
-  selectedBook: Book;
+  @Output() cancel = new EventEmitter<any>();
+  // <any> is  a reference to the data we could potentially pass up to the parent component within the event emitter
 
   constructor(
     private bookService: BookService,
@@ -39,8 +40,9 @@ export class BookDetailComponent implements OnInit {
     this.bookService.getBook(id).subscribe(book => (this.book = book));
   }
 
-  deselect(book: Book): void {
-    this.selectedBook = book;
+  onCancel(mouseEvent: MouseEvent): void {
+    mouseEvent.stopPropagation();
+    this.cancel.emit();
   }
 
   goBack(): void {

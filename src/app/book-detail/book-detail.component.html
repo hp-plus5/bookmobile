@@ -19,7 +19,7 @@
               <div class="input-group mb-3">
                 <div class="custom-file">
                   <input class="custom-file-input" id="inputGroupFile02" type="file">
-                  <label class="custom-file-label" for="inputGroupFile02">Book cover file</label>
+                  <label class="custom-file-label" for="inputGroupFile02">Book cover image</label>
                 </div>
                 <div class="input-group-append">
                   <span class="input-group-text" id="">Upload</span>
@@ -34,18 +34,17 @@
         <div class="button-details">
           <legend class="left label">Have I read it?</legend>
           <fieldset>
-            <div class="form-group button right">
+            <div class="radio button right">
               <div class="custom-control custom-radio custom-control-inline">
-                <input id="read-yes" name="read" class="custom-control-input" type="radio">
+                <input id="read-yes" name="read" class="custom-control-input" [value]="book.read" ngModel type="radio">
                 <label class="custom-control-label" for="read-yes" name="read">Yes</label>
               </div>
               <div class="custom-control custom-radio custom-control-inline">
-                <input id="read-no" name="read" class="custom-control-input" type="radio">
+                <input id="read-no" name="read" class="custom-control-input" [value]="book.read" ngModel type="radio">
                 <label class="custom-control-label" for="read-no" name="read">No</label>
               </div>
             </div>
           </fieldset>
-
 
           <fieldset>
             <div class="form-group left">
@@ -88,8 +87,7 @@
 
       <div class="form-inline">
 
-        <div *ngIf="urlCompareToBooks; else soloDetailsPage">
-
+        <div *ngIf="urlCompareToBooks; else standaloneDetailsPage">
           <!-- If submit is on the books page, I want it to save the data and rerender the book as a deselected book. -->
           <button (click)="updateThisBook()" type="submit" class="btn btn-primary"
             style="margin: 1em 0 0 1em;">Submit</button>
@@ -99,19 +97,17 @@ Things I know about switching components:
 2. Create a method doNotSaveBook(), which would take any data from the [changed class (dirty? something like that?)] and throw it away?
 3.
 -->
-
-
           <!-- If cancel is on the books page, I want it to  rerender the book as a deselected book. -->
           <!-- Attempted: '[class.selected]="this.selectedBook === book"'
-                          '' -->
-          <button [class.selected]="this.selectedBook === book" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
-          {{urlCompareToBooks}}
+                          '[class.selected]="this.selectedBook === book"' alongside '(click)="deselect(book)"' -->
+          <button (click)="onCancel($event)" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
         </div>
 
-        <ng-template #soloDetailsPage>
+
+        <ng-template #standaloneDetailsPage>
           <button (click)="updateThisBook()" (click)="goBack(book)" type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
           <!-- If cancel is on the books page, I want it to return to the previous view with no put or post. Can refresh. -->
-          <button  (click)="goBack(book)" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
+          <button (click)="goBack(book)" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
         </ng-template>
 
       </div>
