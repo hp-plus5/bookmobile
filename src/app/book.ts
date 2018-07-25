@@ -3,17 +3,38 @@ export class Book {
   title: string;
   read: boolean; /* Radio button */
   ownership: boolean; /* Radio button */
-  female_protagonist: boolean; /* Checkmark */
-  female_role_model: boolean; /* Checkmark */
-  lgbtq_protagonist: boolean; /* Checkmark */
-  lgbtq_sidekick: boolean; /* Checkmark */
-  lgbtq_theme: boolean; /* Checkmark */
+  femaleProtagonist: boolean; /* Checkmark */
+  femaleRoleModel: boolean; /* Checkmark */
+  lgbtqProtagonist: boolean; /* Checkmark */
+  lgbtqSidekick: boolean; /* Checkmark */
+  lgbtqTheme: boolean; /* Checkmark */
   rating: number;
+  cover: string;
+
+  constructor(bookObject?: Book) {
+    /* the purpose of the structure below is to emphasize a negative case assumption rather than a "happy case" assumption.
+    This keeps your code from spiraling to the right and make it easier to read. the "real work" should be at the very end. */
+    if (!bookObject) {
+      return;
+    }
+    this.id = bookObject.id;
+    this.title = bookObject.title;
+    this.read = bookObject.read;
+    this.ownership = bookObject.ownership;
+    this.femaleProtagonist = bookObject.femaleProtagonist;
+    this.femaleRoleModel = bookObject.femaleRoleModel;
+    this.lgbtqProtagonist = bookObject.lgbtqProtagonist;
+    this.lgbtqSidekick = bookObject.lgbtqSidekick;
+    this.lgbtqTheme = bookObject.lgbtqTheme;
+    this.rating = bookObject.rating;
+    this.cover = bookObject.cover;
+  }
 
   isNew(): boolean {
     return this.id === 0;
   }
 }
+// trackByBooks allows me to iterate through my list of books within the "library" view
 
 export function trackByBooks(index: number, book: Book): number {
   return book.id;

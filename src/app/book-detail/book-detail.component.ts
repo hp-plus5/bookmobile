@@ -24,7 +24,7 @@ export class BookDetailComponent implements OnInit {
     private location: Location
   ) {}
 
-  urlCompareToBooks = this.location.isCurrentPathEqualTo('/books');
+  compareToBooksUrl = this.location.isCurrentPathEqualTo('/books');
 
   ngOnInit(): void {
     if (!this.book || this.book.isNew) {
@@ -40,9 +40,14 @@ export class BookDetailComponent implements OnInit {
     this.bookService.getBook(id).subscribe(book => (this.book = book));
   }
 
-  onCancel(mouseEvent: MouseEvent): void {
+  deSelectBook(mouseEvent: MouseEvent): void {
     mouseEvent.stopPropagation();
     this.cancel.emit();
+    // the stopPropogation command surfaces up to the immediate upper layer from where the event is triggered on the template,
+    // which is the ngForm. It tells the form to ignore the event. After that, .emit() is a direct line of communication to the
+    // parent component - in this case, books - which contains a method also called deSelectBook() that tells our event in
+    // book-detail.component.html to qualify the <app-books-detail> marked in books.component.html as "undefined", or in
+    // other words, #unselectedBook (see books.component.html's *ngIf - ng-template).
   }
 
   goBack(): void {

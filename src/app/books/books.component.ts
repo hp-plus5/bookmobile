@@ -28,7 +28,7 @@ export class BooksComponent implements OnInit {
     this.bookService.getBooks().subscribe(books => (this.books = books));
   }
 
-  onCancel(): void {
+  deSelectBook(): void {
     this.selectedBook = undefined;
   }
 }

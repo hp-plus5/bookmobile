@@ -21,14 +21,17 @@ import { InMemoryDataService } from './in-memory-data.service';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule,
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests. Then you'll end imports on "HttpClientModule".
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-      dataEncapsulation: false
-    })
+    HttpClientModule
+
+    // BELOW CODE: was used when I was reading my mock info out of in-memory-data.service
+
+    // HttpClientInMemoryWebApiModule,
+    // // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // // and returns simulated server responses.
+    // // Remove it when a real server is ready to receive requests. Then you'll end imports on "HttpClientModule".
+    // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+    //   dataEncapsulation: false
+    // })
   ],
   declarations: [
     AppComponent,

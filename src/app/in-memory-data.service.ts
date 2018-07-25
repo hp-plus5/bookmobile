@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
-@Injectable({
-  providedIn: 'root'
-})
+// @Injectable({
+// providedIn: 'root'
+// })
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const books = [
@@ -12,24 +12,26 @@ export class InMemoryDataService implements InMemoryDbService {
         title: 'Harry Potter and the Sorcerers Stone',
         read: true,
         ownership: true,
-        female_protagonist: false,
-        female_role_model: true,
-        lgbtq_protagonist: false,
-        lgbtq_sidekick: false,
-        lgbtq_theme: false,
-        rating: 10
+        femaleProtagonist: false,
+        femaleRoleModel: true,
+        lgbtqProtagonist: false,
+        lgbtqSidekick: false,
+        lgbtqTheme: false,
+        rating: 10,
+        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
       },
       {
         id: 2,
         title: 'Harry Potter and the Chamber of Secrets',
         read: true,
         ownership: true,
-        female_protagonist: true,
-        female_role_model: true,
-        lgbtq_protagonist: true,
-        lgbtq_sidekick: true,
-        lgbtq_theme: true,
-        rating: 7
+        femaleProtagonist: true,
+        femaleRoleModel: true,
+        lgbtqProtagonist: true,
+        lgbtqSidekick: true,
+        lgbtqTheme: true,
+        rating: 7,
+        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
       },
       {
         id: 3,
@@ -37,11 +39,12 @@ export class InMemoryDataService implements InMemoryDbService {
         read: true,
         ownership: true,
         female_protagonist: false,
-        female_role_model: true,
-        lgbtq_protagonist: false,
-        lgbtq_sidekick: false,
-        lgbtq_theme: false,
-        rating: 10
+        femaleRoleModel: true,
+        lgbtqProtagonist: false,
+        lgbtqSidekick: false,
+        lgbtqTheme: false,
+        rating: 10,
+        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
       },
       {
         id: 4,
@@ -49,11 +52,12 @@ export class InMemoryDataService implements InMemoryDbService {
         read: true,
         ownership: true,
         female_protagonist: false,
-        female_role_model: true,
-        lgbtq_protagonist: false,
-        lgbtq_sidekick: false,
-        lgbtq_theme: false,
-        rating: 7
+        femaleRoleModel: true,
+        lgbtqProtagonist: false,
+        lgbtqSidekick: false,
+        lgbtqTheme: false,
+        rating: 7,
+        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
       },
       {
         id: 5,
@@ -61,11 +65,12 @@ export class InMemoryDataService implements InMemoryDbService {
         read: true,
         ownership: true,
         female_protagonist: false,
-        female_role_model: true,
-        lgbtq_protagonist: false,
-        lgbtq_sidekick: false,
-        lgbtq_theme: false,
-        rating: 9
+        femaleRoleModel: true,
+        lgbtqProtagonist: false,
+        lgbtqSidekick: false,
+        lgbtqTheme: false,
+        rating: 9,
+        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
       },
       {
         id: 6,
@@ -73,11 +78,12 @@ export class InMemoryDataService implements InMemoryDbService {
         read: true,
         ownership: true,
         female_protagonist: false,
-        female_role_model: true,
-        lgbtq_protagonist: false,
-        lgbtq_sidekick: false,
-        lgbtq_theme: false,
-        rating: 9
+        femaleRoleModel: true,
+        lgbtqProtagonist: false,
+        lgbtqSidekick: false,
+        lgbtqTheme: false,
+        rating: 9,
+        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
       },
       {
         id: 7,
@@ -85,11 +91,12 @@ export class InMemoryDataService implements InMemoryDbService {
         read: true,
         ownership: true,
         female_protagonist: false,
-        female_role_model: true,
-        lgbtq_protagonist: false,
-        lgbtq_sidekick: false,
-        lgbtq_theme: false,
-        rating: 7
+        femaleRoleModel: true,
+        lgbtqProtagonist: false,
+        lgbtqSidekick: false,
+        lgbtqTheme: false,
+        rating: 7,
+        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
       },
       {
         id: 8,
@@ -97,10 +104,11 @@ export class InMemoryDataService implements InMemoryDbService {
         read: true,
         ownership: true,
         female_protagonist: false,
-        female_role_model: true,
-        lgbtq_protagonist: false,
-        lgbtq_sidekick: false,
-        lgbtq_theme: false
+        femaleRoleModel: true,
+        lgbtqProtagonist: false,
+        lgbtqSidekick: false,
+        lgbtqTheme: false,
+        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
       }
     ];
     return { books };

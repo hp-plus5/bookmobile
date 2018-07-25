@@ -13,7 +13,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class BookService {
-  private booksUrl = 'api/books';
+  // booksApiUrl was previous booksUrl and linked to "api/books", which allowed me to read mock data out of in-memory-data.service
+  private booksApiUrl = 'https://localhost:5001/api/books';
 
   constructor(private http: HttpClient) {}
 
@@ -27,15 +28,28 @@ export class BookService {
 
   // line 24's "Array<Book>" is the same as saying "Book[]"
   getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.booksUrl).pipe(
+    return this.http.get<Book[]>(this.booksApiUrl).pipe(
       tap(books => this.log(`fetched books`)),
+      // [ map(books) ] says "when in the future we see an event that happens to be an array of books being given to us, we're gonna do something with it".
+      // to get all of the json books (not necessarily interpreted as objects; methods are not parseable, see two lines below) and
+      // [ => ] with the fat arrow goes ahead and
+      // [ books.map(book) => ] maps (key, object) all of those json objects (from the API) into objects that have behavior (methods)
+      // *(( key = json book, value = new object Book. ))
+      // [ new Book(book) ] we went into our book class and gave it a constructor to take in a parameter of a bookObject
+      // to ensure that our json objects and our objects being changed in the duration of the app will be compatible.
+      // the overall goal here is to create another separate instance of a book so that we're not immediately
+      // reiterating over our old data copy of that book (the json). This means that our submit and cancel buttons on book-details
+      // will no longer be meaningless/ they'll actually be what saves or doesn't save our changed data.
+
+      // metaphor: sheets of paper with marks wrapped up in other sheets of paper (json) vs. books (objects you want to create and work with)
+      map(books => books.map(book => new Book(book))),
       catchError(this.handleError('getBooks', []))
     );
   }
 
   /** GET book by id. Return `undefined` when id not found */
   getBookNo404<Data>(id: number): Observable<Book> {
-    const url = `${this.booksUrl}/?id=${id}`;
+    const url = `${this.booksApiUrl}/?id=${id}`;
     return this.http.get<Book[]>(url).pipe(
       map(books => books[0]), // returns a {0|1} element array
       // tap(h => {
@@ -48,7 +62,7 @@ export class BookService {
 
   /** GET book by id. Will 404 if id not found */
   getBook(id: number): Observable<Book> {
-    const url = `${this.booksUrl}/${id}`;
+    const url = `${this.booksApiUrl}/${id}`;
     return this.http.get<Book>(url).pipe(
       tap(_ => this.log(`fetched book id=${id}`)),
       catchError(this.handleError<Book>(`getBook id=${id}`))
@@ -61,7 +75,7 @@ export class BookService {
       // if not search term, return empty book array.
       return of([]);
     }
-    return this.http.get<Book[]>(`${this.booksUrl}/?name=${term}`).pipe(
+    return this.http.get<Book[]>(`${this.booksApiUrl}/?name=${term}`).pipe(
       tap(_ => this.log(`found books matching "${term}"`)),
       catchError(this.handleError<Book[]>('searchBooks', []))
     );
@@ -69,19 +83,19 @@ export class BookService {
 
   ////// SAVE DATA //////
 
-  /** POST: add a new book to the server */
+  /** POST: add a new book to the database */
   addBook(book: Book): Observable<Book> {
-    return this.http.post<Book>(this.booksUrl, book, httpOptions).pipe(
+    return this.http.post<Book>(this.booksApiUrl, book, httpOptions).pipe(
       // tslint:disable-next-line:no-shadowed-variable (( couldn't figure out how this was supposed to help. potential double init? ))
       tap((book: Book) => this.log(`added book w/ id=${book.id}`)),
       catchError(this.handleError<Book>('addBook'))
     );
   }
 
-  /** DELETE: delete the book from the server */
+  /** DELETE: delete the book from the database */
   deleteBook(book: Book | number): Observable<Book> {
     const id = typeof book === 'number' ? book : book.id;
-    const url = `${this.booksUrl}/${id}`;
+    const url = `${this.booksApiUrl}/${id}`;
 
     return this.http.delete<Book>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted book id=${id}`)),
@@ -89,11 +103,11 @@ export class BookService {
     );
   }
 
-  /** PUT: update the book on the server */
-  // book.id is how the current web api knows which book to access. may need to write some SQL later for this same concept when
-  // data services switch over.
+  /** PUT: update the book on the database */
   updateBook(book: Book): Observable<any> {
-    return this.http.put(this.booksUrl, book, httpOptions).pipe(
+    // return of([]); <-- this was code I was using for while I had only a mock API via in-memory-data-service.
+
+    return this.http.put(this.booksApiUrl, book, httpOptions).pipe(
       tap(_ => this.log(`updated book id=${book.id}`)),
       catchError(this.handleError<any>('updateBook'))
     );
