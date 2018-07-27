@@ -9,9 +9,7 @@ import { BookService } from '../book.service';
 })
 export class BooksComponent implements OnInit {
   books: Book[] = [];
-
   selectedBook: Book;
-
   trackByBooks = trackByBooks;
 
   constructor(private bookService: BookService) {}
