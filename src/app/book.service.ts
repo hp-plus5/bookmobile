@@ -1,20 +1,32 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Book } from './book';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { SOURCE } from '../../node_modules/@angular/core/src/di/injector';
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
   // booksApiUrl was previous booksUrl and linked to "api/books", which allowed me to read mock data out of in-memory-data.service
   private booksApiUrl = 'https://localhost:5001/api/books';
+
+  // httpHeaders, given new httpClient syntax. All included/referenced automatically because of, I suspect, the constructor
+  private _headers = {
+    headers: new HttpHeaders().set('Content-Type', 'application/json')
+  };
+  // These HTTP headers below prevent CORS warnings in my browsers. These are also needed on any APIs I call on/on the server
+  private _headers_access = {
+    headers: new HttpHeaders().set('Access-Control-Allow-Origin', '*')
+  };
+  private _headers_auth = {
+    headers: new HttpHeaders().set('Authorization', 'authkey')
+  };
+  private _headers_userid = {
+    headers: new HttpHeaders().set('userid', '1')
+  };
 
   constructor(private http: HttpClient) {}
 
@@ -26,7 +38,7 @@ export class BookService {
   // return of(BOOKS); <-- this line is for when you just have mocked data in a .ts file somewhere instead of
   // accessing it via HttpClient. You'd import it as { BOOKS } from 'app/mock-data.ts'
 
-  // line 24's "Array<Book>" is the same as saying "Book[]"
+  // "Array<Book>" is the same as saying "Book[]"
   getBooks(): Observable<Book[]> {
     return this.http.get<Book[]>(this.booksApiUrl).pipe(
       tap(books => this.log(`fetched books`)),
@@ -56,16 +68,16 @@ export class BookService {
       // const outcome = h ? `fetched` : `did not find`;
       // this.log(`${outcome} book id=${id}`); <-- for if I implemented MessageService from tutorial.
       // }),
-      catchError(this.handleError<Book>(`getBook id=${id}`))
+      catchError(this.handleError<Book>(`getBookById id=${id}`))
     );
   }
 
   /** GET book by id. Will 404 if id not found */
-  getBook(id: number): Observable<Book> {
+  getBookById(id: number): Observable<Book> {
     const url = `${this.booksApiUrl}/${id}`;
     return this.http.get<Book>(url).pipe(
       tap(_ => this.log(`fetched book id=${id}`)),
-      catchError(this.handleError<Book>(`getBook id=${id}`))
+      catchError(this.handleError<Book>(`getBookById id=${id}`))
     );
   }
 
@@ -85,7 +97,7 @@ export class BookService {
 
   /** POST: add a new book to the database */
   addBook(book: Book): Observable<Book> {
-    return this.http.post<Book>(this.booksApiUrl, book, httpOptions).pipe(
+    return this.http.post<Book>(this.booksApiUrl, book).pipe(
       // tslint:disable-next-line:no-shadowed-variable (( couldn't figure out how this was supposed to help. potential double init? ))
       tap((book: Book) => this.log(`added book w/ id=${book.id}`)),
       catchError(this.handleError<Book>('addBook'))
@@ -97,7 +109,7 @@ export class BookService {
     const id = typeof book === 'number' ? book : book.id;
     const url = `${this.booksApiUrl}/${id}`;
 
-    return this.http.delete<Book>(url, httpOptions).pipe(
+    return this.http.delete<Book>(url).pipe(
       tap(_ => this.log(`deleted book id=${id}`)),
       catchError(this.handleError<Book>('deleteBook'))
     );
@@ -107,7 +119,7 @@ export class BookService {
   updateBook(book: Book): Observable<any> {
     // return of([]); <-- this was code I was using for while I had only a mock API via in-memory-data-service.
 
-    return this.http.put(this.booksApiUrl, book, httpOptions).pipe(
+    return this.http.put(this.booksApiUrl, book).pipe(
       tap(_ => this.log(`updated book id=${book.id}`)),
       catchError(this.handleError<any>('updateBook'))
     );
@@ -122,7 +134,7 @@ export class BookService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      console.error(error + operation); // log to console instead
 
       // TODO: better job of transforming error for user consumption
       this.log(`${operation} failed: ${error.message}`);
@@ -135,6 +147,6 @@ export class BookService {
   /** Log a BookService message with the MessageService */
   private log(message: string) {
     console.log('BookService: ' + message);
-    // this is code Beth is writing to supplant a messageService method she doesn't want to use
+    // this is code Beth is writing to supplant a messageService she doesn't want to use
   }
 }

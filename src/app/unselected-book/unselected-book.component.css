@@ -1,5 +1,6 @@
 .wrapper {
   display: grid;
+    /* autoprefixer: off */
   grid-template-columns: 20% 75% 5%;
   grid-gap: 15px;
   grid-template-areas: 'cover info';
@@ -9,6 +10,7 @@
 }
 .info {
   grid-area: 'info';
+    /* autoprefixer: off */
   grid-template-areas:
       'question-left-column answer-left-column question-right-column answer-right-column';
   grid-template-columns: repeat(4, 1fr);
