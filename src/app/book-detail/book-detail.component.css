@@ -1,5 +1,6 @@
 .wrapper-for-details {
   display: grid;
+  /* autoprefixer: off */
   grid-template-columns: 30% 70%;
   grid-gap: 15px;
   grid-template-areas: 'open-fields buttons';
@@ -8,12 +9,13 @@
   grid-area: 'open-fields';
 }
 .button-details {
+  display: grid;
+    /* autoprefixer: off */ /* removing that comment pops errors from the CLI's autoprefixer*/
   grid-area: 'buttons';
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
         'left right';
   grid-column-gap: 2em;
-  display: grid;
 }
 .left-column {
   grid-area: 'left';

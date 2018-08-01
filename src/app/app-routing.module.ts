@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { BooksComponent } from './books/books.component';
 import { MostRecentBookComponent } from './most-recent-book/most-recent-book.component';
-// import { SelectedBookComponent } from './selected-book/selected-book.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { NewBookComponent } from './new-book/new-book.component';
 

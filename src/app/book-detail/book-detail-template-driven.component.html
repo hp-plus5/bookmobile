@@ -2,24 +2,24 @@
 <div class="card border-dark mb-3">
   <div class="card-header">AUTHOR NAME</div>
   <div class="card-body">
-    <form #bookDetail="ngForm"> <!-- '(ngSubmit)="updateThisBook(bookDetail)"' used to be here. it meant that every time a button was pushed (even a cancel button, didn't matter
-      the type or anything), it would call on updateThisBook -->
-      <div class="form-group">
-        <label class="col-form-label" id="title" for="title" name="title">Title: </label>
-        <input [(ngModel)]="book.title" id="title" name="title" class="form-control" placeholder="Book title" type="text">
+    <div>
+      <div>
+        <label class="col-form-label" id="title" for="title">Title: </label>
+        <input [(ngModel)]="book.title" ngDefaultControl name="title" id="title" class="form-control" placeholder="Book title" type="text">
       </div>
-
-
+<!-- ngDefaultControl: https://stackoverflow.com/questions/46465891/what-is-ngdefaultcontrol-in-angular
+        https://blog.angularindepth.com/never-again-be-confused-when-implementing-controlvalueaccessor-in-angular-forms-93b9eee9ee83
+ -->
       <div class="wrapper-for-details card-text">
         <div class="fields">
-            <img alt="Book Cover" width="200" [(ngModel)]=book.cover >
+            <img alt="Book Cover" width="200" [ngModel]="book.cover" ngDefaultControl>
 
           <fieldset>
-            <div class="form-group">
+            <div>
               <div class="input-group mb-3">
                 <div class="custom-file">
-                  <input class="custom-file-input" id="inputGroupFile02" type="file">
-                  <label class="custom-file-label" for="inputGroupFile02" name="book-cover-upload">Book cover image</label>
+                  <input class="custom-file-input" (ngModel)="book.cover" ngDefaultControl id="inputGroupFile02" type="file" name="book-cover">
+                  <label class="custom-file-label" for="inputGroupFile02" name="book-cover">Book cover image</label>
                 </div>
                 <div class="input-group-append">
                   <span class="input-group-text" id="">Upload</span>
@@ -32,37 +32,37 @@
         <!-- fields -->
 
         <div class="button-details">
-          <legend class="left label">Have I read it?</legend>
+          <legend class="left label" name="read">Have I read it?</legend>
           <fieldset>
             <div class="radio button right">
               <div class="custom-control custom-radio custom-control-inline">
-                <input id="read-yes" name="read" class="custom-control-input" [value]="book.read" ngModel type="radio">
+                <input id="read-yes" name="read" class="custom-control-input" [value]="book.read" ngModel ngDefaultControl type="radio">
                 <label class="custom-control-label" for="read-yes" name="read">Yes</label>
               </div>
               <div class="custom-control custom-radio custom-control-inline">
-                <input id="read-no" name="read" class="custom-control-input" [value]="book.read" ngModel type="radio">
+                <input id="read-no" name="read" class="custom-control-input" [value]="book.read" ngModel ngDefaultControl type="radio">
                 <label class="custom-control-label" for="read-no" name="read">No</label>
               </div>
             </div>
           </fieldset>
 
           <fieldset>
-            <div class="form-group left">
+            <div class="left">
               <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
-                <input [(ngModel)]="book.femaleProtagonist" class="custom-control-input" name="femaleProtagonist" id="femaleProtagonist"
+                <input [(ngModel)]="book.femaleProtagonist" ngDefaultControl class="custom-control-input" name="femaleProtagonist" id="femaleProtagonist"
                   type="checkbox">
                 <label class="custom-control-label" for="femaleProtagonist" id="femaleProtagonist" name="femaleProtagonist">Female protagonist</label>
               </div>
               <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
-                <input [(ngModel)]="book.femaleRoleModel" class="custom-control-input" name="femaleRoleModel" id="femaleRoleModel" type="checkbox">
+                <input [(ngModel)]="book.femaleRoleModel" ngDefaultControl class="custom-control-input" name="femaleRoleModel" id="femaleRoleModel" type="checkbox">
                 <label class="custom-control-label" for="femaleRoleModel" id="femaleRoleModel" name="femaleRoleModel">Female role model</label>
               </div>
             </div>
           </fieldset>
           <fieldset>
-            <div class="form-group right">
+            <div class="right">
               <div class="custom-control custom-checkbox custom-control-inline">
-                <input [(ngModel)]="book.lgbtqProtagonist" class="custom-control-input" name="lgbtq_protagonist" id="lgbtq_protagonist" type="checkbox">
+                <input [(ngModel)]="book.lgbtqProtagonist" ngDefaultControl class="custom-control-input" name="lgbtq_protagonist" id="lgbtq_protagonist" type="checkbox">
                 <label class="custom-control-label" for="lgbtq_protagonist" id="lgbtq_protagonist" name="lgbtq_protagonist">LGBTQ protagonist</label>
               </div>
             </div>
@@ -73,7 +73,7 @@
       <!-- wrapper -->
 
       <label class="col-form-label" for="inputRating" id="inputRating" name="rating">Rating: </label>
-      <input [(ngModel)]=book.rating class="form-control" placeholder="Out of ten" name="rating" id="inputRating" type="text">
+      <input [(ngModel)]="book.rating" ngDefaultControl class="form-control" placeholder="Out of ten" name="rating" id="inputRating" type="text">
 
 
       <div class="rating-border rating">
@@ -83,21 +83,21 @@
         </div>
       </div>
 
-      <div class="form-inline">
+      <div>
         <div *ngIf="compareToBooksUrl; else standaloneDetailsPage">
 
           <!-- If submit is on the books page, I want it to save the data and rerender the book as a deselected book. -->
-          <button (click)="updateThisBook()" (click)="deSelectBook($event)" type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
+          <button (click)="updateThisBook(book)" (click)="deSelectBook($event)" type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
           <!-- If cancel is on the books page, I want it to  rerender the book as a deselected book. -->
           <!-- PROBLEM: this still saves data with the mock-api. -->
           <button (click)="deSelectBook($event)" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
         </div>
 
         <ng-template #standaloneDetailsPage>
-          <button (click)="updateThisBook()" (click)="goBack(book)" type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
+          <button (click)="updateThisBook($event)" (click)="goBack(book)" type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
           <button (click)="goBack(book)" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
         </ng-template>
       </div>
-    </form>
+    </div> <!-- FORMerly -->
   </div>
 </div>
