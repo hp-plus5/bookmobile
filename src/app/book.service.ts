@@ -10,23 +10,36 @@ import { SOURCE } from '../../node_modules/@angular/core/src/di/injector';
   providedIn: 'root'
 })
 export class BookService {
+  // httpHeaders, given "old" httpClient syntax. All included/referenced automatically because of, I suspect, the constructor
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      Authorization: 'authkey',
+      userid: '1'
+    }),
+    params: new HttpParams({
+      fromString: 'value'
+    })
+  };
+  // httpHeaders, below, given "new" httpClient syntax (which one doesn't seem able to call on more than one at a time)
+
+  // private _headers = {
+  //   headers: new HttpHeaders().set('Content-Type', 'application/json')
+  // };
+  // // These HTTP headers below prevent CORS warnings in my browsers. These are also needed on any APIs I call on/on the server
+  // private _headers_access = {
+  //   headers: new HttpHeaders().set('Access-Control-Allow-Origin', '*')
+  // };
+  // private _headers_auth = {
+  //   headers: new HttpHeaders().set('Authorization', 'authkey')
+  // };
+  // private _headers_userid = {
+  //   headers: new HttpHeaders().set('userid', '1')
+  // };
+
   // booksApiUrl was previous booksUrl and linked to "api/books", which allowed me to read mock data out of in-memory-data.service
   private booksApiUrl = 'https://localhost:5001/api/books';
-
-  // httpHeaders, given new httpClient syntax. All included/referenced automatically because of, I suspect, the constructor
-  private _headers = {
-    headers: new HttpHeaders().set('Content-Type', 'application/json')
-  };
-  // These HTTP headers below prevent CORS warnings in my browsers. These are also needed on any APIs I call on/on the server
-  private _headers_access = {
-    headers: new HttpHeaders().set('Access-Control-Allow-Origin', '*')
-  };
-  private _headers_auth = {
-    headers: new HttpHeaders().set('Authorization', 'authkey')
-  };
-  private _headers_userid = {
-    headers: new HttpHeaders().set('userid', '1')
-  };
 
   constructor(private http: HttpClient) {}
 
@@ -40,7 +53,7 @@ export class BookService {
 
   // "Array<Book>" is the same as saying "Book[]"
   getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.booksApiUrl).pipe(
+    return this.http.get<Book[]>(this.booksApiUrl, this.httpOptions).pipe(
       tap(books => this.log(`fetched books`)),
       // [ map(books) ] says "when in the future we see an event that happens to be an array of books being given to us, we're gonna do something with it".
       // to get all of the json books (not necessarily interpreted as objects; methods are not parseable, see two lines below) and
@@ -62,7 +75,7 @@ export class BookService {
   /** GET book by id. Return `undefined` when id not found */
   getBookNo404<Data>(id: number): Observable<Book> {
     const url = `${this.booksApiUrl}/?id=${id}`;
-    return this.http.get<Book[]>(url).pipe(
+    return this.http.get<Book[]>(url, this.httpOptions).pipe(
       map(books => books[0]), // returns a {0|1} element array
       // tap(h => {
       // const outcome = h ? `fetched` : `did not find`;
@@ -75,7 +88,7 @@ export class BookService {
   /** GET book by id. Will 404 if id not found */
   getBookById(id: number): Observable<Book> {
     const url = `${this.booksApiUrl}/${id}`;
-    return this.http.get<Book>(url).pipe(
+    return this.http.get<Book>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched book id=${id}`)),
       catchError(this.handleError<Book>(`getBookById id=${id}`))
     );
@@ -97,7 +110,7 @@ export class BookService {
 
   /** POST: add a new book to the database */
   addBook(book: Book): Observable<Book> {
-    return this.http.post<Book>(this.booksApiUrl, book).pipe(
+    return this.http.post<Book>(this.booksApiUrl, book, this.httpOptions).pipe(
       // tslint:disable-next-line:no-shadowed-variable (( couldn't figure out how this was supposed to help. potential double init? ))
       tap((book: Book) => this.log(`added book w/ id=${book.id}`)),
       catchError(this.handleError<Book>('addBook'))
@@ -109,7 +122,7 @@ export class BookService {
     const id = typeof book === 'number' ? book : book.id;
     const url = `${this.booksApiUrl}/${id}`;
 
-    return this.http.delete<Book>(url).pipe(
+    return this.http.delete<Book>(url, this.httpOptions).pipe(
       tap(_ => this.log(`deleted book id=${id}`)),
       catchError(this.handleError<Book>('deleteBook'))
     );
@@ -119,7 +132,7 @@ export class BookService {
   updateBook(book: Book): Observable<any> {
     // return of([]); <-- this was code I was using for while I had only a mock API via in-memory-data-service.
 
-    return this.http.put(this.booksApiUrl, book).pipe(
+    return this.http.put(this.booksApiUrl, book, this.httpOptions).pipe(
       tap(_ => this.log(`updated book id=${book.id}`)),
       catchError(this.handleError<any>('updateBook'))
     );

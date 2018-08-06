@@ -31,15 +31,15 @@
         <!-- fields -->
 
         <div class="button-details">
-          <legend class="left label" name="read">Have I read it?</legend>
+          <legend class="left label" formControlName="food" name="read">Have I read it?</legend>
           <fieldset>
             <div class="radio button right">
               <div class="custom-control custom-radio custom-control-inline">
-                <input id="read-yes" name="read" class="custom-control-input" [value]="book.read" ngModel ngDefaultControl type="radio">
+                <input id="read-yes" formControlName="food" name="read" class="custom-control-input" [value]="book.read" ngModel ngDefaultControl type="radio">
                 <label class="custom-control-label" for="read-yes" name="read">Yes</label>
               </div>
               <div class="custom-control custom-radio custom-control-inline">
-                <input id="read-no" name="read" class="custom-control-input" [value]="book.read" ngModel ngDefaultControl type="radio">
+                <input id="read-no" formControlName="food" name="read" class="custom-control-input" [value]="book.read" ngModel ngDefaultControl type="radio">
                 <label class="custom-control-label" for="read-no" name="read">No</label>
               </div>
             </div>

@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { Location, NgStyle } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { Book } from '../book';
 import { BookService } from '../book.service';
-import { UnselectedBookComponent } from '../unselected-book/unselected-book.component';
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail-template-driven.component.html',
@@ -15,7 +15,6 @@ export class BookDetailComponent implements OnInit {
   // It's a security blanket specifically for when book-detail acts as a child (to books.component, in this instance).
   books: Book[] = [];
   @Output() cancel = new EventEmitter<any>();
-  // <any> is  a reference to the data we could potentially pass up to the parent component within the event emitter
 
   constructor(
     private bookService: BookService,
@@ -26,11 +25,16 @@ export class BookDetailComponent implements OnInit {
   compareToBooksUrl = this.location.isCurrentPathEqualTo('/books');
 
   ngOnInit(): void {
-    if (!this.book || this.book.isNew) {
-      this.getBookByIdThroughParent(); // this if statement and getBookById() call is for when book-detail is used in most-recent.component, because
-      // most-recent passes in the information/iteration/(which book it wants) via passing the info in the URL rather than through inheritance.
+    if (!this.book || this.book.isNew()) {
+      // This seems to just go through no matter what. I don't understand the logic.
+      this.getBookById();
+      console.log(this.book + 'ngOnInit: id came through byId');
+    } else {
+      this.getBookByIdThroughParent(this.book.id);
+      console.log(
+        this.book + 'ngOnInit: id came through parent component (books)'
+      );
     }
-    console.log(this.book); // this is helpful/used when book-detail gets its information/iteration from a parent.
   }
 
   getBookById(): void {
@@ -39,8 +43,7 @@ export class BookDetailComponent implements OnInit {
     this.bookService.getBookById(id).subscribe(book => (this.book = book));
   }
 
-  getBookByIdThroughParent(): void {
-    // const id = this.book.id;
+  getBookByIdThroughParent(id: number): void {
     this.bookService
       .getBookById(this.book.id)
       .subscribe(book => (this.book = book));
