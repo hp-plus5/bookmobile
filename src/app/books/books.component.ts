@@ -28,5 +28,6 @@ export class BooksComponent implements OnInit {
 
   deSelectBook(): void {
     this.selectedBook = undefined;
+    this.getBooks(); // this method is used only when done with an httpPut (or a cancel), so calling getBooks() effectively refreshes our data to see our updated book.
   }
 }
