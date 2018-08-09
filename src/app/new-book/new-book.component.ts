@@ -13,50 +13,14 @@ import { ActivatedRoute } from '../../../node_modules/@angular/router';
 export class NewBookComponent implements OnInit {
   @Input() book: Book;
   books: Book[] = [];
-  confirmation = ':(';
-
   constructor(
     private bookService: BookService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    console.log(this.book);
+    console.log('new-book ngOnInit');
   }
-
-  //   add(
-  //     title: string,
-  //     rating: number,
-  //     read: boolean,
-  //     ownership: boolean,
-  //     female_protagonist: boolean,
-  //     female_role_model: boolean,
-  //     lgbtq_protagonist: boolean,
-  //     lgbtq_sidekick: boolean,
-  //     lgbtq_theme: boolean
-  //   ): void {
-  //     this.bookService
-  //       .addBook({
-  //         title,
-  //         rating,
-  //         read,
-  //         ownership,
-  //         female_protagonist,
-  //         female_role_model,
-  //         lgbtq_protagonist,
-  //         lgbtq_sidekick,
-  //         lgbtq_theme
-  //       } as Book)
-  //       .subscribe(book => {
-  //         this.books.push(book);
-  //       });
-  //     this.confirmation = 'It got here';
-  //   }
-
-  testClick(event) {
-    this.confirmation = 'Testing click successful';
-  }
-
   addThisBook(): void {
     this.bookService.addBook(this.book).subscribe(() => this.route);
   }

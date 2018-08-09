@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Book } from './book';
 import { SOURCE } from '../../node_modules/@angular/core/src/di/injector';
+import { PromiseState } from '../../node_modules/@types/q';
 @Injectable({
   providedIn: 'root'
 })
@@ -118,25 +119,34 @@ export class BookService {
   }
 
   /** DELETE: delete the book from the database */
-  deleteBook(book: Book | number): Observable<Book> {
+  deleteBook(book: Book | number): Observable<any> {
+    /** Previously, 8/8 4:30pm deleteBook(book: Book | number): Observable<Book> */
     const id = typeof book === 'number' ? book : book.id;
     const url = `${this.booksApiUrl}/${id}`;
 
     return this.http.delete<Book>(url, this.httpOptions).pipe(
       tap(_ => this.log(`deleted book id=${id}`)),
+      // call on a modal service to confirm to the user that they deleted the book?,
       catchError(this.handleError<Book>('deleteBook'))
     );
   }
 
   /** PUT: update the book on the database */
   updateBook(book: Book): Observable<any> {
+    const id = typeof book === 'number' ? book : book.id;
+    const url = `${this.booksApiUrl}/${id}`;
     // return of([]); <-- this was code I was using for while I had only a mock API via in-memory-data-service.
-
-    return this.http.put(this.booksApiUrl, book, this.httpOptions).pipe(
+    // isNew;
+    return this.http.put(url, book, this.httpOptions).pipe(
       tap(_ => this.log(`updated book id=${book.id}`)),
       catchError(this.handleError<any>('updateBook'))
     );
   }
+
+  // /** MODAL POPUPS */
+  // successfullyChanged(): PromiseState<T> {
+  //    ;
+  // }
 
   /**
    * Handle Http operation that failed.
