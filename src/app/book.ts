@@ -34,12 +34,11 @@ export class Book {
     return this.id === 0;
   }
 }
-// trackByBooks allows me to iterate through my list of books within the "library" view
 
+// trackByBooks allows me to iterate through my list of books within the "library" view
 export function trackByBooks(index: number, book: Book): number {
   return book.id;
 }
-
 /* Association tables needed:
 Form fields:
   book_author

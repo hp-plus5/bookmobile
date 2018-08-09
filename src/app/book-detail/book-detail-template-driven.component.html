@@ -1,105 +1,108 @@
-<p>You got to the book detail page!</p>
-<div class="card border-dark mb-3">
+<div class="card border-dark mb-3" style="margin-top: 1em;">
   <div class="card-header">AUTHOR NAME</div>
   <div class="card-body">
-    <div>
-      <div>
+    <form #detailForm="ngForm" (ngSubmit)="updateThisBook(detailForm)">
+      <div class="form-group">
         <label class="col-form-label" for="title">Title: </label>
         <input [(ngModel)]="book.title" name="title" id="title" class="form-control" placeholder="Book title" type="text">
 
-        <!-- <input [value]="book.title" (ngModelChange)="updateThisBook($event)" [(ngModel)]="book.title"  name="title" id="title" class="form-control" placeholder="Book title" type="text"> -->
-      </div>
-<!-- : https://stackoverflow.com/questions/46465891/what-is-in-angular
-        https://blog.angularindepth.com/never-again-be-confused-when-implementing-controlvalueaccessor-in-angular-forms-93b9eee9ee83
- -->
-      <div class="wrapper-for-details card-text">
-        <div class="fields">
+        <!--[value]="book.title" (ngModelChange)="updateThisBook($event)" is effectively the same as [(ngModel)]="book.title" -->
+        <!-- : https://stackoverflow.com/questions/46465891/what-is-in-angular
+        https://blog.angularindepth.com/never-again-be-confused-when-implementing-controlvalueaccessor-in-angular-forms-93b9eee9ee83 -->
+        <div class="wrapper-for-details card-text">
+          <div class="fields">
             <img alt="Book Cover" width="200" [src]="book.cover">
 
-          <fieldset>
-            <div>
-              <div class="input-group mb-3">
+            <fieldset>
+              <div class="form-group">
                 <div class="custom-file">
-                  <input class="custom-file-input" (ngModel)="book.cover" id="inputGroupFile02" type="file" name="book-cover">
-                  <label class="custom-file-label" for="inputGroupFile02" name="book-cover">Book cover image</label>
+                  <div class="input-group mb-3">
+                    <input class="custom-file-input" (ngModel)="book.cover" id="inputGroupFile02" type="file" name="book-cover">
+                    <label class="custom-file-label" for="inputGroupFile02" name="book-cover">Book cover image</label>
+                  </div>
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="">Upload</span>
+                  </div>
                 </div>
-                <div class="input-group-append">
-                  <span class="input-group-text" id="">Upload</span>
+              </div>
+            </fieldset>
+
+          </div>
+          <!-- fields -->
+
+          <div class="form-group button-details">
+            <legend class="left label">Have I read it?</legend>
+            <fieldset>
+              <div class="radio button right">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="read-yes" name="read" value="true" class="custom-control-input" [(ngModel)]="book.read">
+                  <label class="custom-control-label" for="read-yes">Yes</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="read-no" name="read" value="false" class="custom-control-input" [(ngModel)]="book.read">
+                  <label class="custom-control-label" for="read-no">No</label>
                 </div>
               </div>
-            </div>
-          </fieldset>
+            </fieldset>
 
+            <fieldset>
+              <div class="left">
+                <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
+                  <input [(ngModel)]="book.femaleProtagonist" class="custom-control-input" name="femaleProtagonist" id="femaleProtagonist" type="checkbox">
+                  <label class="custom-control-label" for="femaleProtagonist" id="femaleProtagonist" name="femaleProtagonist">Female protagonist</label>
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
+                  <input [(ngModel)]="book.femaleRoleModel" class="custom-control-input" name="femaleRoleModel" id="femaleRoleModel" type="checkbox">
+                  <label class="custom-control-label" for="femaleRoleModel" id="femaleRoleModel" name="femaleRoleModel">Female role model</label>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="right">
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input [(ngModel)]="book.lgbtqProtagonist" class="custom-control-input" name="lgbtq_protagonist" id="lgbtq_protagonist" type="checkbox">
+                  <label class="custom-control-label" for="lgbtq_protagonist" id="lgbtq_protagonist" name="lgbtq_protagonist">LGBTQ protagonist</label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <!-- button-details -->
         </div>
-        <!-- fields -->
+        <!-- wrapper -->
+        <div class="form-group">
+          <label class="col-form-label" for="inputRating" id="inputRating" name="rating">Rating: </label>
+          <input [(ngModel)]="book.rating" class="form-control" placeholder="Out of ten" name="rating" id="inputRating" type="text">
 
-        <div class="button-details">
-          <legend class="left label" name="read">Have I read it?</legend>
-          <fieldset>
-            <div class="radio button right">
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="read-yes" name="read" class="custom-control-input" [(ngModel)]="book.read" >
-                <label class="custom-control-label" for="read-yes">Yes</label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="read-no" name="read" class="custom-control-input" [(ngModel)]="book.read" >
-                <label class="custom-control-label" for="read-no">No</label>
-              </div>
-            </div>
-          </fieldset>
 
-          <fieldset>
-            <div class="left">
-              <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
-                <input [(value)]="book.femaleProtagonist"  class="custom-control-input" name="femaleProtagonist" id="femaleProtagonist"
-                  type="checkbox">
-                <label class="custom-control-label" for="femaleProtagonist" id="femaleProtagonist" name="femaleProtagonist">Female protagonist</label>
-              </div>
-              <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
-                <input [(ngModel)]="book.femaleRoleModel"  class="custom-control-input" name="femaleRoleModel" id="femaleRoleModel" type="checkbox">
-                <label class="custom-control-label" for="femaleRoleModel" id="femaleRoleModel" name="femaleRoleModel">Female role model</label>
-              </div>
+          <div class="rating-border rating">
+            <div class="progress-bar progress-easy" role="progressbar" id="ratingDisplay" [attr.aria-valuenow]="book.rating" aria-valuemin="0"
+              aria-valuemax="10" [style.width]="(book.rating)*10+'%'">
+              {{book.rating}}
             </div>
-          </fieldset>
-          <fieldset>
-            <div class="right">
-              <div class="custom-control custom-checkbox custom-control-inline">
-                <input [(ngModel)]="book.lgbtqProtagonist"  class="custom-control-input" name="lgbtq_protagonist" id="lgbtq_protagonist" type="checkbox">
-                <label class="custom-control-label" for="lgbtq_protagonist" id="lgbtq_protagonist" name="lgbtq_protagonist">LGBTQ protagonist</label>
-              </div>
-            </div>
-          </fieldset>
+          </div>
         </div>
-        <!-- button-details -->
+        <div class="form-group">
+          <span style="display: inline-grid; display: block">
+            <span *ngIf="compareToBooksUrl; else standaloneDetailsPage" style="float: left;">
+
+              <!-- If submit is on the books page, I want it to save the data and rerender the book as a deselected book. -->
+              <button type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
+              <!-- If cancel is on the books page, I want it to  rerender the book as a deselected book. -->
+              <!-- PROBLEM: this still saves data with the mock-api. -->
+              <button (click)="deSelectBook($event)" class="btn btn-primary" type="button" style="margin: 1em 0 0 1em;">Cancel</button>
+            </span>
+
+            <ng-template #standaloneDetailsPage style="float: left;">
+              <button type="submit" (click)="goBack(book)" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
+              <button (click)="goBack(book)" class="btn btn-primary" type="button" style="margin: 1em 0 0 1em;">Cancel</button>
+            </ng-template>
+
+            <span style="float: right;">
+              <button (click)="deleteThisBook(detailForm)" class="btn btn-secondary" type="button" style="margin: 1em 0 0 1em; margin-right: 1em;">Delete</button>
+            </span>
+          </span>
+        </div>
       </div>
-      <!-- wrapper -->
-
-      <label class="col-form-label" for="inputRating" id="inputRating" name="rating">Rating: </label>
-      <input [(ngModel)]="book.rating"  class="form-control" placeholder="Out of ten" name="rating" id="inputRating" type="text">
-
-
-      <div class="rating-border rating">
-        <div class="progress-bar progress-easy" role="progressbar" id="ratingDisplay" [attr.aria-valuenow]="book.rating" aria-valuemin="0"
-          aria-valuemax="10" [style.width]="(book.rating)*10+'%'">
-          {{book.rating}}
-        </div>
-      </div>
-
-      <div>
-        <div *ngIf="compareToBooksUrl; else standaloneDetailsPage">
-
-          <!-- If submit is on the books page, I want it to save the data and rerender the book as a deselected book. -->
-          <button (click)="updateThisBook(book)" (click)="deSelectBook($event)" type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
-          <!-- If cancel is on the books page, I want it to  rerender the book as a deselected book. -->
-          <!-- PROBLEM: this still saves data with the mock-api. -->
-          <button (click)="deSelectBook($event)" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
-        </div>
-
-        <ng-template #standaloneDetailsPage>
-          <button (click)="updateThisBook($event)" (click)="goBack(book)" type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
-          <button (click)="goBack(book)" class="btn btn-primary" style="margin: 1em 0 0 1em;">Cancel</button>
-        </ng-template>
-      </div>
-    </div> <!-- FORMerly -->
+    </form>
   </div>
 </div>
