@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Book } from '../book';
-import { BookService } from '../book.service';
+import { BookService } from '../_services/book.service';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-book',

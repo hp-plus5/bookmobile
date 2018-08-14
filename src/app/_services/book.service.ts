@@ -4,9 +4,9 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Book } from './book';
-import { SOURCE } from '../../node_modules/@angular/core/src/di/injector';
-import { PromiseState } from '../../node_modules/@types/q';
+import { Book } from '../book';
+import { SOURCE } from '@angular/core/src/di/injector';
+import { PromiseState } from 'q';
 @Injectable({
   providedIn: 'root'
 })

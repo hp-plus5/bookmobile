@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Book } from '../book';
-import { BookService } from '../book.service';
+import { BookService } from '../_services/book.service';
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail-template-driven.component.html',
