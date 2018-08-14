@@ -3,17 +3,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Book } from '../book';
-import { BookService } from '../book.service';
+import { BookService } from '../_services/book.service';
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail-template-driven.component.html',
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-  @Input() book = new Book(); // saying this instead of just "@Input() book = Book;" ensures that the object will not be of the type undefined.
+  @Input()
+  book = new Book(); // saying this instead of just "@Input() book = Book;" ensures that the object will not be of the type undefined.
   // It's a security blanket specifically for when book-detail acts as a child (to books.component, in this instance).
   books: Book[] = [];
-  @Output() cancel = new EventEmitter<any>();
+  @Output()
+  cancel = new EventEmitter<any>();
 
   constructor(
     private bookService: BookService,
