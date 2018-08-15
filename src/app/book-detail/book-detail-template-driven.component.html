@@ -35,11 +35,11 @@
             <fieldset>
               <div class="radio button right">
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="read-yes" name="read" value="true" class="custom-control-input" [(ngModel)]="book.read">
+                  <input [(ngModel)]="book.read" type="radio" id="read-yes" name="read" [value]="true" class="custom-control-input" >
                   <label class="custom-control-label" for="read-yes">Yes</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="read-no" name="read" value="false" class="custom-control-input" [(ngModel)]="book.read">
+                  <input [(ngModel)]="book.read" type="radio" id="read-no" name="read" [value]="false" class="custom-control-input" >
                   <label class="custom-control-label" for="read-no">No</label>
                 </div>
               </div>
@@ -48,7 +48,8 @@
             <fieldset>
               <div class="left">
                 <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
-                  <input [(ngModel)]="book.femaleProtagonist" class="custom-control-input" name="femaleProtagonist" id="femaleProtagonist" type="checkbox">
+                  <input [(ngModel)]="book.femaleProtagonist" class="custom-control-input" name="femaleProtagonist" id="femaleProtagonist"
+                    type="checkbox">
                   <label class="custom-control-label" for="femaleProtagonist" id="femaleProtagonist" name="femaleProtagonist">Female protagonist</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline" style="text-align: right;">
@@ -85,10 +86,7 @@
           <span style="display: inline-grid; display: block">
             <span *ngIf="compareToBooksUrl; else standaloneDetailsPage" style="float: left;">
 
-              <!-- If submit is on the books page, I want it to save the data and rerender the book as a deselected book. -->
               <button type="submit" class="btn btn-primary" style="margin: 1em 0 0 1em;">Submit</button>
-              <!-- If cancel is on the books page, I want it to  rerender the book as a deselected book. -->
-              <!-- PROBLEM: this still saves data with the mock-api. -->
               <button (click)="deSelectBook($event)" class="btn btn-primary" type="button" style="margin: 1em 0 0 1em;">Cancel</button>
             </span>
 
@@ -97,9 +95,15 @@
               <button (click)="goBack(book)" class="btn btn-primary" type="button" style="margin: 1em 0 0 1em;">Cancel</button>
             </ng-template>
 
+            <!-- WITH MODAL -->
             <span style="float: right;">
-              <button (click)="deleteThisBook(detailForm)" class="btn btn-secondary" type="button" style="margin: 1em 0 0 1em; margin-right: 1em;">Delete</button>
+              <button (click)="openModal()" class="btn btn-secondary" type="button" style="margin: 1em 0 0 1em; margin-right: 1em;">Delete</button>
             </span>
+
+            <!-- PRE-MODAL -->
+              <!-- <span style="float: right;">
+              <button (click)="deleteThisBook(detailForm)" class="btn btn-secondary" type="button" style="margin: 1em 0 0 1em; margin-right: 1em;">Delete</button>
+            </span> -->
           </span>
         </div>
       </div>
