@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Book, trackByBooks } from '../book';
+import { Book, trackByBooks } from '../_models/book';
 import { BookService } from '../_services/book.service';
 
 @Component({

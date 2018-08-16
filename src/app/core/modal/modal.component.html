@@ -1,0 +1,19 @@
+<div class="modal fade modal-backdrop show" tabindex="-1" role="dialog" *ngIf="modalOptions">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{modalOptions.title}}</h5>
+        <button type="button" class="close" (click)="closeModal('cancel')">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{modalOptions.body}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal('submit')">{{modalOptions.submit}}</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal('cancel')">{{modalOptions.cancel}}</button>
+      </div>
+    </div>
+  </div>
+</div>

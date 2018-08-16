@@ -2,27 +2,40 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Book } from '../book';
+import { Book } from '../_models/book';
 import { BookService } from '../_services/book.service';
+import { ModalService, ModalOptions } from '../_services/modal.service';
+
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail-template-driven.component.html',
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-  @Input() book = new Book(); // saying this instead of just "@Input() book = Book;" ensures that the object will not be of the type undefined.
+  @Input()
+  book = new Book(); // saying this instead of just "@Input() book = Book;" ensures that the object will not be of the type undefined.
   // It's a security blanket specifically for when book-detail acts as a child (to books.component, in this instance).
   books: Book[] = [];
-  @Output() cancel = new EventEmitter<any>();
 
+  @Output()
+  cancel = new EventEmitter<any>();
   constructor(
     private bookService: BookService,
     private route: ActivatedRoute,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private modalService: ModalService
   ) {}
   compareToBooksUrl = this.location.isCurrentPathEqualTo('/books');
   compareToNewBookUrl = this.location.isCurrentPathEqualTo('/new-book');
+
+  private modalOptions: ModalOptions = {
+    // this is for my modal. implements the interface (thanks, typescript!)
+    title: 'Delete',
+    body: 'Are you sure about this?',
+    submit: 'Yup',
+    cancel: 'No, god, please, no!!'
+  };
 
   ngOnInit(): void {
     if (
@@ -88,16 +101,27 @@ export class BookDetailComponent implements OnInit {
     this.bookService.addBook(this.book).subscribe(() => this.route);
   }
 
-  deleteThisBook(book: Book): void {
+  deleteThisBook(): void {
     if (this.compareToNewBookUrl === true) {
-      // insert modal message stating that you cannot delete a book that doesn't exist yet
+      // insert alert message stating that you cannot delete a book that doesn't exist yet
     } else {
       this.bookService.deleteBook(this.book).subscribe(
         () => this.cancel.emit(), // this line is doing deSelectBook's job so that we avoid a (click) method on our submit button on the template, but we couldn't just put a this.cancel.emit() on a line after subscribing to our updateBook method, because it would cancel our subscription before we'd necessarily gotten back a response. So this way, our code is forced to wait to get a response from the server before it moves on to cancel the event emission (which we want to return book-detail to an uneditable UI)
         error => {
-          console.error(error); // this is where a message service would go to trigger (say) a modal notice to the user in case of failure
+          console.error(error); // this is where a message service would go to trigger an alert to the user in case of failure
         }
       );
     }
+  }
+
+  openModal(): void {
+    this.modalService.openModal(this.modalOptions);
+    // then, once the modal is open, we listen to see which button is clicked. We're passed the modalResult from the modal template, which we then pass to the service's "close" property:
+    this.modalService.close.subscribe(modalResult => {
+      if (modalResult === 'cancel') {
+        return;
+      }
+      this.deleteThisBook();
+    });
   }
 }

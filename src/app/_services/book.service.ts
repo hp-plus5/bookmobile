@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Book } from '../book';
+import { Book } from '../_models/book';
 import { SOURCE } from '@angular/core/src/di/injector';
 import { PromiseState } from 'q';
 @Injectable({

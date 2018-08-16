@@ -11,6 +11,7 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
 import { UnselectedBookComponent } from './unselected-book/unselected-book.component';
 import { MostRecentBookComponent } from './most-recent-book/most-recent-book.component';
 import { NewBookComponent } from './new-book/new-book.component';
+import { CoreModule } from './core/core.module';
 
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
@@ -20,7 +21,8 @@ import { NewBookComponent } from './new-book/new-book.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CoreModule
 
     // BELOW CODE: was used when I was reading my mock info out of in-memory-data.service
 

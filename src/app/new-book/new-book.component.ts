@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Book } from '../book';
+import { Book } from '../-models/book';
 import { BookService } from '../_services/book.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./new-book.component.css']
 })
 export class NewBookComponent implements OnInit {
-  @Input() book: Book;
+  @Input()
+  book: Book;
   books: Book[] = [];
   constructor(
     private bookService: BookService,
