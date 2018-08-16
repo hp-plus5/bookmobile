@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Book } from '../book';
+import { Book } from '../_models/book';
 import { BookService } from '../_services/book.service';
 import { ModalService, ModalOptions } from '../_services/modal.service';
 
