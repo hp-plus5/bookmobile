@@ -1,9 +1,4 @@
-import {
-  async,
-  ComponentFixture,
-  TestBed,
-  inject
-} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookDetailComponent } from './book-detail.component';
 import { BookService } from '../_services/book.service';
@@ -16,7 +11,7 @@ import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
 import { HttpClient } from '../../../node_modules/@angular/common/http';
 import { HttpTestingController } from '../../../node_modules/@angular/common/http/testing';
 import { Book } from '../_models/book';
-import { By } from '../../../node_modules/protractor';
+import { By } from '@angular/platform-browser';
 import { DebugElement } from '../../../node_modules/@angular/core';
 import { NgForm } from '../../../node_modules/@angular/forms';
 
@@ -100,32 +95,22 @@ describe('BookDetailComponent', () => {
         { BookService, useClass: MockBookService },
         { ModalService, useClass: MockModalService }
       ]
-    }).compileComponents();
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(BookDetailComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges(); // This line is essentially what performs our data binding. It seems hinted at in the angular documentation for testing that you may need to call this in the middle of your it(test) in the case of testing DOM-related qualitities or events.
+
+        mockBookService = TestBed.get(BookService);
+        mockModalService = TestBed.get(ModalService);
+        element = TestBed.get(HTMLElement);
+      });
   }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BookDetailComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges(); // This line is essentially what performs our data binding. It seems hinted at in the angular documentation for testing that you may need to call this in the middle of your it(test) in the case of testing DOM-related qualitities or events.
-
-    mockBookService = TestBed.get(BookService);
-    mockModalService = TestBed.get(ModalService);
-    element = TestBed.get(HTMLElement);
-  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  // TODO: do I even need these next few lines???
-  let httpClientSpy: { get: jasmine.Spy };
-  let bookService: BookService;
-
-  beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-    bookService = new BookService(<any>httpClientSpy);
-  });
-  // to here
 
   /*
   The mocking strategy below would go at the top of an it(test), not within the beforeEach.
@@ -153,10 +138,9 @@ describe('BookDetailComponent', () => {
 
   describe('#deSelectBook', () => {
     beforeEach(() => {
-      element = element.querySelector(
-        'button, type:not([submit]), click([deSelectBook])'
+      fixture.debugElement.query(
+        By.css('button, type:not([submit]), click([deSelectBook])')
       );
-      // TODO: 3. is this too vague for my emit tests? if not, how do I specify my exact desired HTML element syntactically?
     });
 
     it('Something should be emitted on click', () => {
@@ -165,17 +149,9 @@ describe('BookDetailComponent', () => {
       */
       // Could also create a spy console.log() and test the amount of times it's called against how many times it was meant to be called
 
-      this.component.deSelectBook(); // if so, erase beforeEach()
-      // TODO: 1. OR
       element.dispatchEvent(new Event('click'));
-
-      expect(component.cancel.closed).toHaveBeenCalled();
-      // TODO: 2. is the above line the correct way to test just to see if SOMETHING has been emitted?
-    });
-
-    it('#cancel should be what"s emitted on click', () => {
-      // ?? based on instance above
       expect(component.cancel.emit).toHaveBeenCalled();
+      expect(component.cancel.isStopped).toBe(true);
     });
 
     it('#MouseEvent() should stop propagation', () => {

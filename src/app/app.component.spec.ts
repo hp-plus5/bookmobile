@@ -26,36 +26,39 @@ describe('AppComponent & AppModule', () => {
           declarations: [RouterLinkDirectiveStub]
         }
       })
-      .compileComponents();
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges(); // trigger initial data binding
+
+        // find DebugElements with an attached RouterLinkStubDirective
+        linkDes = fixture.debugElement.queryAll(
+          By.directive(RouterLinkDirectiveStub)
+        );
+
+        // get attached link directive instances
+        // using each DebugElement's injector
+        routerLinks = linkDes.map(de =>
+          de.injector.get(RouterLinkDirectiveStub)
+        );
+      });
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AppComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges(); // trigger initial data binding
-
-    // find DebugElements with an attached RouterLinkStubDirective
-    linkDes = fixture.debugElement.queryAll(
-      By.directive(RouterLinkDirectiveStub)
-    );
-
-    // get attached link directive instances
-    // using each DebugElement's injector
-    routerLinks = linkDes.map(de => de.injector.get(RouterLinkDirectiveStub));
-  });
   it('should create the app', async(() => {
-    const app = fixture.debugElement.componentInstance;
-    // TODO: is the above line actually what I want, or is this just a repeat of fixture.componentInstance?
-    expect(app).toBeTruthy();
+    expect(fixture).toBeTruthy();
   }));
+
   it(`should have as title 'Book Database'`, async(() => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Book Database');
   }));
+
   it('should render title in a h1 tag', async(() => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Book Database');
   }));
+
   it('can get RouterLinks from template', () => {
     expect(routerLinks.length).toBe(5, 'should have 5 routerLinks');
     expect(routerLinks[0].linkParams).toBe('/books');
