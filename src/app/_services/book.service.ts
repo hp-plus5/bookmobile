@@ -23,24 +23,9 @@ export class BookService {
       fromString: 'value'
     })
   };
-  // httpHeaders, below, given "new" httpClient syntax (which one doesn't seem able to call on more than one at a time)
-
-  // private _headers = {
-  //   headers: new HttpHeaders().set('Content-Type', 'application/json')
-  // };
-  // // These HTTP headers below prevent CORS warnings in my browsers. These are also needed on any APIs I call on/on the server
-  // private _headers_access = {
-  //   headers: new HttpHeaders().set('Access-Control-Allow-Origin', '*')
-  // };
-  // private _headers_auth = {
-  //   headers: new HttpHeaders().set('Authorization', 'authkey')
-  // };
-  // private _headers_userid = {
-  //   headers: new HttpHeaders().set('userid', '1')
-  // };
 
   // booksApiUrl was previous booksUrl and linked to "api/books", which allowed me to read mock data out of in-memory-data.service
-  private booksApiUrl = 'https://localhost:5001/api/books';
+  public booksApiUrl = 'https://localhost:5001/api/books';
 
   constructor(private http: HttpClient) {}
 
@@ -120,13 +105,12 @@ export class BookService {
 
   /** DELETE: delete the book from the database */
   deleteBook(book: Book | number): Observable<any> {
-    /** Previously, 8/8 4:30pm deleteBook(book: Book | number): Observable<Book> */
+    /** Previously, 8/8/18 4:30pm deleteBook(book: Book | number): Observable<Book> */
     const id = typeof book === 'number' ? book : book.id;
     const url = `${this.booksApiUrl}/${id}`;
 
     return this.http.delete<Book>(url, this.httpOptions).pipe(
       tap(_ => this.log(`deleted book id=${id}`)),
-      // call on a modal service to confirm to the user that they deleted the book?,
       catchError(this.handleError<Book>('deleteBook'))
     );
   }
