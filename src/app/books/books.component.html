@@ -1,6 +1,6 @@
 <ol class="book-list">
-  <li *ngFor="let book of books" (click)="onSelect(book)" trackBy=trackbyBooks> <!-- When I had classes in CSS for this, it was (this and see below): [class.selected]="book === selectedBook" -->
-      <div *ngIf="selectedBook === book; else unselectedBook"> <!-- class="selected"-->
+  <li *ngFor="let book of books" (click)="onSelect(book)" trackBy=trackbyBooks>
+      <div *ngIf="selectedBook === book; else unselectedBook">
         <app-book-detail [book]="selectedBook" (cancel)="deSelectBook($event)" ></app-book-detail>
       </div>
       <ng-template #unselectedBook>

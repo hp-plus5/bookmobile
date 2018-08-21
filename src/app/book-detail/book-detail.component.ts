@@ -1,10 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Book } from '../_models/book';
 import { BookService } from '../_services/book.service';
 import { ModalService, ModalOptions } from '../_services/modal.service';
+import { NgForm } from '../../../node_modules/@angular/forms';
 
 @Component({
   selector: 'app-book-detail',
@@ -73,11 +81,8 @@ export class BookDetailComponent implements OnInit {
   deSelectBook(mouseEvent: MouseEvent): void {
     mouseEvent.stopPropagation();
     this.cancel.emit();
-    // the stopPropogation command surfaces up to the immediate upper layer from where the event is triggered on the template,
-    // which is the ngForm. It tells the form to ignore the event. After that, .emit() is a direct line of communication to the
-    // parent component - in this case, books - which contains a method also called deSelectBook() that tells our event in
-    // book-detail.component.html to qualify the <app-books-detail> marked in books.component.html as "undefined", or in
-    // other words, #unselectedBook (see books.component.html's *ngIf - ng-template).
+    /* the stopPropogation command surfaces up to the immediate upper layer from wheremst the event is triggered on the template, which is the ngForm. It tells the form to ignore the event. After that, .emit() is a direct line of communication to the parent component - in this case, books - which contains a method also called deSelectBook() that tells our event in book-detail.component.html to qualify the <app-books-detail> marked in books.component.html as "undefined", or in other words, #unselectedBook (see books.component.html's *ngIf - ng-template).
+    */
   }
 
   goBack(): void {

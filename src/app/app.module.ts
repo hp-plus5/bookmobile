@@ -1,17 +1,16 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-
-import { BooksComponent } from './books/books.component';
-import { BookDetailComponent } from './book-detail/book-detail.component';
-import { UnselectedBookComponent } from './unselected-book/unselected-book.component';
-import { MostRecentBookComponent } from './most-recent-book/most-recent-book.component';
-import { NewBookComponent } from './new-book/new-book.component';
-import { CoreModule } from './core/core.module';
+import { AppRoutingModule } from '@app/app-routing.module';
+import { AppComponent } from '@app/app.component';
+import { BookDetailComponent } from '@app/book-detail/book-detail.component';
+import { BooksComponent } from '@app/books/books.component';
+import { CoreModule } from '@app/core/core.module';
+import { MostRecentBookComponent } from '@app/most-recent-book/most-recent-book.component';
+import { NewBookComponent } from '@app/new-book/new-book.component';
+import { UnselectedBookComponent } from '@app/unselected-book/unselected-book.component';
 
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
@@ -22,7 +21,7 @@ import { CoreModule } from './core/core.module';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    CoreModule
+    CoreModule,
 
     // BELOW CODE: was used when I was reading my mock info out of in-memory-data.service
 
@@ -40,8 +39,8 @@ import { CoreModule } from './core/core.module';
     BookDetailComponent,
     UnselectedBookComponent,
     MostRecentBookComponent,
-    NewBookComponent
+    NewBookComponent,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
