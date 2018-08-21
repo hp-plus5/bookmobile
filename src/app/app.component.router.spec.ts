@@ -1,40 +1,26 @@
+import { Location } from '@angular/common';
+import { SpyLocation } from '@angular/common/testing';
+import { DebugElement, NgModuleFactoryLoader, Type } from '@angular/core';
 // For more examples:
 //   https://github.com/angular/angular/blob/master/modules/@angular/router/test/integration.spec.ts
 // see the block of commented text around the middle of this doc for an explanation of why it contains errors
-
-import {
-  async,
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick
-} from '@angular/core/testing';
-
-import { asyncData } from '../testing';
-
-import { RouterTestingModule } from '@angular/router/testing';
-import { SpyLocation } from '@angular/common/testing';
-
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 // r - for relatively obscure router symbols
 import * as r from '@angular/router';
-import { Router, RouterLinkWithHref } from '@angular/router';
+import { RouterTestingModule, SpyNgModuleFactoryLoader } from '@angular/router/testing';
 
-import { By } from '@angular/platform-browser';
-import { DebugElement, Type } from '@angular/core';
-import { Location } from '@angular/common';
+import { BooksComponent } from '@app/books/books-list/books.component';
 
-import { click } from '../testing';
-
-import { AppModule } from './app.module';
-import { AppComponent } from './app.component';
+import { asyncData, click } from '../testing';
 import { Book } from './_models/book';
-import { BooksComponent } from './books/books.component';
+import { BookService } from './_services/book.service';
+import { AppComponent } from './app.component';
+import { AppModule } from './app.module';
 import { BookDetailComponent } from './book-detail/book-detail.component';
-import { UnselectedBookComponent } from './unselected-book/unselected-book.component';
 import { MostRecentBookComponent } from './most-recent-book/most-recent-book.component';
 import { NewBookComponent } from './new-book/new-book.component';
-
-import { BookService } from './_services/book.service';
+import { UnselectedBookComponent } from './unselected-book/unselected-book.component';
 
 describe('AppComponent & RouterTestingModule', () => {
   let component: AppComponent;
@@ -61,7 +47,7 @@ describe('AppComponent & RouterTestingModule', () => {
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
         isNew(): false {
           return false;
-        }
+        },
       },
       {
         id: 2,
@@ -77,7 +63,7 @@ describe('AppComponent & RouterTestingModule', () => {
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
         isNew(): false {
           return false;
-        }
+        },
       },
       {
         id: 3,
@@ -94,8 +80,8 @@ describe('AppComponent & RouterTestingModule', () => {
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
         isNew(): false {
           return false;
-        }
-      }
+        },
+      },
     ];
   }
 
@@ -103,7 +89,7 @@ describe('AppComponent & RouterTestingModule', () => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
       imports: [AppModule, RouterTestingModule],
-      providers: [{ provide: BookService, useClass: MockBookService }]
+      providers: [{ provide: BookService, useClass: MockBookService }],
     }).compileComponents();
   }));
 
@@ -119,7 +105,7 @@ describe('AppComponent & RouterTestingModule', () => {
     tick(); // wait for async data to arrive
     expect(location.path()).toEqual(
       '/most-recent-entries',
-      'after initialNavigation()'
+      'after initialNavigation()',
     );
     expectElementOf(MostRecentBookComponent);
   }));
@@ -154,10 +140,6 @@ describe('AppComponent & RouterTestingModule', () => {
   }));
 });
 
-///////////////
-import { NgModuleFactoryLoader } from '@angular/core';
-import { SpyNgModuleFactoryLoader } from '@angular/router/testing';
-
 // import { HeroModule } from './hero/hero.module'; // should be lazy loaded
 
 let loader: SpyNgModuleFactoryLoader;
@@ -166,7 +148,7 @@ let loader: SpyNgModuleFactoryLoader;
 xdescribe('AppComponent & Lazy Loading (not working yet)', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [AppModule, RouterTestingModule]
+      imports: [AppModule, RouterTestingModule],
     }).compileComponents();
   }));
 
@@ -233,7 +215,7 @@ class Page {
 
   constructor() {
     const links = this.fixture.debugElement.queryAll(
-      By.directive(RouterLinkWithHref)
+      By.directive(RouterLinkWithHref),
     );
     this.aboutLinkDe = links[2];
     this.dashboardLinkDe = links[0];
@@ -251,7 +233,7 @@ function expectPathToBe(path: string, expectationFailOutput?: any) {
   location = this.location;
   expect(location.path()).toEqual(
     path,
-    expectationFailOutput || 'location.path()'
+    expectationFailOutput || 'location.path()',
   );
 }
 
