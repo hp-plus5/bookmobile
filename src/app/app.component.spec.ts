@@ -1,12 +1,12 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-
-import { RouterLinkDirectiveStub } from '../testing';
-
-import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AppModule } from './app.module';
-import { AppRoutingModule } from './app-routing.module';
+
+import { AppRoutingModule } from '@app/app-routing.module';
+import { AppComponent } from '@app/app.component';
+import { AppModule } from '@app/app.module';
+
+import { RouterLinkDirectiveStub } from '@testing/router-link-directive-stub';
 
 describe('AppComponent & AppModule', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -16,15 +16,15 @@ describe('AppComponent & AppModule', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent]
+      declarations: [AppComponent],
     })
       .overrideModule(AppModule, {
         remove: {
-          imports: [AppRoutingModule]
+          imports: [AppRoutingModule],
         },
         add: {
-          declarations: [RouterLinkDirectiveStub]
-        }
+          declarations: [RouterLinkDirectiveStub],
+        },
       })
       .compileComponents()
       .then(() => {
@@ -34,13 +34,13 @@ describe('AppComponent & AppModule', () => {
 
         // find DebugElements with an attached RouterLinkStubDirective
         linkDes = fixture.debugElement.queryAll(
-          By.directive(RouterLinkDirectiveStub)
+          By.directive(RouterLinkDirectiveStub),
         );
 
         // get attached link directive instances
         // using each DebugElement's injector
         routerLinks = linkDes.map(de =>
-          de.injector.get(RouterLinkDirectiveStub)
+          de.injector.get(RouterLinkDirectiveStub),
         );
       });
   }));

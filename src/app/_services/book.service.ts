@@ -1,14 +1,18 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { SOURCE } from '@angular/core/src/di/injector';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Book } from '../_models/book';
-import { SOURCE } from '@angular/core/src/di/injector';
+import { environment } from '@environments/environment';
+
 import { PromiseState } from 'q';
+
+import { Book } from '../_models/book';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BookService {
   // httpHeaders, given "old" httpClient syntax. All included/referenced automatically because of, I suspect, the constructor
@@ -17,15 +21,15 @@ export class BookService {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
       Authorization: 'authkey',
-      userid: '1'
+      userid: '1',
     }),
     params: new HttpParams({
-      fromString: 'value'
-    })
+      fromString: 'value',
+    }),
   };
 
   // booksApiUrl was previous booksUrl and linked to "api/books", which allowed me to read mock data out of in-memory-data.service
-  public booksApiUrl = 'https://localhost:5001/api/books';
+  private booksApiUrl = `${environment.apiUrl}/books`;
 
   constructor(private http: HttpClient) {}
 
@@ -54,7 +58,7 @@ export class BookService {
 
       // metaphor: sheets of paper with marks wrapped up in other sheets of paper (json) vs. books (objects you want to create and work with)
       map(books => books.map(book => new Book(book))),
-      catchError(this.handleError('getBooks', []))
+      catchError(this.handleError('getBooks', [])),
     );
   }
 
@@ -67,7 +71,7 @@ export class BookService {
       // const outcome = h ? `fetched` : `did not find`;
       // this.log(`${outcome} book id=${id}`); <-- for if I implemented MessageService from tutorial.
       // }),
-      catchError(this.handleError<Book>(`getBookById id=${id}`))
+      catchError(this.handleError<Book>(`getBookById id=${id}`)),
     );
   }
 
@@ -76,7 +80,7 @@ export class BookService {
     const url = `${this.booksApiUrl}/${id}`;
     return this.http.get<Book>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched book id=${id}`)),
-      catchError(this.handleError<Book>(`getBookById id=${id}`))
+      catchError(this.handleError<Book>(`getBookById id=${id}`)),
     );
   }
 
@@ -88,7 +92,7 @@ export class BookService {
     }
     return this.http.get<Book[]>(`${this.booksApiUrl}/?name=${term}`).pipe(
       tap(_ => this.log(`found books matching "${term}"`)),
-      catchError(this.handleError<Book[]>('searchBooks', []))
+      catchError(this.handleError<Book[]>('searchBooks', [])),
     );
   }
 
@@ -99,7 +103,7 @@ export class BookService {
     return this.http.post<Book>(this.booksApiUrl, book, this.httpOptions).pipe(
       // tslint:disable-next-line:no-shadowed-variable (( couldn't figure out how this was supposed to help. potential double init? ))
       tap((book: Book) => this.log(`added book w/ id=${book.id}`)),
-      catchError(this.handleError<Book>('addBook'))
+      catchError(this.handleError<Book>('addBook')),
     );
   }
 
@@ -111,7 +115,7 @@ export class BookService {
 
     return this.http.delete<Book>(url, this.httpOptions).pipe(
       tap(_ => this.log(`deleted book id=${id}`)),
-      catchError(this.handleError<Book>('deleteBook'))
+      catchError(this.handleError<Book>('deleteBook')),
     );
   }
 
@@ -123,7 +127,7 @@ export class BookService {
     // isNew;
     return this.http.put(url, book, this.httpOptions).pipe(
       tap(_ => this.log(`updated book id=${book.id}`)),
-      catchError(this.handleError<any>('updateBook'))
+      catchError(this.handleError<any>('updateBook')),
     );
   }
 

@@ -19,6 +19,7 @@ describe('BookService (with spies)', () => {
 
   beforeEach(() => {
     httpClient = jasmine.createSpyObj<HttpClient>('HttpClient', ['get']);
+    // TODO: not sure that if i need this?
     httpClient.get.and.returnValue(
       of([
         {
@@ -186,7 +187,7 @@ describe('BookService (with spies)', () => {
     it('should update a book and return it', () => {
       const updateBook: Book = {
         id: 1,
-        title: 'Super Updated Fake Harry Potter and the Fake Sorcerers Stone',
+        title: 'Updated Fake Harry Potter and the Fake Sorcerers Stone',
         read: false,
         ownership: false,
         femaleProtagonist: false,
