@@ -1,5 +1,8 @@
 {
     "extends": "../tslint.json",
+    "rudesDirectory": [
+      "tslint-consistent-codestyle"
+    ],
     "rules": {
         "directive-selector": [
             true,
@@ -12,6 +15,13 @@
             "element",
             "app",
             "kebab-case"
-        ]
+        ],
+        "no-duplicate-imports": true,
+        "ordered-imports": true,
+        "no-require-imports": true,
+        "no-unused": true,
+        "no-collapsible-if": true,
+        "no-unnecessary-else": true,
+        "no-console": true
     }
 }

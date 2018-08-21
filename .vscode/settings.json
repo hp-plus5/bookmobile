@@ -1,5 +1,56 @@
 {
   "[typescript]": {
     "editor.formatOnSave": true
-  }
+  },
+  "[scss]": {
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.formatOnSave": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "node_modules": true,
+    "dist": true
+  },
+  "importSorter.generalConfiguration.sortOnBeforeSave": true,
+  "importSorter.importStringConfiguration.quoteMark": "single",
+
+  "importSorter.sortConfiguration.customOrderingRules.defaultOrderLevel": 100,
+  "importSorter.sortConfiguration.customOrderingRules.rules": [
+    {
+      "type": "importMember",
+      "regex": "^$",
+      "orderLevel": 10,
+      "disableSort": true
+    },
+    {
+      "regex": "^@angular",
+      "orderLevel": 20
+    },
+    // Add 3rd party libs here
+    {
+      "regex": "^rxjs|@ng-bootstrap|@okta",
+      "orderLevel": 30
+    },
+    {
+      "regex": "^@environment",
+      "orderLevel": 40
+    },
+    {
+      "regex": "^@app",
+      "orderLevel": 45
+    },
+    {
+      "regex": "^[.]",
+      "orderLevel": 110
+    }
+  ]
 }
