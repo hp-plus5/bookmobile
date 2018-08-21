@@ -1,9 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { asyncData, asyncError } from '../../testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
+import { HttpTestingController } from '@angular/common/http/testing';
 
 import { Book } from '../_models/book';
 import { BookService } from './book.service';
@@ -13,10 +10,12 @@ import {
   HttpResponse
 } from '../../../node_modules/@angular/common/http';
 import { of } from '../../../node_modules/rxjs';
+import { expectedBooks } from '../../testing/books-fixture';
 
 describe('BookService (with spies)', () => {
   let bookService: BookService;
   let httpClient: jasmine.SpyObj<HttpClient>;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     httpClient = jasmine.createSpyObj<HttpClient>('HttpClient', ['get']);
@@ -38,139 +37,24 @@ describe('BookService (with spies)', () => {
       ])
     );
     bookService = new BookService(httpClient);
+    // note how if we were doing pure mock testing, this line would go "bookService = TestBed.get(BookService);"
+    httpTestingController = TestBed.get(HttpTestingController);
 
     TestBed.configureTestingModule({
       providers: [BookService]
     });
   });
 
+  afterEach(() => {
+    // After every test, assert that there are no more pending requests.
+    httpTestingController.verify();
+  });
+
   it('should be created', inject([BookService], (service: BookService) => {
     expect(service).toBeTruthy();
   }));
-  // TODO: Below is where I started mocking data. Should I have waited until farther down where it says 'BookService (with mocks)'?
-  // TODO: Isn't this where my data should reflect something returned by an API? If so, shouldn't it not need an isNew property? Why is it mad at me??? :(
-  it('should return expected books (HttpClient called once)', () => {
-    const expectedBooks: Book[] = [
-      {
-        id: 1,
-        title: 'Harry Potter and the Sorcerers Stone',
-        read: true,
-        ownership: true,
-        femaleProtagonist: false,
-        femaleRoleModel: true,
-        lgbtqProtagonist: false,
-        lgbtqSidekick: false,
-        lgbtqTheme: false,
-        rating: 10,
-        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        isNew(): false {
-          return false;
-        }
-      },
-      {
-        id: 2,
-        title: 'Harry Potter and the Chamber of Secrets',
-        read: true,
-        ownership: true,
-        femaleProtagonist: true,
-        femaleRoleModel: true,
-        lgbtqProtagonist: true,
-        lgbtqSidekick: true,
-        lgbtqTheme: true,
-        rating: 7,
-        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        // tslint:disable-next-line:semicolon
-        isNew(): false {
-          return false;
-        }
-      },
-      {
-        id: 3,
-        title: 'Harry Potter and the Prisoner of Azkaban',
-        read: true,
-        ownership: true,
-        femaleProtagonist: false,
-        femaleRoleModel: true,
-        lgbtqProtagonist: false,
-        lgbtqSidekick: false,
-        lgbtqTheme: false,
-        rating: 10,
-        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        // tslint:disable-next-line:semicolon
-        isNew(): false {
-          return false;
-        }
-      },
-      {
-        id: 4,
-        title: 'Harry Potter and the Goblet of Fire',
-        read: true,
-        ownership: true,
-        femaleProtagonist: false,
-        femaleRoleModel: true,
-        lgbtqProtagonist: false,
-        lgbtqSidekick: false,
-        lgbtqTheme: false,
-        rating: 7,
-        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        // tslint:disable-next-line:semicolon
-        isNew(): false {
-          return false;
-        }
-      },
-      {
-        id: 5,
-        title: 'Harry Potter and the Order of the Phoenix',
-        read: true,
-        ownership: true,
-        femaleProtagonist: false,
-        femaleRoleModel: true,
-        lgbtqProtagonist: false,
-        lgbtqSidekick: false,
-        lgbtqTheme: false,
-        rating: 9,
-        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        // tslint:disable-next-line:semicolon
-        isNew(): false {
-          return false;
-        }
-      },
-      {
-        id: 6,
-        title: 'Harry Potter and the Half-Blood Prince',
-        read: true,
-        ownership: true,
-        femaleProtagonist: false,
-        femaleRoleModel: true,
-        lgbtqProtagonist: false,
-        lgbtqSidekick: false,
-        lgbtqTheme: false,
-        rating: 9,
-        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        // tslint:disable-next-line:semicolon
-        isNew(): false {
-          return false;
-        }
-      },
-      {
-        id: 7,
-        title: 'Harry Potter and the Deathly Hallows',
-        read: true,
-        ownership: true,
-        femaleProtagonist: false,
-        femaleRoleModel: true,
-        lgbtqProtagonist: false,
-        lgbtqSidekick: false,
-        lgbtqTheme: false,
-        rating: 7,
-        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        // tslint:disable-next-line:semicolon
-        isNew(): false {
-          return false;
-        }
-      }
-    ];
 
+  it('should return expected books (HttpClient called once)', () => {
     httpClient.get.and.returnValue(asyncData(expectedBooks));
 
     bookService
@@ -179,7 +63,12 @@ describe('BookService (with spies)', () => {
         books => expect(books).toEqual(expectedBooks, 'expected books'),
         fail
       );
-    expect(httpClient.get.calls.count()).toBe(1, 'one call');
+    expect(httpClient.get.identity.valueOf).toBe(
+      7,
+      'should be 7 books in getAll'
+    );
+    // don't really need to test the below code in this case, since it doesn't hurt us to call getBooks() more than once, but I want to keep the code around as a reference point.
+    // expect(httpClient.get.calls.count()).toBe(1, 'one call');
   });
 
   it('should return an error when the server returns a 404', () => {
@@ -198,148 +87,8 @@ describe('BookService (with spies)', () => {
         error => expect(error.message).toContain('test 404 error')
       );
   });
-});
-
-describe('BookService (with mocks)', () => {
-  let httpClient: HttpClient;
-  let httpTestingController: HttpTestingController;
-  let bookService: BookService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      // Import the HttpClient mocking services
-      imports: [HttpClientTestingModule],
-      // Provide the service-under-test
-      providers: [BookService]
-    });
-
-    // Inject the http, test controller, and service-under-test
-    // as they will be referenced by each test.
-    httpClient = TestBed.get(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController);
-    bookService = TestBed.get(BookService);
-  });
-
-  afterEach(() => {
-    // After every test, assert that there are no more pending requests.
-    httpTestingController.verify();
-  });
-
-  /// BookService method tests begin ///
 
   describe('#getBooks', () => {
-    let expectedBooks: Book[];
-    // TODO: is this "describe" section where data mocking would go, or is having it in the lower segment the decider between whether data is generated once for this entire section vs. once per unit test vs. once per methodID (ie #getBooks)? SEE line 245's unit test. Is its toEqual(0) an indicator that the mocked data doesn't get to that segment of the code? If so, why then is it called "beforeEach"?
-
-    beforeEach(() => {
-      bookService = TestBed.get(BookService);
-      expectedBooks = [
-        {
-          id: 1,
-          title: 'Harry Potter and the Sorcerers Stone',
-          read: true,
-          ownership: true,
-          femaleProtagonist: false,
-          femaleRoleModel: true,
-          lgbtqProtagonist: false,
-          lgbtqSidekick: false,
-          lgbtqTheme: false,
-          rating: 10,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
-        },
-        {
-          id: 2,
-          title: 'Harry Potter and the Chamber of Secrets',
-          read: true,
-          ownership: true,
-          femaleProtagonist: true,
-          femaleRoleModel: true,
-          lgbtqProtagonist: true,
-          lgbtqSidekick: true,
-          lgbtqTheme: true,
-          rating: 7,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
-        },
-        {
-          id: 3,
-          title: 'Harry Potter and the Prisoner of Azkaban',
-          read: true,
-          ownership: true,
-          femaleProtagonist: false,
-          femaleRoleModel: true,
-          lgbtqProtagonist: false,
-          lgbtqSidekick: false,
-          lgbtqTheme: false,
-          rating: 10,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
-        },
-        {
-          id: 4,
-          title: 'Harry Potter and the Goblet of Fire',
-          read: true,
-          ownership: true,
-          femaleProtagonist: false,
-          femaleRoleModel: true,
-          lgbtqProtagonist: false,
-          lgbtqSidekick: false,
-          lgbtqTheme: false,
-          rating: 7,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
-        },
-        {
-          id: 5,
-          title: 'Harry Potter and the Order of the Phoenix',
-          read: true,
-          ownership: true,
-          femaleProtagonist: false,
-          femaleRoleModel: true,
-          lgbtqProtagonist: false,
-          lgbtqSidekick: false,
-          lgbtqTheme: false,
-          rating: 9,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
-        },
-        {
-          id: 6,
-          title: 'Harry Potter and the Half-Blood Prince',
-          read: true,
-          ownership: true,
-          femaleProtagonist: false,
-          femaleRoleModel: true,
-          lgbtqProtagonist: false,
-          lgbtqSidekick: false,
-          lgbtqTheme: false,
-          rating: 9,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
-        },
-        {
-          id: 7,
-          title: 'Harry Potter and the Deathly Hallows',
-          read: true,
-          ownership: true,
-          femaleProtagonist: false,
-          femaleRoleModel: true,
-          lgbtqProtagonist: false,
-          lgbtqSidekick: false,
-          lgbtqTheme: false,
-          rating: 7,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
-        },
-        {
-          id: 8,
-          title: 'No Rating!',
-          read: true,
-          ownership: true,
-          femaleProtagonist: false,
-          femaleRoleModel: true,
-          lgbtqProtagonist: false,
-          lgbtqSidekick: false,
-          lgbtqTheme: false,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
-        }
-      ] as Book[];
-    });
-
     it('should return expected books (called once)', () => {
       bookService
         .getBooks()
@@ -378,7 +127,7 @@ describe('BookService (with mocks)', () => {
       bookService
         .getBooks()
         .subscribe(
-          heroes => fail('expected to fail'),
+          books => fail('expected to fail'),
           error => expect(error.message).toContain(msg)
         );
 
@@ -388,7 +137,8 @@ describe('BookService (with mocks)', () => {
       req.flush(msg, { status: 404, statusText: 'Not Found' });
     });
 
-    it('should return expected heroes (called multiple times)', () => {
+    // TODO: I'm not sure I understand the below test
+    it('should return expected books (called multiple times)', () => {
       bookService.getBooks().subscribe();
       bookService.getBooks().subscribe();
       bookService
@@ -405,7 +155,7 @@ describe('BookService (with mocks)', () => {
       const requests = httpTestingController.match(bookService.booksApiUrl);
       expect(requests.length).toEqual(7, 'calls to getBooks()');
 
-      // Respond to each request with different mock hero results
+      // Respond to each request with different mock book results
       requests[0].flush([]);
       requests[1].flush([
         {
@@ -420,7 +170,6 @@ describe('BookService (with mocks)', () => {
           lgbtqTheme: false,
           rating: 1,
           cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-          // tslint:disable-next-line:semicolon
           isNew(): false {
             return false;
           }
@@ -437,7 +186,7 @@ describe('BookService (with mocks)', () => {
     it('should update a book and return it', () => {
       const updateBook: Book = {
         id: 1,
-        title: 'Fake Harry Potter and the Fake Sorcerers Stone',
+        title: 'Super Updated Fake Harry Potter and the Fake Sorcerers Stone',
         read: false,
         ownership: false,
         femaleProtagonist: false,
@@ -447,7 +196,6 @@ describe('BookService (with mocks)', () => {
         lgbtqTheme: false,
         rating: 1,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        // tslint:disable-next-line:semicolon
         isNew(): false {
           return false;
         }
@@ -474,6 +222,7 @@ describe('BookService (with mocks)', () => {
       req.event(expectedResponse);
     });
 
+    // TODO: not sure that this test is correct in a spy context (instead of a mock context)
     it('should turn 404 error into user-facing error', () => {
       const msg = 'Deliberate 404';
       const updateBook: Book = {
@@ -488,7 +237,6 @@ describe('BookService (with mocks)', () => {
         lgbtqTheme: false,
         rating: 1,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        // tslint:disable-next-line:semicolon
         isNew(): false {
           return false;
         }
@@ -496,7 +244,7 @@ describe('BookService (with mocks)', () => {
       bookService
         .updateBook(updateBook)
         .subscribe(
-          heroes => fail('expected to fail'),
+          books => fail('expected to fail'),
           error => expect(error.message).toContain(msg)
         );
 
@@ -521,7 +269,6 @@ describe('BookService (with mocks)', () => {
         lgbtqTheme: false,
         rating: 1,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        // tslint:disable-next-line:semicolon
         isNew(): false {
           return false;
         }
@@ -529,7 +276,7 @@ describe('BookService (with mocks)', () => {
       bookService
         .updateBook(updateBook)
         .subscribe(
-          heroes => fail('expected to fail'),
+          books => fail('expected to fail'),
           error => expect(error.message).toContain(emsg)
         );
 
@@ -554,8 +301,8 @@ describe('BookService (with mocks)', () => {
   describe('#addBook', () => {
     it('should create a book and return it', () => {
       const newBook: Book = {
-        id: 9,
-        title: 'Successfully Added Supposed Ninth Harry Potter',
+        id: 8,
+        title: 'Successfully Added Supposed Eighth Harry Potter',
         read: false,
         ownership: false,
         femaleProtagonist: false,
@@ -565,7 +312,6 @@ describe('BookService (with mocks)', () => {
         lgbtqTheme: false,
         rating: 10,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        // tslint:disable-next-line:semicolon
         isNew(): true {
           return true;
         }
@@ -578,12 +324,12 @@ describe('BookService (with mocks)', () => {
           fail
         );
 
-      // HeroService should have made one request to POST hero
+      // BookService should have made one request to POST book
       const req = httpTestingController.expectOne(bookService.booksApiUrl);
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual(newBook);
 
-      // Expect server to return the hero after POST
+      // Expect server to return the book after POST
       const expectedResponse = new HttpResponse({
         status: 200,
         statusText: 'OK',
@@ -595,8 +341,8 @@ describe('BookService (with mocks)', () => {
     it('should turn 404 error into user-facing error', () => {
       const msg = 'Deliberate 404';
       const new404Book: Book = {
-        id: 9,
-        title: 'User-Error on Add: Supposed Ninth Harry Potter',
+        id: 8,
+        title: 'User-Error on Add: Supposed Eighth Harry Potter',
         read: false,
         ownership: false,
         femaleProtagonist: false,
@@ -606,7 +352,6 @@ describe('BookService (with mocks)', () => {
         lgbtqTheme: false,
         rating: 10,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        // tslint:disable-next-line:semicolon
         isNew(): true {
           return true;
         }
@@ -666,71 +411,16 @@ describe('BookService (with mocks)', () => {
 
   describe('#deleteBook', () => {
     // Expecting the query form of URL so should not 404 when id not found
-    // I don't understand this part. "makeUrl" as a variable in the heroes tutorial is never utilized after being made.
     const makeUrl = (id: number) => `${bookService.booksApiUrl}/?id=${id}`;
 
     it('should delete a book and return a confirmation', () => {
-      const expectedBooks: Book[] = [
-        {
-          id: 1,
-          title: 'Harry Potter and the Sorcerers Stone',
-          read: true,
-          ownership: true,
-          femaleProtagonist: false,
-          femaleRoleModel: true,
-          lgbtqProtagonist: false,
-          lgbtqSidekick: false,
-          lgbtqTheme: false,
-          rating: 10,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-          // tslint:disable-next-line:semicolon
-          isNew(): false {
-            return false;
-          }
-        },
-        {
-          id: 2,
-          title: 'Harry Potter and the Chamber of Secrets',
-          read: true,
-          ownership: true,
-          femaleProtagonist: true,
-          femaleRoleModel: true,
-          lgbtqProtagonist: true,
-          lgbtqSidekick: true,
-          lgbtqTheme: true,
-          rating: 7,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-          // tslint:disable-next-line:semicolon
-          isNew(): false {
-            return false;
-          }
-        },
-        {
-          id: 3,
-          title: 'Harry Potter and the Prisoner of Azkaban',
-          read: true,
-          ownership: true,
-          femaleProtagonist: false,
-          femaleRoleModel: true,
-          lgbtqProtagonist: false,
-          lgbtqSidekick: false,
-          lgbtqTheme: false,
-          rating: 10,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-          // tslint:disable-next-line:semicolon
-          isNew(): false {
-            return false;
-          }
-        }
-      ];
-
       bookService
-        .deleteBook(makeUrl[3])
+        .deleteBook(makeUrl[7])
         .subscribe(
           data =>
             expect(data).toEqual(
               expectedBooks,
-              'should return only two books, not including the Prisoner of Azkaban'
+              'should return only first six books'
             ),
           fail
         );
@@ -738,7 +428,7 @@ describe('BookService (with mocks)', () => {
       // BookService should have made one request to DELETE book
       const req = httpTestingController.expectOne(bookService.booksApiUrl);
       expect(req.request.method).toEqual('DELETE');
-      expect(req.request.body).toEqual('deleted book id=3');
+      expect(req.request.body).toEqual('deleted book id=7');
 
       // Expect server to return confirmation after DELETE
       const expectedResponse = new HttpResponse({
@@ -750,28 +440,9 @@ describe('BookService (with mocks)', () => {
 
     it('should turn 404 error into user-facing error', () => {
       const msg = 'Deliberate 404';
-      const expectedBooks: Book[] = [
-        {
-          id: 1,
-          title: 'Harry Potter and the Sorcerers Stone',
-          read: true,
-          ownership: true,
-          femaleProtagonist: false,
-          femaleRoleModel: true,
-          lgbtqProtagonist: false,
-          lgbtqSidekick: false,
-          lgbtqTheme: false,
-          rating: 10,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-          // tslint:disable-next-line:semicolon
-          isNew(): false {
-            return false;
-          }
-        }
-      ];
 
       bookService
-        .deleteBook(makeUrl[1]) // Am I calling this correctly? We WANT a book that's not there, right? Is there any point to me mocking the above expectedBooks data?
+        .deleteBook(makeUrl[8])
         .subscribe(
           books => fail('expected to fail'),
           error => expect(error.message).toContain(msg)
@@ -785,28 +456,9 @@ describe('BookService (with mocks)', () => {
 
     it('should turn network error into user-facing error', () => {
       const networkMessage = 'simulated network error';
-      const expectedBooks: Book[] = [
-        {
-          id: 1,
-          title: 'Harry Potter and the Sorcerers Stone',
-          read: true,
-          ownership: true,
-          femaleProtagonist: false,
-          femaleRoleModel: true,
-          lgbtqProtagonist: false,
-          lgbtqSidekick: false,
-          lgbtqTheme: false,
-          rating: 10,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-          // tslint:disable-next-line:semicolon
-          isNew(): false {
-            return false;
-          }
-        }
-      ];
 
       bookService
-        .deleteBook(expectedBooks[1])
+        .deleteBook(expectedBooks[7])
         .subscribe(
           books => fail('expected to fail'),
           error => expect(error.message).toContain(networkMessage)
