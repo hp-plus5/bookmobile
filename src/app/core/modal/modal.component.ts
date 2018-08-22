@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IModalOptions, ModalResult, ModalService } from '@app/books/_services/modal.service';
+import { IModalOptions, ModalResult, ModalService } from '@app/core/modal/modal.service';
 
 @Component({
   selector: 'app-modal',
