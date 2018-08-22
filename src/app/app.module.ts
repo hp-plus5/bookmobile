@@ -1,16 +1,11 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
-import { BookDetailComponent } from '@app/books/book-detail/book-detail.component';
-import { BooksComponent } from '@app/books/books-list/books.component';
-import { MostRecentBookComponent } from '@app/books/most-recent-book/most-recent-book.component';
-import { NewBookComponent } from '@app/books/new-book/new-book.component';
-import { UnselectedBookComponent } from '@app/books/unselected-book/unselected-book.component';
 import { CoreModule } from '@app/core/core.module';
+import { SharedModule } from '@app/shared/shared.module';
 
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
@@ -18,11 +13,10 @@ import { CoreModule } from '@app/core/core.module';
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,
     CoreModule,
-
+    SharedModule,
     // BELOW CODE: was used when I was reading my mock info out of in-memory-data.service
 
     // HttpClientInMemoryWebApiModule,
@@ -33,14 +27,7 @@ import { CoreModule } from '@app/core/core.module';
     //   dataEncapsulation: false
     // })
   ],
-  declarations: [
-    AppComponent,
-    BooksComponent,
-    BookDetailComponent,
-    UnselectedBookComponent,
-    MostRecentBookComponent,
-    NewBookComponent,
-  ],
+  declarations: [AppComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
