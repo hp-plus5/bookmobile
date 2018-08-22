@@ -5,12 +5,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
-import { BookDetailComponent } from '@app/book-detail/book-detail.component';
+import { BookDetailComponent } from '@app/books/book-detail/book-detail.component';
 import { BooksComponent } from '@app/books/books-list/books.component';
+import { MostRecentBookComponent } from '@app/books/most-recent-book/most-recent-book.component';
+import { NewBookComponent } from '@app/books/new-book/new-book.component';
+import { UnselectedBookComponent } from '@app/books/unselected-book/unselected-book.component';
 import { CoreModule } from '@app/core/core.module';
-import { MostRecentBookComponent } from '@app/most-recent-book/most-recent-book.component';
-import { NewBookComponent } from '@app/new-book/new-book.component';
-import { UnselectedBookComponent } from '@app/unselected-book/unselected-book.component';
 
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';

@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { BookDetailComponent } from '@app/books/book-detail/book-detail.component';
 import { BooksComponent } from '@app/books/books-list/books.component';
-
-import { BookDetailComponent } from './book-detail/book-detail.component';
-import { MostRecentBookComponent } from './most-recent-book/most-recent-book.component';
-import { NewBookComponent } from './new-book/new-book.component';
+import { MostRecentBookComponent } from '@app/books/most-recent-book/most-recent-book.component';
+import { NewBookComponent } from '@app/books/new-book/new-book.component';
 
 const routes: Routes = [
   { path: 'books', component: BooksComponent },

@@ -1,15 +1,13 @@
+// tslint:disable:no-console
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SOURCE } from '@angular/core/src/di/injector';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 
-import { PromiseState } from 'q';
-
-import { Book } from '../_models/book';
+import { Book } from '@app/books/_models/book';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +27,11 @@ export class BookService {
   };
 
   // booksApiUrl was previous booksUrl and linked to "api/books", which allowed me to read mock data out of in-memory-data.service
-  private booksApiUrl = `${environment.apiUrl}/books`;
+  private _booksApiUrl = `${environment.apiUrl}/books`;
+  booksApiUrl = this._booksApiUrl;
+  getBooksApiUrl() {
+    return this.booksApiUrl;
+  }
 
   constructor(private http: HttpClient) {}
 
@@ -109,7 +111,6 @@ export class BookService {
 
   /** DELETE: delete the book from the database */
   deleteBook(book: Book | number): Observable<any> {
-    /** Previously, 8/8/18 4:30pm deleteBook(book: Book | number): Observable<Book> */
     const id = typeof book === 'number' ? book : book.id;
     const url = `${this.booksApiUrl}/${id}`;
 
