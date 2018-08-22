@@ -20,6 +20,6 @@ export class MostRecentBookComponent implements OnInit {
   getBooks(): void {
     this.bookService
       .getBooks()
-      .subscribe(books => (this.books = books.slice(1, 5)));
+      .subscribe(books => (this.books = books.slice()));
   }
 }

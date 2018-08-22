@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Book } from '@app/books/_models/book';
 import { BookService } from '@app/books/_services/book.service';
-import { IModalOptions, ModalService } from '@app/books/_services/modal.service';
+import { IModalOptions, ModalService } from '@app/core/modal/modal.service';
 
 @Component({
   selector: 'app-book-detail',

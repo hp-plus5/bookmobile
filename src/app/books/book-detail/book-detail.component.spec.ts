@@ -3,10 +3,10 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BookService } from '@app/books/_services/book.service';
-import { ModalService } from '@app/books/_services/modal.service';
 import { BookDetailComponent } from '@app/books/book-detail/book-detail.component';
 import { MockBookService } from '@app/books/book-detail/book.service.fixture.spec';
-import { MockModalService } from '@app/books/book-detail/modal.service.fixture.spec';
+import { ModalService } from '@app/core/modal/modal.service';
+import { MockModalService } from '@app/core/modal/modal.service.fixture.spec';
 
 describe('BookDetailComponent', () => {
   let component: BookDetailComponent;

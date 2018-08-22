@@ -11,6 +11,7 @@ import { BookService } from '@app/books/_services/book.service';
 
 import { asyncData, asyncError } from '@testing/async-observable-helpers';
 import { expectedBooks } from '@testing/books-fixture';
+import { url } from 'inspector';
 
 describe('BookService (with spies)', () => {
   let bookService: BookService;
@@ -414,6 +415,8 @@ describe('BookService (with spies)', () => {
     const makeUrl = (id: number) => `${bookService.booksApiUrl}/?id=${id}`;
 
     it('should delete a book and return a confirmation', () => {
+      const id = typeof book === 'number' ? book : book.id;
+
       bookService
         .deleteBook(makeUrl[7])
         .subscribe(
@@ -442,7 +445,7 @@ describe('BookService (with spies)', () => {
       const msg = 'Deliberate 404';
 
       bookService
-        .deleteBook(makeUrl[8])
+        .deleteBook(makeUrl[7])
         .subscribe(
           books => fail('expected to fail'),
           error => expect(error.message).toContain(msg),

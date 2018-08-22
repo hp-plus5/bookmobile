@@ -1,15 +1,15 @@
 export class Book {
   id = 0;
-  title: string;
-  read: boolean; /* Radio button */
-  ownership: boolean; /* Radio button */
-  femaleProtagonist: boolean; /* Checkmark */
-  femaleRoleModel: boolean; /* Checkmark */
-  lgbtqProtagonist: boolean; /* Checkmark */
-  lgbtqSidekick: boolean; /* Checkmark */
-  lgbtqTheme: boolean; /* Checkmark */
-  rating: number;
-  cover: string;
+  title!: string;
+  read!: boolean; /* Radio button */ /* Radio button */
+  ownership!: boolean; /* Radio button */ /* Radio button */
+  femaleProtagonist!: boolean; /* Checkmark */ /* Checkmark */
+  femaleRoleModel!: boolean; /* Checkmark */ /* Checkmark */
+  lgbtqProtagonist!: boolean; /* Checkmark */ /* Checkmark */
+  lgbtqSidekick!: boolean; /* Checkmark */ /* Checkmark */
+  lgbtqTheme!: boolean; /* Checkmark */ /* Checkmark */
+  rating!: number;
+  cover!: string;
 
   constructor(bookObject?: Book) {
     /* the purpose of the structure below is to emphasize a negative case assumption rather than a "happy case" assumption.
