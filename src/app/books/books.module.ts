@@ -6,10 +6,11 @@ import { BooksRoutingModule } from '@app/books/books-routing.module';
 import { MostRecentBookComponent } from '@app/books/most-recent-book/most-recent-book.component';
 import { NewBookComponent } from '@app/books/new-book/new-book.component';
 import { UnselectedBookComponent } from '@app/books/unselected-book/unselected-book.component';
+import { CoreModule } from '@app/core/core.module';
 import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
-  imports: [SharedModule, BooksRoutingModule],
+  imports: [SharedModule, BooksRoutingModule, CoreModule],
   declarations: [
     BooksComponent,
     BookDetailComponent,

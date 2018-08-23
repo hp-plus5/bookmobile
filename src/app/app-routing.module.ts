@@ -2,6 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'books',
+    pathMatch: 'full',
+  },
   { path: 'books', loadChildren: '@app/books/books.module#BooksModule' },
   { path: 'data', loadChildren: '@app/charts/charts.module#ChartsModule' },
 ];
