@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 import { multi, single } from '@app/charts/charts-landing/charts-landing.fixture.spec';
+import { ChartsModule } from '@app/charts/charts.module';
 import { IModalOptions, ModalService } from '@app/core/modal/modal.service';
 
 @Component({
   selector: 'app-charts-landing',
-  templateUrl: './charts-landing.component.html',
+  templateUrl: './charts-landing-form-attempt.component.html',
   styleUrls: ['./charts-landing.component.css'],
 })
 export class ChartsLandingComponent implements OnInit {
@@ -23,7 +24,7 @@ export class ChartsLandingComponent implements OnInit {
   yAxisLabel = 'Number of Books';
   showDataLabel = true;
   colorScheme = 'cool';
-
+  chosenChartType: ChartType = 'verticalBarChart';
   constructor(private modalService: ModalService) {
     Object.assign(this, { single });
   }
@@ -39,13 +40,19 @@ export class ChartsLandingComponent implements OnInit {
 
   ngOnInit(): void {
     // if (user.isNew) {
-    this.openModal();
+    // this.openModal();
     // }
   }
-  onSelect(event: any) {
-    // tslint:disable-next-line:no-console
-    console.log(event);
+  onSelectBar(event: any) {
+    this.chosenChartType = 'verticalBarChart';
   }
+  onSelectAdvancedPie(event: any) {
+    this.chosenChartType = 'advancedPieChart';
+  }
+  onSelectPie(event: any) {
+    this.chosenChartType = 'pieChart';
+  }
+  setSwitch() {}
   openModal(): void {
     this.modalService.openModal(this.modalOptions);
     this.modalService.close.subscribe(modalResult => {
@@ -53,3 +60,4 @@ export class ChartsLandingComponent implements OnInit {
     });
   }
 }
+export type ChartType = 'advancedPieChart' | 'pieChart' | 'verticalBarChart';
