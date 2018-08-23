@@ -1,21 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {
-    ChartsVerticalBarComponent
-} from '@app/charts/charts-vertical-bar/charts-vertical-bar.component';
+import { ChartsLandingComponent } from '@app/charts/charts-landing/charts-landing.component';
 
 describe('ChartsGenreComponent', () => {
-  let component: ChartsVerticalBarComponent;
-  let fixture: ComponentFixture<ChartsVerticalBarComponent>;
+  let component: ChartsLandingComponent;
+  let fixture: ComponentFixture<ChartsLandingComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ChartsVerticalBarComponent],
+      declarations: [ChartsLandingComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChartsVerticalBarComponent);
+    fixture = TestBed.createComponent(ChartsLandingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

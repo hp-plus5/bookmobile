@@ -1,0 +1,13 @@
+.hover {
+  cursor: pointer;
+}
+.zoom {
+  transition: transform .3s;
+}
+.zoom:hover {
+  transform: scale(1.05);
+}
+.table-width {
+  table-layout: fixed;
+  width: 100%;
+}
