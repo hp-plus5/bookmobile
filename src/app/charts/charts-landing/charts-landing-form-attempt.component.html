@@ -74,7 +74,7 @@
 
 
     <div *ngSwitchCase="'pieChart'">
-        <ngx-charts-pie-chart
+      <ngx-charts-pie-chart
         [scheme]="colorScheme"
         [results]="single"
         [gradient]="gradient"
@@ -83,11 +83,11 @@
     </div>
 
     <div *ngSwitchCase="'advancedPieChart'">
-        <ngx-charts-advanced-pie-chart
+      <ngx-charts-advanced-pie-chart
         [scheme]="colorScheme"
         [results]="single"
         [gradient]="gradient">
-        </ngx-charts-advanced-pie-chart>
+      </ngx-charts-advanced-pie-chart>
     </div>
     <div *ngSwitchDefault="">Default! Probably won't ever hit this, since 'chosenChartType' is instantiated from the get-go.
     </div>
