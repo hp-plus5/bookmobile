@@ -35,6 +35,9 @@ describe('BookService (with spies)', () => {
           lgbtqTheme: false,
           rating: 1,
           cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+          femaleAuthor: true,
+          lgbtqAuthor: false,
+          genre: 'Fantasy',
         },
       ]),
     );
@@ -174,6 +177,9 @@ describe('BookService (with spies)', () => {
           lgbtqTheme: false,
           rating: 1,
           cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+          femaleAuthor: true,
+          lgbtqAuthor: false,
+          genre: 'Fantasy',
           isNew(): false {
             return false;
           },
@@ -197,6 +203,9 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 1,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         isNew(): false {
           return false;
         },
@@ -238,6 +247,9 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 1,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         isNew(): false {
           return false;
         },
@@ -270,6 +282,9 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 1,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         isNew(): false {
           return false;
         },
@@ -313,6 +328,9 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 10,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         isNew(): true {
           return true;
         },
@@ -353,6 +371,9 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 10,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         isNew(): true {
           return true;
         },
@@ -385,6 +406,9 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 10,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         // tslint:disable-next-line:semicolon
         isNew(): true {
           return true;
