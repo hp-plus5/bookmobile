@@ -1,0 +1,40 @@
+<div class="card">
+  <h1 class="display-3">Dataville!</h1>
+    <div [ngSwitch]="chosenChartType">
+
+      <div *ngSwitchCase="'verticalBarChart'">
+        <!-- ideally these will all be abstracted away, for better single[] v multi[] storage -->
+        <ngx-charts-bar-vertical
+          [scheme]="colorScheme"
+          [results]="single"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel">
+         </ngx-charts-bar-vertical>
+      </div>
+
+
+      <div *ngSwitchCase="'pieChart'">
+        <ngx-charts-pie-chart
+          [scheme]="colorScheme"
+          [results]="single"
+          [gradient]="gradient"
+          [labels]="true">
+        </ngx-charts-pie-chart>
+      </div>
+
+      <div *ngSwitchCase="'advancedPieChart'">
+        <ngx-charts-advanced-pie-chart
+          [scheme]="colorScheme"
+          [results]="single"
+          [gradient]="gradient">
+        </ngx-charts-advanced-pie-chart>
+      </div>
+      <div *ngSwitchDefault=""><p>We're sorry, an error has occurred. ['chosenChartType' is not defined]</p>
+      </div>
+    </div>
+  </div>
