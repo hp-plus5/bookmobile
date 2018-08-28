@@ -1,0 +1,79 @@
+.hover {
+  cursor: pointer;
+}
+.zoom {
+  transition: transform 0.3s;
+}
+.zoom:hover {
+  transform: scale(1.1);
+}
+.table-width {
+  table-layout: fixed;
+  width: 100%;
+  background-color: #eb6864;
+  color: #222;
+}
+.container-charts-landing {
+  display: grid;
+  /* autoprefixer: off */
+  grid-template-rows: 30% 70%;
+  grid-row-gap: 25px;
+  grid-template-areas: 'questions' 'chart-types';
+  width: 100%;
+}
+#questions {
+  display: grid;
+  grid-area: 'questions';
+  grid-template-columns: 3 1fr;
+  grid-gap: 15px;
+  grid-template-areas: 'genre author protagonist';
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 1.7em;
+  background-color: #eb6864;
+  color: #222;
+  font-size: 1.3em;
+}
+.genre {
+  display: grid;
+  grid-area: 'genre';
+}
+.author {
+  display: grid;
+  grid-area: 'author';
+}
+.protagonist {
+  display: grid;
+  grid-area: 'protagonist';
+}
+#chart-types {
+  display: grid;
+  grid-area: 'chart-types';
+  grid-template-columns: 3 1fr;
+  grid-template-areas: 'vertical-bar advanced-pie pie';
+  grid-column-gap: 15px;
+  justify-items: space-between;
+  padding-top: 3em;
+  width: 100%;
+  height: 15em;
+  background-color: #eb6864;
+  color: #222;
+}
+.advanced-pie-legend .legend-items-container .legend-items {
+  overflow: initial !important;
+}
+.vertical-bar {
+  display: grid;
+  grid-area: 'vertical-bar';
+  grid-auto-flow: row;
+}
+.advanced-pie {
+  display: grid;
+  grid-area: 'advanced-pie';
+  grid-auto-flow: row;
+}
+.pie {
+  display: grid;
+  grid-area: 'pie';
+  grid-auto-flow: row;
+}

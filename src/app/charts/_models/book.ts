@@ -1,15 +1,21 @@
+import { BooksComponent } from '@app/books/books-list/books.component';
+
 export class Book {
   id = 0;
-  title: string;
-  read: boolean; /* Radio button */
-  ownership: boolean; /* Radio button */
-  femaleProtagonist: boolean; /* Checkmark */
-  femaleRoleModel: boolean; /* Checkmark */
-  lgbtqProtagonist: boolean; /* Checkmark */
-  lgbtqSidekick: boolean; /* Checkmark */
-  lgbtqTheme: boolean; /* Checkmark */
-  rating: number;
-  cover: string;
+  title!: string;
+  read!: boolean;
+  ownership!: boolean;
+  femaleProtagonist!: boolean;
+  femaleRoleModel!: boolean;
+  lgbtqProtagonist!: boolean;
+  lgbtqSidekick!: boolean;
+  lgbtqTheme!: boolean;
+  rating = 0;
+  genre!: string;
+  cover!: string;
+  // eventually remove the following and put them in their own author model
+  femaleAuthor!: boolean;
+  lgbtqAuthor!: boolean;
 
   constructor(bookObject?: Book) {
     /* the purpose of the structure below is to emphasize a negative case assumption rather than a "happy case" assumption.
@@ -27,7 +33,11 @@ export class Book {
     this.lgbtqSidekick = bookObject.lgbtqSidekick;
     this.lgbtqTheme = bookObject.lgbtqTheme;
     this.rating = bookObject.rating;
+    this.genre = bookObject.genre;
     this.cover = bookObject.cover;
+
+    this.femaleAuthor = bookObject.femaleAuthor;
+    this.lgbtqAuthor = bookObject.lgbtqAuthor;
   }
 
   isNew(): boolean {

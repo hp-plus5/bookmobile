@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
+
 import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ModalService {
-  open: Subject<ModalOptions> = new Subject();
+  open: Subject<IModalOptions> = new Subject();
   // "open" will emit events. subject will be our modalOptions. Think of Subject as being a pipe. This is the source that we'll hand to our modal component, and then we'll subscribe to it in the [modal] component. If the subject is what watches for changes, the observable IS those changes / it's what comes out of the pipe.
 
   close: Subject<ModalResult> = new Subject();
 
   constructor() {}
 
-  openModal(options: ModalOptions): void {
+  openModal(options: IModalOptions): void {
     this.open.next(options);
     // .next is putting something into the pipe. So when external components call on this, it'll be a means for them to put things into the pipe we've made ("open"). This pipe is meant to pass modalOptions information/the text that goes into the modal.
     // Should this be .asObservable() to avoid exposure to users?
@@ -27,7 +28,7 @@ export class ModalService {
   }
 }
 
-export interface ModalOptions {
+export interface IModalOptions {
   title: string;
   body: string;
   submit: string;

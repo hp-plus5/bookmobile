@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Book, trackByBooks } from '../_models/book';
-import { BookService } from '../_services/book.service';
+
+import { Book, trackByBooks } from '@app/books/_models/book';
+import { BookService } from '@app/books/_services/book.service';
 
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
-  styleUrls: ['./books.component.css']
+  styleUrls: ['./books.component.css'],
 })
 export class BooksComponent implements OnInit {
   books: Book[] = [];
-  selectedBook: Book;
+  selectedBook: Book | undefined;
   trackByBooks = trackByBooks;
 
   constructor(private bookService: BookService) {}

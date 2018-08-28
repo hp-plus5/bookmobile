@@ -1,9 +1,17 @@
 export class Author {
   id = 0;
-  firstName: string;
-  lastName: string;
-  gender: 'male' | 'female' | 'trans';
-  lgbtq: boolean;
+  firstName!: string;
+  lastName!: string;
+  gender!: 'male' | 'female' | 'trans';
+  lgbtq!: boolean;
+  race!:
+    | 'white'
+    | 'black'
+    | 'hispanic'
+    | 'asian'
+    | 'mixed'
+    | 'native american'
+    | 'other';
 
   constructor(authorObject?: Author) {
     /* the purpose of the structure below is to emphasize a negative case assumption rather than a "happy case" assumption.

@@ -9,7 +9,7 @@
     "editor.formatOnSave": true
   },
   "[html]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": false
   },
   "files.exclude": {
     "**/.git": true,
@@ -37,7 +37,7 @@
     },
     // Add 3rd party libs here
     {
-      "regex": "^rxjs|@ng-bootstrap|@okta",
+      "regex": "^rxjs|@ng-bootstrap|@okta|@swimlane",
       "orderLevel": 30
     },
     {

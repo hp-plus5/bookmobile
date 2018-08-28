@@ -1,16 +1,17 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { asyncData, asyncError } from '../../testing';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { HttpTestingController } from '@angular/common/http/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
-import { Book } from '../_models/book';
-import { BookService } from './book.service';
-import {
-  HttpErrorResponse,
-  HttpClient,
-  HttpResponse
-} from '../../../node_modules/@angular/common/http';
-import { of } from '../../../node_modules/rxjs';
-import { expectedBooks } from '../../testing/books-fixture';
+import { of } from 'rxjs';
+
+import { environment } from '@environments/environment';
+
+import { Book } from '@app/books/_models/book';
+import { BookService } from '@app/books/_services/book.service';
+
+import { asyncData, asyncError } from '@testing/async-observable-helpers';
+import { expectedBooks } from '@testing/books-fixture';
+import { url } from 'inspector';
 
 describe('BookService (with spies)', () => {
   let bookService: BookService;
@@ -19,7 +20,7 @@ describe('BookService (with spies)', () => {
 
   beforeEach(() => {
     httpClient = jasmine.createSpyObj<HttpClient>('HttpClient', ['get']);
-    // TODO: not sure that if i need this?
+    // TODO: not sure if i need this?
     httpClient.get.and.returnValue(
       of([
         {
@@ -33,16 +34,21 @@ describe('BookService (with spies)', () => {
           lgbtqSidekick: false,
           lgbtqTheme: false,
           rating: 1,
-          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg'
-        }
-      ])
+          cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+          femaleAuthor: true,
+          lgbtqAuthor: false,
+          genre: 'Fantasy',
+        },
+      ]),
     );
     bookService = new BookService(httpClient);
     // note how if we were doing pure mock testing, this line would go "bookService = TestBed.get(BookService);"
     httpTestingController = TestBed.get(HttpTestingController);
+    const booksApiUrl = `${environment.apiUrl}/books`;
+    httpClient.put(booksApiUrl);
 
     TestBed.configureTestingModule({
-      providers: [BookService]
+      providers: [BookService],
     });
   });
 
@@ -62,11 +68,11 @@ describe('BookService (with spies)', () => {
       .getBooks()
       .subscribe(
         books => expect(books).toEqual(expectedBooks, 'expected books'),
-        fail
+        fail,
       );
     expect(httpClient.get.identity.valueOf).toBe(
       7,
-      'should be 7 books in getAll'
+      'should be 7 books in getAll',
     );
     // don't really need to test the below code in this case, since it doesn't hurt us to call getBooks() more than once, but I want to keep the code around as a reference point.
     // expect(httpClient.get.calls.count()).toBe(1, 'one call');
@@ -76,7 +82,7 @@ describe('BookService (with spies)', () => {
     const errorResponse = new HttpErrorResponse({
       error: 'test 404 error',
       status: 404,
-      statusText: 'Not Found'
+      statusText: 'Not Found',
     });
 
     httpClient.get.and.returnValue(asyncError(errorResponse));
@@ -85,7 +91,7 @@ describe('BookService (with spies)', () => {
       .getBooks()
       .subscribe(
         books => fail('expected an error, not books'),
-        error => expect(error.message).toContain('test 404 error')
+        error => expect(error.message).toContain('test 404 error'),
       );
   });
 
@@ -97,9 +103,9 @@ describe('BookService (with spies)', () => {
           books =>
             expect(books).toEqual(
               expectedBooks,
-              'should return expected books'
+              'should return expected books',
             ),
-          fail
+          fail,
         );
 
       // BookService should have made one request to GET books from expected URL
@@ -116,7 +122,7 @@ describe('BookService (with spies)', () => {
         .subscribe(
           books =>
             expect(books.length).toEqual(0, 'should have empty books array'),
-          fail
+          fail,
         );
 
       const req = httpTestingController.expectOne(bookService.booksApiUrl);
@@ -129,7 +135,7 @@ describe('BookService (with spies)', () => {
         .getBooks()
         .subscribe(
           books => fail('expected to fail'),
-          error => expect(error.message).toContain(msg)
+          error => expect(error.message).toContain(msg),
         );
 
       const req = httpTestingController.expectOne(bookService.booksApiUrl);
@@ -148,9 +154,9 @@ describe('BookService (with spies)', () => {
           books =>
             expect(books).toEqual(
               expectedBooks,
-              'should return expected books'
+              'should return expected books',
             ),
-          fail
+          fail,
         );
 
       const requests = httpTestingController.match(bookService.booksApiUrl);
@@ -171,19 +177,19 @@ describe('BookService (with spies)', () => {
           lgbtqTheme: false,
           rating: 1,
           cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+          femaleAuthor: true,
+          lgbtqAuthor: false,
+          genre: 'Fantasy',
           isNew(): false {
             return false;
-          }
-        }
+          },
+        },
       ]);
       requests[2].flush(expectedBooks);
     });
   });
 
   describe('#updateBook', () => {
-    // Expecting the query form of URL so should not 404 when id not found
-    const makeUrl = (id: number) => `${bookService.booksApiUrl}/?id=${id}`;
-
     it('should update a book and return it', () => {
       const updateBook: Book = {
         id: 1,
@@ -197,16 +203,19 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 1,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         isNew(): false {
           return false;
-        }
+        },
       };
 
       bookService
         .updateBook(updateBook)
         .subscribe(
           data => expect(data).toEqual(updateBook, 'should return the book'),
-          fail
+          fail,
         );
 
       // HeroService should have made one request to PUT hero
@@ -218,7 +227,7 @@ describe('BookService (with spies)', () => {
       const expectedResponse = new HttpResponse({
         status: 200,
         statusText: 'OK',
-        body: updateBook
+        body: updateBook,
       });
       req.event(expectedResponse);
     });
@@ -238,15 +247,18 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 1,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         isNew(): false {
           return false;
-        }
+        },
       };
       bookService
         .updateBook(updateBook)
         .subscribe(
           books => fail('expected to fail'),
-          error => expect(error.message).toContain(msg)
+          error => expect(error.message).toContain(msg),
         );
 
       const req = httpTestingController.expectOne(bookService.booksApiUrl);
@@ -270,15 +282,18 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 1,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         isNew(): false {
           return false;
-        }
+        },
       };
       bookService
         .updateBook(updateBook)
         .subscribe(
           books => fail('expected to fail'),
-          error => expect(error.message).toContain(emsg)
+          error => expect(error.message).toContain(emsg),
         );
 
       const req = httpTestingController.expectOne(bookService.booksApiUrl);
@@ -291,7 +306,7 @@ describe('BookService (with spies)', () => {
         // Just showing that you could provide this too.
         filename: 'BookService.ts',
         lineno: 42,
-        colno: 21
+        colno: 21,
       });
 
       // Respond with mock error
@@ -313,16 +328,19 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 10,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         isNew(): true {
           return true;
-        }
+        },
       };
 
       bookService
         .addBook(newBook)
         .subscribe(
           data => expect(data).toEqual(newBook, 'should return the book'),
-          fail
+          fail,
         );
 
       // BookService should have made one request to POST book
@@ -334,7 +352,7 @@ describe('BookService (with spies)', () => {
       const expectedResponse = new HttpResponse({
         status: 200,
         statusText: 'OK',
-        body: newBook
+        body: newBook,
       });
       req.event(expectedResponse);
     });
@@ -353,15 +371,18 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 10,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         isNew(): true {
           return true;
-        }
+        },
       };
       bookService
         .addBook(new404Book)
         .subscribe(
           books => fail('expected to fail'),
-          error => expect(error.message).toContain(msg)
+          error => expect(error.message).toContain(msg),
         );
 
       const req = httpTestingController.expectOne(bookService.booksApiUrl);
@@ -385,16 +406,19 @@ describe('BookService (with spies)', () => {
         lgbtqTheme: false,
         rating: 10,
         cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+        femaleAuthor: true,
+        lgbtqAuthor: false,
+        genre: 'Fantasy',
         // tslint:disable-next-line:semicolon
         isNew(): true {
           return true;
-        }
+        },
       };
       bookService
         .addBook(newNetworkErrorBook)
         .subscribe(
           books => fail('expected to fail'),
-          error => expect(error.message).toContain(networkErrorMessage)
+          error => expect(error.message).toContain(networkErrorMessage),
         );
 
       const req = httpTestingController.expectOne(bookService.booksApiUrl);
@@ -402,7 +426,7 @@ describe('BookService (with spies)', () => {
       // Create mock ErrorEvent, raised when something goes wrong at the network level.
       // Connection timeout, DNS error, offline, etc
       const errorEvent = new ErrorEvent('so sad', {
-        message: networkErrorMessage
+        message: networkErrorMessage,
       });
 
       // Respond with mock error
@@ -415,15 +439,17 @@ describe('BookService (with spies)', () => {
     const makeUrl = (id: number) => `${bookService.booksApiUrl}/?id=${id}`;
 
     it('should delete a book and return a confirmation', () => {
+      const id = typeof book === 'number' ? book : book.id;
+
       bookService
         .deleteBook(makeUrl[7])
         .subscribe(
           data =>
             expect(data).toEqual(
               expectedBooks,
-              'should return only first six books'
+              'should return only first six books',
             ),
-          fail
+          fail,
         );
 
       // BookService should have made one request to DELETE book
@@ -434,7 +460,7 @@ describe('BookService (with spies)', () => {
       // Expect server to return confirmation after DELETE
       const expectedResponse = new HttpResponse({
         status: 200,
-        statusText: 'OK'
+        statusText: 'OK',
       });
       req.event(expectedResponse);
     });
@@ -443,10 +469,10 @@ describe('BookService (with spies)', () => {
       const msg = 'Deliberate 404';
 
       bookService
-        .deleteBook(makeUrl[8])
+        .deleteBook(makeUrl[7])
         .subscribe(
           books => fail('expected to fail'),
-          error => expect(error.message).toContain(msg)
+          error => expect(error.message).toContain(msg),
         );
 
       const req = httpTestingController.expectOne(bookService.booksApiUrl);
@@ -462,7 +488,7 @@ describe('BookService (with spies)', () => {
         .deleteBook(expectedBooks[7])
         .subscribe(
           books => fail('expected to fail'),
-          error => expect(error.message).toContain(networkMessage)
+          error => expect(error.message).toContain(networkMessage),
         );
 
       const req = httpTestingController.expectOne(bookService.booksApiUrl);
@@ -470,7 +496,7 @@ describe('BookService (with spies)', () => {
       // Create mock ErrorEvent, raised when something goes wrong at the network level.
       // Connection timeout, DNS error, offline, etc
       const errorEvent = new ErrorEvent('so sad', {
-        message: networkMessage
+        message: networkMessage,
       });
 
       // Respond with mock error

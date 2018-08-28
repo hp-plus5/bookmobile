@@ -1,19 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { BookDetailComponent } from './book-detail.component';
-import { BookService } from '../_services/book.service';
-import {
-  ModalService,
-  ModalOptions,
-  ModalResult
-} from '../_services/modal.service';
-import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
-import { HttpClient } from '../../../node_modules/@angular/common/http';
-import { HttpTestingController } from '../../../node_modules/@angular/common/http/testing';
-import { Book } from '../_models/book';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '../../../node_modules/@angular/core';
-import { NgForm } from '../../../node_modules/@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { BookService } from '@app/books/_services/book.service';
+import { MockBookService } from '@app/books/_services/book.service.fixture.spec';
+import { BookDetailComponent } from '@app/books/book-detail/book-detail.component';
+import { ModalService } from '@app/core/modal/modal.service';
+import { MockModalService } from '@app/core/modal/modal.service.fixture.spec';
 
 describe('BookDetailComponent', () => {
   let component: BookDetailComponent;
@@ -24,68 +17,6 @@ describe('BookDetailComponent', () => {
   // const httpClient: HttpClient;
   // const httpTestingController: HttpTestingController;
 
-  class MockBookService {
-    MockBookServiceBook: Book[] = [
-      {
-        id: 1,
-        title: 'Fake Harry Potter and the Fake Sorcerers Stone',
-        read: false,
-        ownership: false,
-        femaleProtagonist: false,
-        femaleRoleModel: false,
-        lgbtqProtagonist: false,
-        lgbtqSidekick: false,
-        lgbtqTheme: false,
-        rating: 7,
-        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        isNew(): false {
-          return false;
-        }
-      },
-      {
-        id: 2,
-        title: 'Fake Harry Potter and the Fake Chamber of Secrets',
-        read: true,
-        ownership: true,
-        femaleProtagonist: true,
-        femaleRoleModel: true,
-        lgbtqProtagonist: true,
-        lgbtqSidekick: true,
-        lgbtqTheme: true,
-        rating: 3,
-        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        isNew(): false {
-          return false;
-        }
-      },
-      {
-        id: 3,
-        title:
-          'Fake Harry Potter and the Prisoner of Fake Azkaban where everyone is gay',
-        read: false,
-        ownership: false,
-        femaleProtagonist: false,
-        femaleRoleModel: false,
-        lgbtqProtagonist: true,
-        lgbtqSidekick: true,
-        lgbtqTheme: true,
-        rating: 10,
-        cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
-        isNew(): false {
-          return false;
-        }
-      }
-    ];
-  }
-  class MockModalService {
-    MockModalOptions: ModalOptions = {
-      title: 'Test Modal Title',
-      body: 'Test Modal Body',
-      submit: 'Submit',
-      cancel: 'Cancel'
-    };
-  }
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [BookDetailComponent],
@@ -93,8 +24,8 @@ describe('BookDetailComponent', () => {
       providers: [
         BookDetailComponent,
         { BookService, useClass: MockBookService },
-        { ModalService, useClass: MockModalService }
-      ]
+        { ModalService, useClass: MockModalService },
+      ],
     })
       .compileComponents()
       .then(() => {
@@ -139,7 +70,7 @@ describe('BookDetailComponent', () => {
   describe('#deSelectBook', () => {
     beforeEach(() => {
       fixture.debugElement.query(
-        By.css('button, type:not([submit]), click([deSelectBook])')
+        By.css('button, type:not([submit]), click([deSelectBook])'),
       );
     });
 

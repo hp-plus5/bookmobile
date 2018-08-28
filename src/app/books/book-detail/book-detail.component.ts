@@ -1,23 +1,16 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+// tslint:disable:no-console
 import { Location } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { Book } from '../_models/book';
-import { BookService } from '../_services/book.service';
-import { ModalService, ModalOptions } from '../_services/modal.service';
-import { NgForm } from '../../../node_modules/@angular/forms';
+import { Book } from '@app/books/_models/book';
+import { BookService } from '@app/books/_services/book.service';
+import { IModalOptions, ModalService } from '@app/core/modal/modal.service';
 
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail-template-driven.component.html',
-  styleUrls: ['./book-detail.component.css']
+  styleUrls: ['./book-detail.component.css'],
 })
 export class BookDetailComponent implements OnInit {
   @Input()
@@ -31,18 +24,17 @@ export class BookDetailComponent implements OnInit {
     private bookService: BookService,
     private route: ActivatedRoute,
     private location: Location,
-    private router: Router,
-    private modalService: ModalService
+    private modalService: ModalService,
   ) {}
   compareToBooksUrl = this.location.isCurrentPathEqualTo('/books');
   compareToNewBookUrl = this.location.isCurrentPathEqualTo('/new-book');
 
-  private modalOptions: ModalOptions = {
+  private modalOptions: IModalOptions = {
     // this is for my modal. implements the interface (thanks, typescript!)
     title: 'Delete',
     body: 'Are you sure about this?',
     submit: 'Yup',
-    cancel: 'No, god, please, no!!'
+    cancel: 'No, god, please, no!!',
   };
 
   ngOnInit(): void {
@@ -52,6 +44,7 @@ export class BookDetailComponent implements OnInit {
     ) {
       // I don't understand the logic of this if statement.
       this.getBookById();
+
       console.log(this.book + 'ngOnInit: id came through byId');
     } else if (
       !this.book ||
@@ -61,13 +54,17 @@ export class BookDetailComponent implements OnInit {
     } else {
       this.getBookByIdThroughParent(this.book.id);
       console.log(
-        this.book + 'ngOnInit: id came through parent component (books)'
+        this.book + 'ngOnInit: id came through parent component (books)',
       );
     }
   }
 
   getBookById(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const routeId = this.route.snapshot.paramMap.get('id');
+    if (routeId === null) {
+      return;
+    }
+    const id = +routeId;
     // the + is a JS operator that converts the string from paramMap (everything paramMap returns is a string) into a number.
     this.bookService.getBookById(id).subscribe(book => (this.book = book));
   }
@@ -89,20 +86,20 @@ export class BookDetailComponent implements OnInit {
     this.location.back();
   }
 
-  updateThisBook(book: Book): void {
+  updateThisBook(): void {
     // if we passed in form: Form here instead of book, we could alter the state of the form
     if (this.compareToNewBookUrl === true) {
-      this.addThisBook(book);
+      this.addThisBook();
     } else {
       this.bookService.updateBook(this.book).subscribe(
         () => this.cancel.emit(), // this line is doing deSelectBook's job so that we avoid a (click) method on our submit button on the template, but we couldn't just put a this.cancel.emit() on a line after subscribing to our updateBook method, because it would cancel our subscription before we'd necessarily gotten back a response. So this way, our code is forced to wait to get a response from the server before it moves on to cancel the event emission (which we want to return book-detail to an uneditable UI)
         error => {
           console.error(error); // this is where a message service would go to trigger (say) a modal notice to the user
-        }
+        },
       );
     }
   }
-  addThisBook(book): void {
+  addThisBook(): void {
     this.bookService.addBook(this.book).subscribe(() => this.route);
   }
 
@@ -114,7 +111,7 @@ export class BookDetailComponent implements OnInit {
         () => this.cancel.emit(), // this line is doing deSelectBook's job so that we avoid a (click) method on our submit button on the template, but we couldn't just put a this.cancel.emit() on a line after subscribing to our updateBook method, because it would cancel our subscription before we'd necessarily gotten back a response. So this way, our code is forced to wait to get a response from the server before it moves on to cancel the event emission (which we want to return book-detail to an uneditable UI)
         error => {
           console.error(error); // this is where a message service would go to trigger an alert to the user in case of failure
-        }
+        },
       );
     }
   }

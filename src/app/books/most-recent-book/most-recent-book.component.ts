@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../_models/book';
-import { BookService } from '../_services/book.service';
+
+import { Book } from '@app/books/_models/book';
+import { BookService } from '@app/books/_services/book.service';
 
 @Component({
   selector: 'app-most-recent-book',
   templateUrl: './most-recent-book.component.html',
-  styleUrls: ['./most-recent-book.component.css']
+  styleUrls: ['./most-recent-book.component.css'],
 })
 export class MostRecentBookComponent implements OnInit {
   books: Book[] = [];
@@ -19,6 +20,6 @@ export class MostRecentBookComponent implements OnInit {
   getBooks(): void {
     this.bookService
       .getBooks()
-      .subscribe(books => (this.books = books.slice(1, 5)));
+      .subscribe(books => (this.books = books.slice()));
   }
 }

@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalComponent } from '@app/core/modal/modal.component';
+import { ChartsLandingComponent } from '@app/charts/charts-landing/charts-landing.component';
 
-describe('ModalComponent', () => {
-  let component: ModalComponent;
-  let fixture: ComponentFixture<ModalComponent>;
+describe('ChartsGenreComponent', () => {
+  let component: ChartsLandingComponent;
+  let fixture: ComponentFixture<ChartsLandingComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ModalComponent],
+      declarations: [ChartsLandingComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalComponent);
+    fixture = TestBed.createComponent(ChartsLandingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

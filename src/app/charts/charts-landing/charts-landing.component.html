@@ -1,0 +1,62 @@
+<div class="card" style="margin-bottom: 3em;">
+    <table class="table table-width">
+        <thead>
+            <tr>
+              <th>See data about...</th>
+            </tr>
+          </thead>
+          <tbody>
+        <tr class="table-primary" style="justify-content: space-around; display: flex;">
+          <td class="zoom hover" (click)="selectDataChoice('FemaleAuthor')">Author Demographics</td>
+          <td class="zoom hover" (click)="selectDataChoice('genre')">Genre</td>
+          <td class="zoom hover" (click)="selectDataChoice('LgbtqProtagonist')">Protagonist Demographics</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-width">
+        <thead>
+          <tr>
+            <th scope="row" style="text-align: center">...using this chart</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-primary">
+            <td class="table-hover zoom hover">
+              <!-- eventually refactor these columns of data examples into <components> -->
+              <ngx-charts-bar-vertical
+                [scheme]="colorScheme"
+                [results]="single"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                (click)="selectChartType('verticalBarChart')">
+              </ngx-charts-bar-vertical>
+            </td>
+            <td class="zoom hover">
+              <ngx-charts-advanced-pie-chart
+                [scheme]="colorScheme"
+                [results]="single"
+                [gradient]="gradient"
+                (click)="selectChartType('advancedPieChart')">
+              </ngx-charts-advanced-pie-chart>
+            </td>
+            <td class="zoom hover">
+                <ngx-charts-pie-chart
+                  [scheme]="colorScheme"
+                  [results]="single"
+                  [gradient]="gradient"
+                  [labels]="true"
+                  (click)="selectChartType('pieChart')">
+                </ngx-charts-pie-chart>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    <span style="margin-left: auto; margin-right: 0;">
+      <button (click)="onSubmit()" type="submit" class="btn btn-primary btn-lg" style="margin: 1em 0 1em 1em; margin-right: 1em;">Go!</button>
+    </span>
+  </div>
