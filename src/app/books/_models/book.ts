@@ -10,7 +10,7 @@ export class Book {
   lgbtqTheme!: boolean;
   rating = 0;
   cover!: string;
-
+  genre!: string;
   femaleAuthor!: boolean;
   lgbtqAuthor!: boolean;
 
