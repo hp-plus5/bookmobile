@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { ChartType } from '@app/charts/_models/chart-request';
+import { ChartRequest, ChartType } from '@app/charts/_models/chart-request';
 import { ChartResponse } from '@app/charts/_models/chart-response';
 import { ChartService } from '@app/charts/chart.service';
 import { single } from '@app/charts/charts-response.fixture.spec';
@@ -14,7 +14,6 @@ import { ModalService } from '@app/core/modal/modal.service';
 export class CustomChartsViewComponent implements OnInit {
   @Input()
   chartResponse = new ChartResponse();
-  // TODO: this is likely unnecessary
   chosenChartType!: ChartType;
   single: any[] = [];
   multi: any[] = [];
@@ -37,12 +36,11 @@ export class CustomChartsViewComponent implements OnInit {
     Object.assign(this, { single });
   }
   ngOnInit(): void {
-    if (!this.chartResponse) {
-      // this.getChartResponse(this.chartResponse);
-    }
+    this.getChartResponse();
   }
 
   getChartResponse(): void {
+    this.chosenChartType = this.chartService.currentRequest.chartType;
     this.chartService
       .getChartData()
       .subscribe(newResponse => (this.chartResponse = newResponse));
