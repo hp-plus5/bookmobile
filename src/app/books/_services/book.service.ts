@@ -132,11 +132,6 @@ export class BookService {
     );
   }
 
-  // /** MODAL POPUPS */
-  // successfullyChanged(): PromiseState<T> {
-  //    ;
-  // }
-
   /**
    * Handle Http operation that failed.
    * Let the app continue.
