@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { multi, single } from '@app/charts/charts-landing/charts-landing.fixture.spec';
-import { ChartsModule } from '@app/charts/charts.module';
+import { ChartRequest, ChartType, DataChoice } from '@app/charts/_models/chart-request';
+import { ChartService } from '@app/charts/chart.service';
+import { multi, single } from '@app/charts/charts-response.fixture.spec';
 import { IModalOptions, ModalService } from '@app/core/modal/modal.service';
 
 @Component({
   selector: 'app-charts-landing',
-  templateUrl: './charts-landing-form-attempt.component.html',
+  templateUrl: './charts-landing.component.html',
   styleUrls: ['./charts-landing.component.css'],
 })
 export class ChartsLandingComponent implements OnInit {
+  @Input()
+  chartRequest = new ChartRequest();
+  // saying this instead of just "@Input() chart = Chart" ensures that the object will not be of the type undefined.
+  // It's a security blanket specifically for when the component acts as a child.
+  chosenChartType!: ChartType;
+
   single: any[] = [];
   multi: any[] = [];
 
@@ -24,8 +32,11 @@ export class ChartsLandingComponent implements OnInit {
   yAxisLabel = 'Number of Books';
   showDataLabel = true;
   colorScheme = 'cool';
-  chosenChartType: ChartType = 'verticalBarChart';
-  constructor(private modalService: ModalService) {
+  constructor(
+    private modalService: ModalService,
+    private chartService: ChartService,
+    private router: Router,
+  ) {
     Object.assign(this, { single });
   }
   private modalOptions: IModalOptions = {
@@ -43,16 +54,20 @@ export class ChartsLandingComponent implements OnInit {
     // this.openModal();
     // }
   }
-  onSelectBar(event: any) {
-    this.chosenChartType = 'verticalBarChart';
+  selectChartType(chartType: ChartType) {
+    this.chartRequest.chartType = chartType;
   }
-  onSelectAdvancedPie(event: any) {
-    this.chosenChartType = 'advancedPieChart';
+
+  selectDataChoice(dataChoice: DataChoice) {
+    this.chartRequest.dataChoice = dataChoice;
   }
-  onSelectPie(event: any) {
-    this.chosenChartType = 'pieChart';
+
+  onSubmit(): void {
+    this.chartService.currentRequest = this.chartRequest;
+    this.router.navigate(['data/custom-chart']);
+    // this dumps this instance of currentRequest into the service, which will then be fetched by a method in custom-charts ('getResponse' or something) that then forms that object into a chartResponse. That response will be made up of JSON data for ngx-charts to read.
   }
-  setSwitch() {}
+
   openModal(): void {
     this.modalService.openModal(this.modalOptions);
     this.modalService.close.subscribe(modalResult => {
@@ -60,4 +75,3 @@ export class ChartsLandingComponent implements OnInit {
     });
   }
 }
-export type ChartType = 'advancedPieChart' | 'pieChart' | 'verticalBarChart';
