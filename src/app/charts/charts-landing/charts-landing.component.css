@@ -18,7 +18,7 @@
   /* autoprefixer: off */
   grid-template-rows: 30% 70%;
   grid-row-gap: 25px;
-  grid-template-areas: 'questions chart-types';
+  grid-template-areas: 'questions' 'chart-types';
   width: 100%;
 }
 #questions {
@@ -33,6 +33,18 @@
   background-color: #eb6864;
   color: #222;
   font-size: 1.3em;
+}
+.genre {
+  display: grid;
+  grid-area: 'genre';
+}
+.author {
+  display: grid;
+  grid-area: 'author';
+}
+.protagonist {
+  display: grid;
+  grid-area: 'protagonist';
 }
 #chart-types {
   display: grid;

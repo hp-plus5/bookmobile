@@ -1,16 +1,28 @@
 <div class="container-charts-landing">
   <div class="card mb3" style="margin-bottom: 3em; margin-top: 1em;">
-    <form #chartsForm="ngForm" (ngSubmit)="setSwitch(chartsForm)" style="padding: 1em 1em 1em 1em;">
-        <h2>See data about...</h2>
-        <div id="questions">
-        <span class="zoom hover genre">Genre</span>
-        <span class="zoom hover author">Author Demographics</span>
-        <span class="zoom hover protagonist">Protagonist Demographics</span>
+    <form #chartsForm="ngForm" (ngSubmit)="makeChart(chartsForm)" style="padding: 1em 1em 1em 1em;">
+      <h2>See data about...</h2>
+        <div id="questions" class="form-group">
+          <fieldset>
+
+            <!-- have these be clicks instead -->
+            <input class="zoom hover genre" [(ngModel)]="chart.chosenDataChoice" name="chosenDataChoice" id="'genre'" [value]="'genre'" type="radio">
+            <label for="'genre'">Genre</label>
+
+            <input class="zoom hover author" [(ngModel)]="chart.chosenDataChoice" name="chosenDataChoice" id="'author'" [value]="'author'" type="radio">
+            <label for="'author'">Author Demographics</label>
+
+            <input class="zoom hover protagonist" [(ngModel)]="chart.chosenDataChoice" name="chosenDataChoice" id="'protagonist'" [value]="'protagonist'" type="radio">
+            <label for="'protagonist'" (click)="selectDataChoice('protagonist')">Protagonist Demographics
+            </label>
+
+          </fieldset>
         </div>
 
       <h2 style="text-align: center; margin-top: 1em;">...using this chart:</h2>
       <div id="chart-types">
-        <span class="zoom hover vertical-bar">
+        <input [(ngModel)]="chart.chosenChartType" name="chosenChartType" id="'verticalBarChart'" [value]="'verticalBarChart'" type="radio">
+        <label class="zoom hover vertical-bar" for="'verticalBarChart'">
           <ngx-charts-bar-vertical
             [scheme]="colorScheme"
             [results]="single"
@@ -20,19 +32,21 @@
             [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel"
             [xAxisLabel]="xAxisLabel"
-            [yAxisLabel]="yAxisLabel"
-            (click)="onSelectBar($event)">
+            [yAxisLabel]="yAxisLabel">
           </ngx-charts-bar-vertical>
-        </span>
-        <span class="zoom hover advanced-pie">
+        </label>
+
+        <input> <!-- Mid-revision switched to other file. -->
           <ngx-charts-advanced-pie-chart
           [scheme]="colorScheme"
           [results]="single"
           [gradient]="gradient"
-          (click)="onSelectAdvancedPie($event)">
+          (click)="selectChartType('advancedPieChart')">
           </ngx-charts-advanced-pie-chart>
-        </span>
-        <span class="zoom hover pie">
+        </>
+
+        <input [(ngModel)]="chart.chosenChartType" name="chosenChartType" id="'pieChart'"  [value]="'pieChart'" type="radio">
+        <label class="zoom hover pie" for="'pieChart'">
           <ngx-charts-pie-chart
             [scheme]="colorScheme"
             [results]="single"
@@ -40,56 +54,16 @@
             [labels]="true"
             (click)="onSelectPie($event)">
           </ngx-charts-pie-chart>
-        </span>
+        </label>
       </div>
 
       <div style="margin-left: auto; margin-right: 0;">
         <button type="submit"
         class="btn btn-primary btn-lg"
-        style="margin: 1em 0 1em 1em; margin-right: 1em;">
+        style="margin: 1em 0 1em 1em; margin-right: 1em;"
+        routerLink="/data/custom-chart">
         Go!</button>
       </div>
   </form>
-  </div>
-</div>
-<br><br><br>
-
-<div class="card">
-<h1 class="display-3">Where we want the "Go!" button to go:</h1>
-  <div [ngSwitch]="chosenChartType">
-
-    <div *ngSwitchCase="'verticalBarChart'">
-      <ngx-charts-bar-vertical
-        [scheme]="colorScheme"
-        [results]="single"
-        [gradient]="gradient"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel">
-       </ngx-charts-bar-vertical>
-    </div>
-
-
-    <div *ngSwitchCase="'pieChart'">
-      <ngx-charts-pie-chart
-        [scheme]="colorScheme"
-        [results]="single"
-        [gradient]="gradient"
-        [labels]="true">
-      </ngx-charts-pie-chart>
-    </div>
-
-    <div *ngSwitchCase="'advancedPieChart'">
-      <ngx-charts-advanced-pie-chart
-        [scheme]="colorScheme"
-        [results]="single"
-        [gradient]="gradient">
-      </ngx-charts-advanced-pie-chart>
-    </div>
-    <div *ngSwitchDefault="">Default! Probably won't ever hit this, since 'chosenChartType' is instantiated from the get-go.
-    </div>
   </div>
 </div>

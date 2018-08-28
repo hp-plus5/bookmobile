@@ -6,10 +6,10 @@
             </tr>
           </thead>
           <tbody>
-        <tr class="table-primary">
-          <td class="zoom hover">Genre</td>
-          <td class="zoom hover">Author Demographics</td>
-          <td class="zoom hover">Protagonist Demographics</td>
+        <tr class="table-primary" style="justify-content: space-around; display: flex;">
+          <td class="zoom hover" (click)="selectDataChoice('author')">Author Demographics</td>
+          <td class="zoom hover" (click)="selectDataChoice('genre')">Genre</td>
+          <td class="zoom hover" (click)="selectDataChoice('protagonist')">Protagonist Demographics</td>
         </tr>
       </tbody>
     </table>
@@ -33,14 +33,15 @@
                 [showYAxisLabel]="showYAxisLabel"
                 [xAxisLabel]="xAxisLabel"
                 [yAxisLabel]="yAxisLabel"
-                (select)="onSelect($event)">
+                (click)="selectChartType('verticalBarChart')">
               </ngx-charts-bar-vertical>
             </td>
             <td class="zoom hover">
               <ngx-charts-advanced-pie-chart
                 [scheme]="colorScheme"
                 [results]="single"
-                [gradient]="gradient">
+                [gradient]="gradient"
+                (click)="selectChartType('advancedPieChart')">
               </ngx-charts-advanced-pie-chart>
             </td>
             <td class="zoom hover">
@@ -49,13 +50,13 @@
                   [results]="single"
                   [gradient]="gradient"
                   [labels]="true"
-                  (select)="onSelect($event)">
+                  (click)="selectChartType('pieChart')">
                 </ngx-charts-pie-chart>
               </td>
           </tr>
         </tbody>
       </table>
     <span style="margin-left: auto; margin-right: 0;">
-      <button type="submit" class="btn btn-primary btn-lg" style="margin: 1em 0 1em 1em; margin-right: 1em;">Go!</button>
+      <button (click)="onSubmit()" type="submit" class="btn btn-primary btn-lg" style="margin: 1em 0 1em 1em; margin-right: 1em;">Go!</button>
     </span>
   </div>
