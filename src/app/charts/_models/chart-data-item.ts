@@ -1,5 +1,5 @@
 export class ChartDataItem {
-  name = '';
+  name!: string | boolean;
   value = 1;
 
   constructor(chartDataItemObject?: ChartDataItem) {
