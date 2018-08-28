@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ChartsLandingComponent } from '@app/charts/charts-landing/charts-landing.component';
+import {
+    CustomChartsViewComponent
+} from '@app/charts/custom-charts-view/custom-charts-view.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'vertical-bar', pathMatch: 'full' },
-  { path: 'vertical-bar', component: ChartsLandingComponent },
+  { path: '', component: ChartsLandingComponent },
+  { path: 'custom-chart', component: CustomChartsViewComponent },
 ];
 
 @NgModule({

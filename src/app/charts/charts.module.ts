@@ -7,8 +7,10 @@ import { ChartsRoutingModule } from '@app/charts/charts-routing.module';
 import { CoreModule } from '@app/core/core.module';
 import { SharedModule } from '@app/shared/shared.module';
 
+import { CustomChartsViewComponent } from './custom-charts-view/custom-charts-view.component';
+
 @NgModule({
   imports: [SharedModule, ChartsRoutingModule, NgxChartsModule, CoreModule],
-  declarations: [ChartsLandingComponent],
+  declarations: [ChartsLandingComponent, CustomChartsViewComponent],
 })
 export class ChartsModule {}
