@@ -1,0 +1,22 @@
+.display-3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.display-5 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.display-5:hover {
+  cursor: pointer;
+}
+ .data-table {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+.advancedPieChart {
+  margin-top: -200px;
+  margin-left: 25%;
+}

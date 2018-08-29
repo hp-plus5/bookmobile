@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { ChartRequest, ChartType } from '@app/charts/_models/chart-request';
@@ -17,7 +18,8 @@ export class CustomChartsViewComponent implements OnInit {
   chosenChartType!: ChartType;
   single: any[] = [];
   multi: any[] = [];
-
+  view: any[] = [450, 450];
+  viewAdvancedPieChart: any[] = [800, 800];
   // options
   showXAxis = true;
   showYAxis = true;
@@ -32,6 +34,7 @@ export class CustomChartsViewComponent implements OnInit {
   constructor(
     private modalService: ModalService,
     private chartService: ChartService,
+    private location: Location,
   ) {
     Object.assign(this, { single });
   }
@@ -44,5 +47,9 @@ export class CustomChartsViewComponent implements OnInit {
     this.chartService
       .getChartData()
       .subscribe(newResponse => (this.chartResponse = newResponse));
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

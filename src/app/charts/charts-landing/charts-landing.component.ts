@@ -41,7 +41,7 @@ export class ChartsLandingComponent implements OnInit {
   }
   private modalOptions: IModalOptions = {
     // this is for my modal. implements the interface (thanks, typescript!)
-    title: 'Hello, and welcome to data!',
+    title: 'Hello, and welcome to Dataville!',
     body:
       // tslint:disable-next-line:quotemark
       "Please select one item from each category below to create a chart about the books that you've read.",
