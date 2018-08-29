@@ -55,7 +55,7 @@ export class ChartService {
     return this.httpClient
       .get<ChartResponse>(`${environment.apiUrl}/charts`, this.httpOptions)
       .pipe(
-        tap(dataResponse => this.log(`fetched data`)),
+        tap(_ => this.log(`fetched data`)),
         catchError(this.handleError('getChartData', [])),
       );
   }

@@ -4,7 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ChartRequest, ChartType } from '@app/charts/_models/chart-request';
 import { ChartResponse } from '@app/charts/_models/chart-response';
 import { ChartService } from '@app/charts/chart.service';
-import { single } from '@app/charts/charts-response.fixture.spec';
+// import { single, multi } from '@app/charts/charts-response.fixture.spec';
 import { ModalService } from '@app/core/modal/modal.service';
 
 @Component({
@@ -16,8 +16,8 @@ export class CustomChartsViewComponent implements OnInit {
   @Input()
   chartResponse = new ChartResponse();
   chosenChartType!: ChartType;
-  single: any[] = [];
-  multi: any[] = [];
+  // single: any[] = [];
+  // multi: any[] = [];
   view: any[] = [450, 450];
   viewAdvancedPieChart: any[] = [800, 800];
   // options
@@ -35,9 +35,8 @@ export class CustomChartsViewComponent implements OnInit {
     private modalService: ModalService,
     private chartService: ChartService,
     private location: Location,
-  ) {
-    Object.assign(this, { single });
-  }
+  ) {}
+
   ngOnInit(): void {
     this.getChartResponse();
   }
