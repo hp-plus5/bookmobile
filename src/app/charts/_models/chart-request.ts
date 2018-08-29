@@ -1,6 +1,6 @@
 export class ChartRequest {
   chartType: ChartType = 'verticalBarChart';
-  dataChoice: DataChoice = 'genre';
+  chartDataChoice: ChartDataChoice = 'genre';
   constructor(chartObject?: ChartRequest) {
     /* the purpose of the structure below is to emphasize a negative case assumption rather than a "happy case" assumption.
     This keeps your code from spiraling to the right and make it easier to read. the "real work" should be at the very end. */
@@ -8,10 +8,10 @@ export class ChartRequest {
       return;
     }
     this.chartType = chartObject.chartType;
-    this.dataChoice = chartObject.dataChoice;
+    this.chartDataChoice = chartObject.chartDataChoice;
   }
 }
 
 export type ChartType = 'advancedPieChart' | 'pieChart' | 'verticalBarChart';
 
-export type DataChoice = 'genre' | 'author' | 'protagonist';
+export type ChartDataChoice = 'genre' | 'author' | 'protagonist';

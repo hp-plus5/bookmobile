@@ -3,11 +3,11 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 
-import { ChartRequest, ChartType, DataChoice } from '@app/charts/_models/chart-request';
+import { ChartRequest } from '@app/charts/_models/chart-request';
 import { ChartResponse } from '@app/charts/_models/chart-response';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class ChartService {
   constructor(private httpClient: HttpClient) {}
 
   // createGenreChart(chartRequest: ChartRequest): Observable<ChartResponse> {
-  //   // call to the API. you want responses in JSON format that ngx-chart will be able to read as input data. you just want the name of genres and the count of books within each category, NOT entire books. That's what ChartDataItem is meant to be - an object with just the attributes we'd want from the database to put into charts: the dataChoice and its answer (name ['genre'] & value [4], via JSON).
+  //   // call to the API. you want responses in JSON format that ngx-chart will be able to read as input data. you just want the name of genres and the count of books within each category, NOT entire books. That's what ChartDataItem is meant to be - an object with just the attributes we'd want from the database to put into charts: the chartDataChoice and its answer (name ['genre'] & value [4], via JSON).
 
   // this is incredibly loose and fast code, but maybe it'll help down the road:
   //   if (!MultiChartResponse) { // if there's only one response / only one chartResponse
@@ -45,13 +45,13 @@ export class ChartService {
   //   ];
   // }
 
-  // have if(genre v author v protag) on API end and form SQL queries accordingly. Let the modularity happen there, not in our service. you'll get this information about dataChoice from currentRequest, which you can pass up as just a string, since that's all the info the API cares about.
+  // have if(genre v author v protag) on API end and form SQL queries accordingly. Let the modularity happen there, not in our service. you'll get this information about chartDataChoice from currentRequest, which you can pass up as just a string, since that's all the info the API cares about.
   getChartData(): Observable<ChartResponse> {
     this.httpOptions.params = this.httpOptions.params.set(
       'groupByColumnName',
-      this.currentRequest.dataChoice,
+      this.currentRequest.chartDataChoice,
     );
-    // these above lines are setting my HttpParams. The listed ones above a) aren't filled in yet upon initiation, and b) are static for the lifetime of the service, which is also the lifetime of the app. So if we were to fill them in, they couldn't be changed via variable, and they would apply to each and every call given to my API along the way. THIS is how I pass my dataChoice into my API so that it can figure out its little backend URL situation of it wanting an input along the lines of "url/?groupByColumnName=Genre".
+    // these above lines are setting my HttpParams. The listed ones above a) aren't filled in yet upon initiation, and b) are static for the lifetime of the service, which is also the lifetime of the app. So if we were to fill them in, they couldn't be changed via variable, and they would apply to each and every call given to my API along the way. THIS is how I pass my chartDataChoice into my API so that it can figure out its little backend URL situation of it wanting an input along the lines of "url/?groupByColumnName=Genre".
     return this.httpClient
       .get<ChartResponse>(`${environment.apiUrl}/charts`, this.httpOptions)
       .pipe(

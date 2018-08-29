@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
-import { ChartRequest, ChartType } from '@app/charts/_models/chart-request';
+import { ChartType } from '@app/charts/_models/chart-request';
 import { ChartResponse } from '@app/charts/_models/chart-response';
 import { ChartService } from '@app/charts/chart.service';
 // import { single, multi } from '@app/charts/charts-response.fixture.spec';
@@ -27,6 +27,7 @@ export class CustomChartsViewComponent implements OnInit {
   showLegend = true;
   showXAxisLabel = true;
   xAxisLabel = 'Genre';
+  // TODO: eventually this needs to be made dynamic
   showYAxisLabel = true;
   yAxisLabel = 'Number of Books';
   showDataLabel = true;

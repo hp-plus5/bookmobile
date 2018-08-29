@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ChartRequest, ChartType, DataChoice } from '@app/charts/_models/chart-request';
+import { ChartDataChoice, ChartRequest, ChartType } from '@app/charts/_models/chart-request';
 import { ChartService } from '@app/charts/chart.service';
 import { multi, single } from '@app/charts/charts-response.fixture.spec';
 import { IModalOptions, ModalService } from '@app/core/modal/modal.service';
@@ -58,8 +58,8 @@ export class ChartsLandingComponent implements OnInit {
     this.chartRequest.chartType = chartType;
   }
 
-  selectDataChoice(dataChoice: DataChoice) {
-    this.chartRequest.dataChoice = dataChoice;
+  selectDataChoice(chartDataChoice: ChartDataChoice) {
+    this.chartRequest.chartDataChoice = chartDataChoice;
   }
 
   onSubmit(): void {
