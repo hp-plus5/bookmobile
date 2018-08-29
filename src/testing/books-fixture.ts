@@ -1,4 +1,4 @@
-import { Book } from '../app/_models/book';
+import { Book } from '@app/books/_models/book';
 
 export const expectedBooks: Book[] = [
   {
@@ -13,9 +13,12 @@ export const expectedBooks: Book[] = [
     lgbtqTheme: false,
     rating: 10,
     cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+    femaleAuthor: true,
+    lgbtqAuthor: false,
+    genre: 'Fantasy',
     isNew(): false {
       return false;
-    }
+    },
   },
   {
     id: 2,
@@ -29,9 +32,12 @@ export const expectedBooks: Book[] = [
     lgbtqTheme: true,
     rating: 7,
     cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+    femaleAuthor: true,
+    lgbtqAuthor: false,
+    genre: 'Fantasy',
     isNew(): false {
       return false;
-    }
+    },
   },
   {
     id: 3,
@@ -45,9 +51,12 @@ export const expectedBooks: Book[] = [
     lgbtqTheme: false,
     rating: 10,
     cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+    femaleAuthor: true,
+    lgbtqAuthor: false,
+    genre: 'Fantasy',
     isNew(): false {
       return false;
-    }
+    },
   },
   {
     id: 4,
@@ -61,9 +70,12 @@ export const expectedBooks: Book[] = [
     lgbtqTheme: false,
     rating: 7,
     cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+    femaleAuthor: true,
+    lgbtqAuthor: false,
+    genre: 'Fantasy',
     isNew(): false {
       return false;
-    }
+    },
   },
   {
     id: 5,
@@ -77,9 +89,12 @@ export const expectedBooks: Book[] = [
     lgbtqTheme: false,
     rating: 9,
     cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+    femaleAuthor: true,
+    lgbtqAuthor: false,
+    genre: 'Fantasy',
     isNew(): false {
       return false;
-    }
+    },
   },
   {
     id: 6,
@@ -93,9 +108,12 @@ export const expectedBooks: Book[] = [
     lgbtqTheme: false,
     rating: 9,
     cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+    femaleAuthor: true,
+    lgbtqAuthor: false,
+    genre: 'Fantasy',
     isNew(): false {
       return false;
-    }
+    },
   },
   {
     id: 7,
@@ -109,8 +127,11 @@ export const expectedBooks: Book[] = [
     lgbtqTheme: false,
     rating: 7,
     cover: 'http://covers.openlibrary.org/b/isbn/0385472579-S.jpg',
+    femaleAuthor: true,
+    lgbtqAuthor: false,
+    genre: 'Fantasy',
     isNew(): false {
       return false;
-    }
-  }
+    },
+  },
 ];
