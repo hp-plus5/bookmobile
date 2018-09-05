@@ -1,0 +1,55 @@
+<div class="card border-dark mb-3" style="margin-top: 1em;">
+  <div class="card-header">CHOOSE YOUR DATA...</div>
+  <div class="card-body" style="justify-content: space-around; display: flex;">
+    <div id="questions">
+      <span class="author zoom hover" (click)="selectDataChoice('FemaleAuthor')">Female Authors</span>
+      <span class="genre zoom hover" (click)="selectDataChoice('Genre')">Genre</span>
+      <span class="protagonist zoom hover" (click)="selectDataChoice('LgbtqProtagonist')">LGBTQ Protagonists</span>
+    </div>
+  </div>
+</div>
+<div class="card border-dark mb-3">
+  <div class="card-header">
+    <span style="margin-left: 20%;">...USING THIS CHART
+    </span>
+  </div>
+  <div class="card-body">
+    <!-- eventually refactor these columns of data examples into <components> -->
+    <div id="chart-types">
+      <span class="vertical-bar zoom hover">
+        <ngx-charts-bar-vertical
+        [scheme]="colorScheme"
+        [results]="single"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        (click)="selectChartType('verticalBarChart')">
+        </ngx-charts-bar-vertical>
+      </span>
+      <span class="advanced-pie zoom hover">
+        <ngx-charts-advanced-pie-chart
+        [scheme]="colorScheme"
+        [results]="single"
+        [gradient]="gradient"
+        (click)="selectChartType('advancedPieChart')">
+        </ngx-charts-advanced-pie-chart>
+      </span>
+      <span class="pie zoom hover">
+        <ngx-charts-pie-chart
+        [scheme]="colorScheme"
+        [results]="single"
+        [gradient]="gradient"
+        [labels]="true"
+        (click)="selectChartType('pieChart')">
+        </ngx-charts-pie-chart>
+      </span>
+    </div>
+  </div>
+  <span style="margin-left: auto; margin-right: 0;">
+    <button (click)="onSubmit()" type="submit" class="btn btn-primary btn-lg" style="margin: 1em 0 1em 1em; margin-right: 1em;">Go!</button>
+  </span>
+</div>

@@ -8,7 +8,7 @@ import { IModalOptions, ModalService } from '@app/core/modal/modal.service';
 
 @Component({
   selector: 'app-charts-landing',
-  templateUrl: './charts-landing.component.html',
+  templateUrl: './charts-landing-card-attempt.component.html',
   styleUrls: ['./charts-landing.component.css'],
 })
 export class ChartsLandingComponent implements OnInit {
@@ -51,7 +51,7 @@ export class ChartsLandingComponent implements OnInit {
 
   ngOnInit(): void {
     // if (user.isNew) {
-    // this.openModal();
+    this.openModal();
     // }
   }
   selectChartType(chartType: ChartType) {
