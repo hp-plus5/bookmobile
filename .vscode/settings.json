@@ -52,5 +52,6 @@
       "regex": "^[.]",
       "orderLevel": 110
     }
-  ]
+  ],
+  "html.format.wrapAttributes": "aligned-multiple"
 }
