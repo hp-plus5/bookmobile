@@ -1,7 +1,7 @@
 <div class="card">
   <div class="title">
-    <h1 class="display-3">Dataville!</h1>
-    <p class="display-5" (click)="goBack()">Is there any other data you'd like to see?</p>
+    <h1 class="display-3">{{dataTitle}}</h1>
+    <p class="display-5" (click)="goBack()" style="width: 100%;">Is there any other data you'd like to see?</p>
   </div>
 
     <div [ngSwitch]="chosenChartType">
@@ -18,7 +18,8 @@
             [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel"
             [xAxisLabel]="xAxisLabel"
-            [yAxisLabel]="yAxisLabel">
+            [yAxisLabel]="yAxisLabel"
+            >
           </ngx-charts-bar-vertical>
         </div>
 
@@ -29,16 +30,18 @@
             [scheme]="colorScheme"
             [results]="chartResponse.chartDataResponse"
             [gradient]="gradient"
-            [labels]="true">
+            [labels]="true"
+            [labelFormatting]="">
           </ngx-charts-pie-chart>
         </div>
 
-        <div *ngSwitchCase="'advancedPieChart'" class="advancedPieChart">
+        <div *ngSwitchCase="'advancedPieChart'" class="advancedPieChart" style="z-index: 750;">
           <ngx-charts-advanced-pie-chart
             [view]="viewAdvancedPieChart"
             [scheme]="colorScheme"
             [results]="chartResponse.chartDataResponse"
-            [gradient]="gradient">
+            [gradient]="gradient"
+            [label]="xAxisLabel">
           </ngx-charts-advanced-pie-chart>
         </div>
         <div *ngSwitchDefault=""><p>We're sorry, an error has occurred. ['chosenChartType' is not defined]</p>

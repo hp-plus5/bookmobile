@@ -1,11 +1,13 @@
 import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
-import { ChartType } from '@app/charts/_models/chart-request';
+import { ChartDataChoice, ChartType } from '@app/charts/_models/chart-request';
 import { ChartResponse } from '@app/charts/_models/chart-response';
 import { ChartService } from '@app/charts/chart.service';
 // import { single, multi } from '@app/charts/charts-response.fixture.spec';
 import { ModalService } from '@app/core/modal/modal.service';
+
+import { titleCase } from 'change-case';
 
 @Component({
   selector: 'app-custom-charts-view',
@@ -18,6 +20,9 @@ export class CustomChartsViewComponent implements OnInit {
   chosenChartType!: ChartType;
   // single: any[] = [];
   // multi: any[] = [];
+  chosenDataChoice!: string;
+  dataTitle!: string;
+
   view: any[] = [450, 450];
   viewAdvancedPieChart: any[] = [800, 800];
   // options
@@ -26,7 +31,7 @@ export class CustomChartsViewComponent implements OnInit {
   gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Genre';
+  xAxisLabel!: string;
   // TODO: eventually this needs to be made dynamic
   showYAxisLabel = true;
   yAxisLabel = 'Number of Books';
@@ -44,11 +49,14 @@ export class CustomChartsViewComponent implements OnInit {
 
   getChartResponse(): void {
     this.chosenChartType = this.chartService.currentRequest.chartType;
+    this.chosenDataChoice = this.chartService.currentRequest.chartDataChoice;
+    this.xAxisLabel = titleCase(this.chosenDataChoice.toString());
+    this.dataTitle = titleCase(this.chosenDataChoice.toString());
+
     this.chartService
       .getChartData()
       .subscribe(newResponse => (this.chartResponse = newResponse));
   }
-
   goBack(): void {
     this.location.back();
   }
