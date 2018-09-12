@@ -1,5 +1,5 @@
 export class ChartRequest {
-  chartType: ChartType = 'verticalBarChart';
+  chartType: ChartType = 'advancedPieChart';
   chartDataChoice: ChartDataChoice = 'genre';
   constructor(chartObject?: ChartRequest) {
     /* the purpose of the structure below is to emphasize a negative case assumption rather than a "happy case" assumption.
