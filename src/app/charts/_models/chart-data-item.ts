@@ -1,6 +1,6 @@
 export class ChartDataItem {
-  name!: string | boolean;
-  value = 1;
+  name!: string | boolean; // label ('fantasy', 'female')
+  value = 1; // how many books, generally
 
   constructor(chartDataItemObject?: ChartDataItem) {
     /* the purpose of the structure below is to emphasize a negative case assumption rather than a "happy case" assumption.
