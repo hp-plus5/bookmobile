@@ -38,24 +38,23 @@ export class BookDetailComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    // commented out code in this function is written for debugging purposes so that it can be easily retrieved.
     if (
       !this.book ||
       (this.book.isNew() && this.compareToNewBookUrl === false)
     ) {
-      // I don't understand the logic of this if statement.
       this.getBookById();
-
-      console.log(this.book + 'ngOnInit: id came through byId');
-    } else if (
-      !this.book ||
-      (this.book.isNew() && this.compareToNewBookUrl === true)
-    ) {
-      console.log('book-detail ngOnInit: new book');
+      // console.log(this.book + 'ngOnInit: id came through byId');
+      // } else if (
+      //   !this.book ||
+      //   (this.book.isNew() && this.compareToNewBookUrl === true)
+      // ) {
+      // console.log('book-detail ngOnInit: new book');
     } else {
       this.getBookByIdThroughParent(this.book.id);
-      console.log(
-        this.book + 'ngOnInit: id came through parent component (books)',
-      );
+      // console.log(
+      // this.book + 'ngOnInit: id came through parent component (books)',
+      // );
     }
   }
 
