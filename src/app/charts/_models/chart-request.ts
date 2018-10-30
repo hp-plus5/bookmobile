@@ -1,6 +1,6 @@
 export class ChartRequest {
   chartType: ChartType = 'multiVerticalBarChart';
-  chartDataChoice: ChartDataChoice[] = ['genre'];
+  chartDataChoice: ChartDataChoice[] = ['genre', 'author'];
   constructor(chartObject?: ChartRequest) {
     /* the purpose of the structure below is to emphasize a negative case assumption rather than a "happy case" assumption.
     This keeps your code from spiraling to the right and make it easier to read. the "real work" should be at the very end. */

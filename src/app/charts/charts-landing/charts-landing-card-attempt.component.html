@@ -2,9 +2,9 @@
   <div class="card-header">CHOOSE YOUR DATA...</div>
   <div class="card-body" style="justify-content: space-around; display: flex;">
     <div id="questions">
-      <span class="author zoom hover" (click)="selectDataChoice('FemaleAuthor')">Female Authors</span>
-      <span class="genre zoom hover" (click)="selectDataChoice('Genre')">Genre</span>
-      <span class="protagonist zoom hover" (click)="selectDataChoice('LgbtqProtagonist')">LGBTQ Protagonists</span>
+      <span class="author zoom hover" (click)="toggleDataChoice('FemaleAuthor')">Female Authors</span>
+      <span class="genre zoom hover" (click)="toggleDataChoice('Genre')">Genre</span>
+      <span class="protagonist zoom hover" (click)="toggleDataChoice('LgbtqProtagonist')">LGBTQ Protagonists</span>
     </div>
   </div>
 </div>
@@ -14,7 +14,7 @@
     </span>
   </div>
   <div class="card-body">
-    <!-- eventually refactor these columns of data examples into <components> -->
+    <!-- eventually refactor these columns of data examples into <components>? -->
     <div id="chart-types">
       <span class="vertical-bar zoom hover">
         <ngx-charts-bar-vertical
@@ -46,6 +46,22 @@
         [labels]="true"
         (click)="selectChartType('pieChart')">
         </ngx-charts-pie-chart>
+      </span>
+      <span class="multi-vertical-bar zoom hover">
+      <ngx-charts-bar-vertical-2d
+        [scheme]="colorScheme"
+        [results]="singleAsMulti"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [showDataLabel]="true"
+        [barPadding]=4
+        (click)="selectChartType('multiVerticalBarChart')">
+        </ngx-charts-bar-vertical-2d>
       </span>
     </div>
   </div>

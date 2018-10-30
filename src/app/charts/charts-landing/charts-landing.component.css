@@ -54,8 +54,8 @@
 #chart-types {
   display: grid;
   grid-area: 'chart-types';
-  grid-template-columns: 3 1fr;
-  grid-template-areas: 'vertical-bar advanced-pie pie';
+  grid-template-columns: 4 1fr;
+  grid-template-areas: 'multi-vertical-bar vertical-bar advanced-pie pie';
   grid-column-gap: 15px;
   justify-items: space-between;
   align-items: center;
@@ -82,6 +82,13 @@
 .pie {
   display: grid;
   grid-area: 'pie';
+  grid-auto-flow: row;
+  width: 100%;
+  height: 100%;
+}
+.multi-vertical-bar {
+  display: grid;
+  grid-area: 'multi-vertical-bar';
   grid-auto-flow: row;
   width: 100%;
   height: 100%;

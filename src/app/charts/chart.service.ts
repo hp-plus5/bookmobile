@@ -40,7 +40,7 @@ export class ChartService {
   //     chartResponse.name = this.chartResponse.name,
   //     series[] = [
   //       chartResponse.name = this.chartResponse.name,
-  //     ChartResponse.value = this.chartResponse.value
+  //       chartResponse.value = this.chartResponse.value
   //     ];
   //   ];
   // }
@@ -48,10 +48,10 @@ export class ChartService {
   // have if(genre v author v protag) on API end and form SQL queries accordingly. Let the modularity happen there, not in our service. you'll get this information about chartDataChoice from currentRequest, which you can pass up as just a string, since that's all the info the API cares about.
   getChartData(): Observable<ChartResponse> {
     this.httpOptions.params = this.httpOptions.params.set(
-      'groupByColumnName',
-      this.currentRequest.chartDataChoice,
+      'groupByColumnNames',
+      this.currentRequest.chartDataChoice[2],
     );
-    // these above lines are setting my HttpParams. The listed ones above a) aren't filled in yet upon initiation, and b) are static for the lifetime of the service, which is also the lifetime of the app. So if we were to fill them in, they couldn't be changed via variable, and they would apply to each and every call given to my API along the way. THIS is how I pass my chartDataChoice into my API so that it can figure out its little backend URL situation of it wanting an input along the lines of "url/?groupByColumnName=Genre".
+    // these above lines are setting my HttpParams. The listed ones above a) aren't filled in yet upon initiation, and b) are static for the lifetime of the service, which is also the lifetime of the app. So if we were to fill them in, they couldn't be changed via variable, and they would apply to each and every call given to my API along the way. THIS is how I pass my chartDataChoice into my API so that it can figure out its little backend URL situation of it wanting an input along the lines of "url/?groupByColumnNames=Genre".
     return this.httpClient
       .get<ChartResponse>(`${environment.apiUrl}/charts`, this.httpOptions)
       .pipe(

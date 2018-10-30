@@ -4,7 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataChoice, ChartType } from '@app/charts/_models/chart-request';
 import { ChartResponse } from '@app/charts/_models/chart-response';
 import { ChartService } from '@app/charts/chart.service';
-// import { single, multi } from '@app/charts/charts-response.fixture.spec';
+import { multi } from '@app/charts/charts-response.fixture.spec';
 import { ModalService } from '@app/core/modal/modal.service';
 
 import { titleCase } from 'change-case';
@@ -19,8 +19,8 @@ export class CustomChartsViewComponent implements OnInit {
   chartResponse = new ChartResponse();
   chosenChartType!: ChartType;
   // single: any[] = [];
-  // multi: any[] = [];
-  chosenDataChoice!: string;
+  multi: any[] = [];
+  chosenDataChoice!: ChartDataChoice[];
   dataTitle!: string;
 
   view: any[] = [450, 450];
@@ -32,7 +32,6 @@ export class CustomChartsViewComponent implements OnInit {
   showLegend = true;
   showXAxisLabel = true;
   xAxisLabel!: string;
-  // TODO: eventually this needs to be made dynamic
   showYAxisLabel = true;
   yAxisLabel = 'Number of Books';
   showDataLabel = true;

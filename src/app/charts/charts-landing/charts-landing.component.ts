@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ChartDataChoice, ChartRequest, ChartType } from '@app/charts/_models/chart-request';
 import { ChartService } from '@app/charts/chart.service';
-import { multi, single } from '@app/charts/charts-response.fixture.spec';
+import { multi, single, singleAsMulti } from '@app/charts/charts-response.fixture.spec';
 import { IModalOptions, ModalService } from '@app/core/modal/modal.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class ChartsLandingComponent implements OnInit {
   chosenChartType!: ChartType;
 
   single: any[] = [];
+  singleAsMulti: any[] = [];
   multi: any[] = [];
 
   // options
@@ -37,28 +38,30 @@ export class ChartsLandingComponent implements OnInit {
     private chartService: ChartService,
     private router: Router,
   ) {
-    Object.assign(this, { single });
+    Object.assign(this, { single, singleAsMulti, multi });
   }
   private modalOptions: IModalOptions = {
     // this is for my modal. implements the interface (thanks, typescript!)
     title: 'Hello, and welcome to Dataville!',
     body:
-      // tslint:disable-next-line:quotemark
-      "Please select one item from each category below to create a chart about the books that you've read.",
+      // tslint:disable-next-line:quotemark because of the apostrophe in 'you've'
+      "To use the charts feature, you can select one item from each category below to create a chart about the books that you've read.",
     submit: 'Okie doke!',
     cancel: 'Close',
   };
 
   ngOnInit(): void {
     // if (user.isNew) {
-    this.openModal();
+    // this.openModal();
     // }
   }
   selectChartType(chartType: ChartType) {
     this.chartRequest.chartType = chartType;
   }
 
-  selectDataChoice(chartDataChoice: ChartDataChoice) {
+  toggleDataChoice(chartDataChoice: ChartDataChoice[]) {
+    // if click > once won't work; they should be able to revise their decisions, and i'm not sure how closely tied i want to make this with my DOM.
+    // i may need to have a form of some variety? or an explicit input? so that i can make it into a multiple choice and not...this. but i feel there must be some way for me to open this up programmatically.
     this.chartRequest.chartDataChoice = chartDataChoice;
   }
 

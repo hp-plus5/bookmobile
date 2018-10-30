@@ -16,6 +16,9 @@
   justify-content: center;
   align-self: center;
 }
+.ngx-charts {
+  display: inline-block;
+}
 .advancedPieChart {
   margin-top: -200px;
   margin-left: 25%;

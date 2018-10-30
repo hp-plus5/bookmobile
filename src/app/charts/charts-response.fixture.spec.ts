@@ -13,6 +13,26 @@ export let single = [
   },
 ];
 
+export let singleAsMulti = [
+  {
+    name: '',
+    series: [
+      {
+        name: 'Fantasy',
+        value: 5,
+      },
+      {
+        name: 'Science Fiction',
+        value: 5,
+      },
+      {
+        name: 'Memoir',
+        value: 18,
+      },
+    ],
+  },
+];
+
 export let multi = [
   {
     name: 'Fantasy',
