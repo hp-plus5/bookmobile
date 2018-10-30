@@ -96,4 +96,17 @@ describe('BookDetailComponent', () => {
       });
     });
   });
+
+  /**
+   * This below 'describe' block isn't filled in yet, but it's a reminder that I should be testing the presentation aspect of this component as well.
+   * I should be making sure that certain elements do or don't show up on the page in the DOM. Make sure you test against what's actually rendered
+   * out (use the inspector in the browser) and not just calling on HTML tags as seen in the .html file.
+   */
+
+  describe('UI', () => {
+    // if relevant, some example set-up code:
+    beforeEach(() => {
+      fixture.debugElement.query(By.css('some css class'));
+    });
+  });
 });
