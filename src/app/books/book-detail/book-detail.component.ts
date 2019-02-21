@@ -85,7 +85,7 @@ export class BookDetailComponent implements OnInit {
     this.location.back();
   }
 
-  updateThisBook(): void {
+  updateOrAddThisBook(): void {
     // if we passed in form: Form here instead of book, we could alter the state of the form
     if (this.compareToNewBookUrl === true) {
       this.addThisBook();

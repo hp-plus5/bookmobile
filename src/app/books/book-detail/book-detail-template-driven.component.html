@@ -1,12 +1,12 @@
 <div class="card border-dark mb-3" style="margin-top: 1em;">
   <div class="card-header">AUTHOR NAME</div>
   <div class="card-body">
-    <form #detailForm="ngForm" (ngSubmit)="updateThisBook(detailForm)">
+    <form #detailForm="ngForm" (ngSubmit)="updateOrAddThisBook(detailForm)">
       <div class="form-group">
         <label class="col-form-label" for="title">Title: </label>
         <input [(ngModel)]="book.title" name="title" id="title" class="form-control" placeholder="Book title" type="text">
 
-        <!--[value]="book.title" (ngModelChange)="updateThisBook($event)" is effectively the same as [(ngModel)]="book.title" -->
+        <!--[value]="book.title" (ngModelChange)="updateOrAddThisBook($event)" is effectively the same as [(ngModel)]="book.title" -->
         <!-- : https://stackoverflow.com/questions/46465891/what-is-in-angular
         https://blog.angularindepth.com/never-again-be-confused-when-implementing-controlvalueaccessor-in-angular-forms-93b9eee9ee83 -->
         <div class="wrapper-for-details card-text">
