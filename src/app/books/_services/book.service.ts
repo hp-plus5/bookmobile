@@ -73,14 +73,14 @@ export class BookService {
 
   /** GET book by id. Return `undefined` when id not found */
   getBookNo404<Data>(id: number): Observable<Book> {
-    const url = `${this.booksApiUrl}/?id=${id}`;
+    const url = `${this.booksApiUrl}/${id}`;
     return this.http.get<Book[]>(url, this.httpOptions).pipe(
       map(books => books[0]), // returns a {0|1} element array
       // tap(h => {
       // const outcome = h ? `fetched` : `did not find`;
       // this.log(`${outcome} book id=${id}`); <-- for if I implemented MessageService from tutorial.
       // }),
-      catchError(this.handleError<Book>(`getBookById id=${id}`)),
+      catchError(this.handleError<Book>(`Book with id of ${id} not found,`)),
     );
   }
 

@@ -1,6 +1,7 @@
 <h3>Most Recent Entries</h3>
 <div class="grid grid-pad">
-  <a *ngFor="let book of books" class="col-1-4" routerLink="/book-detail/{{book.id}}"> <!-- trackBy=trackbyBooks-->
+  <a *ngFor="let book of books" class="col-1-4" [routerLink]="['/books/book-detail',book.id]"> <!-- trackBy=trackbyBooks-->
+    <!-- Concerning routerLink! The [] around routerLink is vital syntax. Angular will automatically insert a / between where you concatenation a JS object (book.id) with a string ('/books/book-detail'). You don't have to type that in. If our string were just '/book-detail' and didn't include '/books' (aka if it were a relative path rather than an absolute path), since we're being routed (by books-routing.module) from this component at ('/books/recent-books') the url this poor component would be trying to send you to would be '/books/most-recent/book-detail/:id'. A good feel for this if you're unable to tell from debug mode is to take it out of debug mode (obvs still running from NPM), go open it in browser, and try clicking on the object of your affection again. It should show you the entire path this time. -->
       <div class="card border-dark mb-3" style="max-width: 20rem;">
         <div class="card-header">AUTHOR NAME</div>
         <div class="card-body" style="height: 10em;">
