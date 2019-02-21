@@ -9,6 +9,7 @@ import { environment } from '@environments/environment';
 
 import { Book } from '@app/books/_models/book';
 
+// A good way to view @Injectable decorators in services is to think of it as @CanBeInjectedThings. It's referring to the fact that any component within 'root' can inject something into this service. (You need it in order to make dependency injection work in Angular.)
 @Injectable({
   providedIn: 'root',
 })
@@ -32,6 +33,12 @@ export class BookService {
   getBooksApiUrl() {
     return this.booksApiUrl;
   }
+
+  // private _bookCoversApiUrl = `${environment.apiUrl}/bookcovers`;
+  // bookCoversApiUrl = this._bookCoversApiUrl;
+  // getBooksApiUrl() {
+  //   return this.booksApiUrl;
+  // }
 
   constructor(private http: HttpClient) {}
 
@@ -82,7 +89,7 @@ export class BookService {
     const url = `${this.booksApiUrl}/${id}`;
     return this.http.get<Book>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched book id=${id}`)),
-      catchError(this.handleError<Book>(`getBookById id=${id}`)),
+      catchError(this.handleError<Book>(`getBookById id=${id} does not exist`)),
     );
   }
 
@@ -154,6 +161,6 @@ export class BookService {
   /** Log a BookService message with the MessageService */
   private log(message: string) {
     console.log('BookService: ' + message);
-    // this is code Beth is writing to supplant a messageService she doesn't want to use
+    // this is code Sam is writing to supplant a messageService he doesn't want to use
   }
 }
