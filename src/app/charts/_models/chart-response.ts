@@ -1,4 +1,3 @@
-import { ChartDataItem } from '@app/charts/_models/chart-data-item';
 import { ChartDataItemCollection } from '@app/charts/_models/chart-data-item-collection';
 
 export class ChartResponse {
@@ -9,5 +8,6 @@ export class ChartResponse {
     if (!chartObject) {
       return;
     }
+    this.chartDataResponse = chartObject.chartDataResponse;
   }
 }
