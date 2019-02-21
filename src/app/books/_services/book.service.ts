@@ -147,7 +147,7 @@ export class BookService {
     // return of([]); <-- this was code I was using for while I had only a mock API via in-memory-data-service.
     // isNew;
     return this.http.put(url, book, this.httpOptions).pipe(
-      tap(_ => this.log(`updated book id=${book.id}`)),
+      tap(_ => this.log(`updated book id=${id}`)),
       catchError(this.handleError<any>('updateBook')),
     );
   }
