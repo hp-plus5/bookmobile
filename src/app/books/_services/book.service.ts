@@ -108,11 +108,24 @@ export class BookService {
   ////// SAVE DATA //////
 
   /** POST: add a new book to the database */
+  // addBook(book: Book): Observable<Book> {
+  //   const id = typeof book === 'number' ? book : book.id;
+  //   const url = `${this.booksApiUrl}/${id}`;
+  //   return this.http.post<Book>(url, book, this.httpOptions).pipe(
+  //     // tslint:disable-next-line:no-shadowed-variable (( couldn't figure out how this was supposed to help. potential double init? ))
+  //     tap((book: Book) => this.log(`added book w/ id=${book.id}`)),
+  //     catchError(this.handleError<Book>('addBook')),
+  //   );
+  // }
+
   addBook(book: Book): Observable<Book> {
-    return this.http.post<Book>(this.booksApiUrl, book, this.httpOptions).pipe(
-      // tslint:disable-next-line:no-shadowed-variable (( couldn't figure out how this was supposed to help. potential double init? ))
-      tap((book: Book) => this.log(`added book w/ id=${book.id}`)),
-      catchError(this.handleError<Book>('addBook')),
+    const id = typeof book === 'number' ? book : book.id;
+    const url = `${this.booksApiUrl}/${id}`;
+    // return of([]); <-- this was code I was using for while I had only a mock API via in-memory-data-service.
+    // isNew;
+    return this.http.post(url, book, this.httpOptions).pipe(
+      tap(_ => this.log(`added book id=${id}`)),
+      catchError(this.handleError<any>('addBook has failed')),
     );
   }
 
