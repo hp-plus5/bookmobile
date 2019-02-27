@@ -41,15 +41,15 @@ export class BookDetailComponent implements OnInit {
     // commented out code in this function is written for debugging purposes so that it can be easily retrieved.
     if (
       !this.book ||
-      (this.book.isNew() && this.compareToNewBookUrl === false)
+      (this.book.isNew() === true && this.compareToNewBookUrl === false)
     ) {
       this.getBookById();
       // console.log(this.book + 'ngOnInit: id came through byId');
-      // } else if (
-      //   !this.book ||
-      //   (this.book.isNew() && this.compareToNewBookUrl === true)
-      // ) {
-      // console.log('book-detail ngOnInit: new book');
+    } else if (
+      !this.book ||
+      (this.book.isNew() === true && this.compareToNewBookUrl === true)
+    ) {
+      console.log('book-detail ngOnInit: new book');
     } else {
       this.getBookByIdThroughParent(this.book.id);
       // console.log(
