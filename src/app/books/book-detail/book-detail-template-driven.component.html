@@ -61,8 +61,8 @@
             <fieldset>
               <div class="right">
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input [(ngModel)]="book.lgbtqProtagonist" class="custom-control-input" name="lgbtq_protagonist" id="lgbtq_protagonist" type="checkbox">
-                  <label class="custom-control-label" for="lgbtq_protagonist" id="lgbtq_protagonist" name="lgbtq_protagonist">LGBTQ protagonist</label>
+                  <input [(ngModel)]="book.lgbtqProtagonist" class="custom-control-input" name="lgbtqProtagonist" id="lgbtqProtagonist" type="checkbox">
+                  <label class="custom-control-label" for="lgbtqProtagonist" id="lgbtqProtagonist" name="lgbtqProtagonist">LGBTQ protagonist</label>
                 </div>
               </div>
             </fieldset>
@@ -73,7 +73,6 @@
         <div class="form-group">
           <label class="col-form-label" for="inputRating" id="inputRating" name="rating">Rating: </label>
           <input [(ngModel)]="book.rating" class="form-control" placeholder="Out of ten" name="rating" id="inputRating" type="text">
-
 
           <div class="rating-border rating">
             <div class="progress-bar progress-easy" role="progressbar" id="ratingDisplay" [attr.aria-valuenow]="book.rating" aria-valuemin="0"
