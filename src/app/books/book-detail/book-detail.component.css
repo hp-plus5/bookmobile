@@ -34,5 +34,8 @@
 }
 .rating {
   display: flex;
-  justify-content: center;
+  justify-content: left;
+}
+.rating-border {
+  background-color: #f1f1f1;
 }
