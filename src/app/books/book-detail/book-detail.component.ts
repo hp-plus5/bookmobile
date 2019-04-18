@@ -27,7 +27,7 @@ export class BookDetailComponent implements OnInit {
     private modalService: ModalService,
   ) {}
   compareToNewBookUrl = this.location.isCurrentPathEqualTo('/books/new-book');
-  compareToBooksUrl = this.location.isCurrentPathEqualTo('/books');
+  compareToBooksUrl = this.location.isCurrentPathEqualTo('/books/library');
 
   private modalOptions: IModalOptions = {
     // this is for my modal. implements the interface (thanks, typescript!)
