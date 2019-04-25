@@ -49,7 +49,12 @@ export class BookDetailComponent implements OnInit {
       !this.book ||
       (this.book.isNew() === true && this.compareToNewBookUrl === true)
     ) {
+<<<<<<< HEAD
       console.log('book-detail ngOnInit: new book');
+=======
+      // March Sam!! this is where I'm trying to correct a routing error where it's attempting to find url/null when going to a new page (since a new book has an unacceptable ID of 0). Be careful not to go too far out of scope. Remember you're on the master branch and this is a bunny trail. If you go too far, it's better that you hadn't gone at all and just ignored your single console error. Go back to testing with spectator.
+      // console.log('book-detail ngOnInit: new book');
+>>>>>>> 0a4109d... fix(routing): correct ngOnInit calls to recognize if a book isNew()
     } else {
       this.getBookByIdThroughParent(this.book.id);
       // console.log(
