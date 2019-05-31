@@ -7,8 +7,8 @@ const routes: Routes = [
     redirectTo: 'books',
     pathMatch: 'full',
   },
-  { path: 'books', loadChildren: '@app/books/books.module#BooksModule' },
-  { path: 'data', loadChildren: '@app/charts/charts.module#ChartsModule' },
+  { path: 'books', loadChildren: () => import('@app/books/books.module').then(m => m.BooksModule) },
+  { path: 'data', loadChildren: () => import('@app/charts/charts.module').then(m => m.ChartsModule) },
 ];
 
 @NgModule({
