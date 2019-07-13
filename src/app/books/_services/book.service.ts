@@ -71,18 +71,17 @@ export class BookService {
     );
   }
 
-  /** GET book by id. Return `undefined` when id not found */
-  getBookNo404<Data>(id: number): Observable<Book> {
-    const url = `${this.booksApiUrl}/${id}`;
-    return this.http.get<Book[]>(url, this.httpOptions).pipe(
-      map(books => books[0]), // returns a {0|1} element array
-      // tap(h => {
-      // const outcome = h ? `fetched` : `did not find`;
-      // this.log(`${outcome} book id=${id}`); <-- for if I implemented MessageService from tutorial.
-      // }),
-      catchError(this.handleError<Book>(`Book with id of ${id} not found,`)),
-    );
-  }
+  // getBookNo404<Data>(id: number): Observable<Book> {
+  //   const url = `${this.booksApiUrl}/${id}`;
+  //   return this.http.get<Book[]>(url, this.httpOptions).pipe(
+  //     map(books => books[0]), // returns a {0|1} element array
+  //     // tap(h => {
+  //     // const outcome = h ? `fetched` : `did not find`;
+  //     // this.log(`${outcome} book id=${id}`); <-- for if I implemented MessageService from tutorial.
+  //     // }),
+  //     catchError(this.handleError<Book>(`Book with id of ${id} not found,`)),
+  //   );
+  // }
 
   /** GET book by id. Will 404 if id not found */
   getBookById(id: number): Observable<Book> {
@@ -129,7 +128,10 @@ export class BookService {
     );
   }
 
-  /** DELETE: delete the book from the database */
+  /**
+   * DELETE: delete the book from the database
+   * @param book - the book to be deleted | @param bookId - the id of the book to be deleted
+   */
   deleteBook(book: Book | number): Observable<any> {
     const id = typeof book === 'number' ? book : book.id;
     const url = `${this.booksApiUrl}/${id}`;
@@ -140,7 +142,10 @@ export class BookService {
     );
   }
 
-  /** PUT: update the book on the database */
+  /**
+   * PUT: update the book on the database
+   * @param book - the entire book object to be updated
+   */
   updateBook(book: Book): Observable<any> {
     const id = typeof book === 'number' ? book : book.id;
     const url = `${this.booksApiUrl}/${id}`;
@@ -174,6 +179,5 @@ export class BookService {
   /** Log a BookService message with the MessageService */
   private log(message: string) {
     console.log('BookService: ' + message);
-    // this is code Sam is writing to supplant a messageService he doesn't want to use
   }
 }
